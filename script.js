@@ -1,21 +1,24 @@
-// Cosmic Research Institute - PumpAlien Discovery Project
-// Professional JavaScript Implementation
+// PumpAlien Discovery - Interactive Experience
+// Optimized for Alien Elements and User Engagement
 
-// Global State Management
+// Global State
 const appState = {
     isLoading: true,
-    currentSection: 'hero',
-    classifiedMode: false,
-    terminalHistory: [],
-    modalOpen: false
+    currentStep: 1,
+    alienMode: false,
+    energyLevel: 0,
+    messages: [],
+    findings: []
 };
 
-// DOM Elements Cache
+// DOM Elements
 const elements = {
     loadingScreen: null,
-    nav: null,
-    terminal: null,
-    modal: null
+    alienCore: null,
+    energyRings: null,
+    scannerDisplay: null,
+    energyMeter: null,
+    messageDisplay: null
 };
 
 // Initialize Application
@@ -23,48 +26,44 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
 });
 
-// Main Initialization Function
+// Main Initialization
 function initializeApp() {
     cacheElements();
     setupEventListeners();
     startLoadingSequence();
     
-    console.log('🚀 Cosmic Research Institute - PumpAlien Discovery Project Initialized');
+    console.log('👽 PumpAlien Discovery Project Initialized');
 }
 
 // Cache DOM Elements
 function cacheElements() {
     elements.loadingScreen = document.getElementById('loading-screen');
-    elements.nav = document.querySelector('.main-nav');
-    elements.terminal = document.getElementById('terminal-input');
-    elements.modal = document.getElementById('analysis-modal');
+    elements.alienCore = document.querySelector('.alien-core');
+    elements.energyRings = document.querySelectorAll('.ring');
+    elements.scannerDisplay = document.querySelector('.scanner-display');
+    elements.energyMeter = document.getElementById('energy-level');
+    elements.messageDisplay = document.getElementById('message-display');
 }
 
 // Setup Event Listeners
 function setupEventListeners() {
-    // Navigation scroll effects
-    setupNavigationEffects();
-    
-    // Terminal functionality
-    setupTerminal();
-    
-    // Form submissions
-    setupFormHandlers();
-    
     // Keyboard shortcuts
-    setupKeyboardShortcuts();
+    document.addEventListener('keydown', handleKeyboard);
     
-    // Intersection Observer for animations
+    // Scroll animations
     setupScrollAnimations();
+    
+    // Alien interactions
+    setupAlienInteractions();
 }
 
 // Loading Sequence
 function startLoadingSequence() {
     const loadingSteps = [
-        'Initializing classified protocols...',
-        'Loading PumpAlien research data...',
-        'Establishing secure connections...',
-        'Access granted. Welcome, Researcher.'
+        'Scanning cosmic signals...',
+        'Detecting alien presence...',
+        'Analyzing energy patterns...',
+        'PumpAlien entity confirmed!'
     ];
     
     let currentStep = 0;
@@ -80,14 +79,14 @@ function startLoadingSequence() {
     // Update status every 1.5 seconds
     const statusInterval = setInterval(updateStatus, 1500);
     
-    // Simulate loading completion after 6 seconds
+    // Complete loading after 6 seconds
     setTimeout(() => {
         clearInterval(statusInterval);
         completeLoading();
     }, 6000);
 }
 
-// Complete Loading Sequence
+// Complete Loading
 function completeLoading() {
     elements.loadingScreen.classList.add('fade-out');
     
@@ -95,11 +94,11 @@ function completeLoading() {
         elements.loadingScreen.style.display = 'none';
         appState.isLoading = false;
         
-        // Initialize hero section animations
+        // Initialize hero animations
         initializeHeroAnimations();
         
-        // Show navigation
-        showNavigation();
+        // Start alien animations
+        startAlienAnimations();
     }, 500);
 }
 
@@ -128,38 +127,20 @@ function initializeHeroAnimations() {
     });
 }
 
-// Show Navigation
-function showNavigation() {
-    elements.nav.style.transform = 'translateY(0)';
-    elements.nav.style.opacity = '1';
-}
-
-// Navigation Effects
-function setupNavigationEffects() {
-    let lastScrollY = window.scrollY;
+// Start Alien Animations
+function startAlienAnimations() {
+    if (elements.alienCore) {
+        elements.alienCore.style.animation = 'alien-core-pulse 3s ease-in-out infinite';
+    }
     
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        
-        // Add/remove scrolled class for styling
-        if (currentScrollY > 100) {
-            elements.nav.classList.add('scrolled');
-        } else {
-            elements.nav.classList.remove('scrolled');
-        }
-        
-        // Hide/show navigation on scroll
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-            elements.nav.style.transform = 'translateY(-100%)';
-        } else {
-            elements.nav.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollY = currentScrollY;
-    });
+    if (elements.energyRings) {
+        elements.energyRings.forEach((ring, index) => {
+            ring.style.animation = `ring-rotate ${10 + index * 5}s linear infinite`;
+        });
+    }
 }
 
-// Scroll Animations
+// Setup Scroll Animations
 function setupScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
@@ -175,300 +156,345 @@ function setupScrollAnimations() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.timeline-item, .analysis-card, .finding-item, .protocol-card');
+    const animatedElements = document.querySelectorAll('.timeline-step, .info-card, .finding-card, .interactive-panel');
     animatedElements.forEach(el => observer.observe(el));
 }
 
-// Terminal System
-function setupTerminal() {
-    if (!elements.terminal) return;
-    
-    const terminalCommands = {
-        help: {
-            description: 'Show available commands',
-            execute: () => showTerminalHelp()
-        },
-        clear: {
-            description: 'Clear terminal output',
-            execute: () => clearTerminal()
-        },
-        status: {
-            description: 'Show system status',
-            execute: () => showSystemStatus()
-        },
-        scan: {
-            description: 'Scan for PumpAlien signals',
-            execute: () => scanForSignals()
-        },
-        analyze: {
-            description: 'Analyze current data',
-            execute: () => analyzeData()
-        },
-        classified: {
-            description: 'Toggle classified mode',
-            execute: () => toggleClassifiedMode()
-        }
-    };
-    
-    // Store commands globally for access
-    window.terminalCommands = terminalCommands;
-}
-
-// Handle Terminal Commands
-function handleTerminalCommand(event) {
-    if (event.key === 'Enter') {
-        const input = event.target.value.trim();
-        if (input) {
-            executeCommand(input);
-            event.target.value = '';
-        }
+// Setup Alien Interactions
+function setupAlienInteractions() {
+    // Alien core click effect
+    if (elements.alienCore) {
+        elements.alienCore.addEventListener('click', () => {
+            triggerAlienReaction();
+        });
     }
-}
-
-// Execute Terminal Command
-function executeCommand(input) {
-    const command = input.toLowerCase().split(' ')[0];
-    const args = input.split(' ').slice(1);
     
-    addTerminalOutput(`> ${input}`);
-    
-    if (window.terminalCommands && window.terminalCommands[command]) {
-        try {
-            window.terminalCommands[command].execute(args);
-        } catch (error) {
-            addTerminalOutput(`Error: ${error.message}`);
-        }
-    } else {
-        addTerminalOutput(`Command not found: ${command}. Type 'help' for available commands.`);
-    }
-}
-
-// Terminal Output Functions
-function addTerminalOutput(message) {
-    const terminalOutput = document.getElementById('terminal-output');
-    if (!terminalOutput) return;
-    
-    const outputLine = document.createElement('div');
-    outputLine.className = 'output-line';
-    outputLine.textContent = message;
-    
-    terminalOutput.appendChild(outputLine);
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
-
-function clearTerminal() {
-    const terminalOutput = document.getElementById('terminal-output');
-    if (terminalOutput) {
-        terminalOutput.innerHTML = '';
-        addTerminalOutput('Terminal cleared.');
-    }
-}
-
-// Terminal Commands Implementation
-function showTerminalHelp() {
-    const helpText = [
-        'Available Commands:',
-        '  help      - Show this help message',
-        '  clear     - Clear terminal output',
-        '  status    - Show system status',
-        '  scan      - Scan for PumpAlien signals',
-        '  analyze   - Analyze current data',
-        '  classified - Toggle classified mode'
-    ];
-    
-    helpText.forEach(line => addTerminalOutput(line));
-}
-
-function showSystemStatus() {
-    const status = [
-        'System Status:',
-        `  Loading: ${appState.isLoading ? 'Yes' : 'No'}`,
-        `  Classified Mode: ${appState.classifiedMode ? 'Active' : 'Inactive'}`,
-        `  Current Section: ${appState.currentSection}`,
-        `  Security Level: ${appState.classifiedMode ? 'Classified' : 'Public'}`,
-        '  All systems operational.'
-    ];
-    
-    status.forEach(line => addTerminalOutput(line));
-}
-
-function scanForSignals() {
-    addTerminalOutput('Initiating signal scan...');
-    
-    setTimeout(() => {
-        const signals = Math.floor(Math.random() * 5);
-        if (signals > 0) {
-            addTerminalOutput(`Scan complete. Found ${signals} potential signal(s)!`);
-            addTerminalOutput('Analyzing signal patterns...');
+    // Energy rings interaction
+    if (elements.energyRings) {
+        elements.energyRings.forEach(ring => {
+            ring.addEventListener('mouseenter', () => {
+                ring.style.animationPlayState = 'paused';
+            });
             
-            setTimeout(() => {
-                addTerminalOutput('Signal analysis complete. Patterns suggest PumpAlien activity.');
-            }, 2000);
-        } else {
-            addTerminalOutput('Scan complete. No signals detected in current frequency range.');
-        }
-    }, 3000);
+            ring.addEventListener('mouseleave', () => {
+                ring.style.animationPlayState = 'running';
+            });
+        });
+    }
 }
 
-function analyzeData() {
-    addTerminalOutput('Starting data analysis...');
+// Trigger Alien Reaction
+function triggerAlienReaction() {
+    if (!elements.alienCore) return;
     
-    const analysisSteps = [
-        'Loading research data...',
-        'Analyzing biological patterns...',
-        'Processing energy signatures...',
-        'Cross-referencing with known entities...',
-        'Analysis complete.'
-    ];
+    // Visual effect
+    elements.alienCore.style.transform = 'scale(1.3) rotate(10deg)';
+    elements.alienCore.style.filter = 'drop-shadow(0 0 50px var(--alien-color))';
     
-    let step = 0;
-    const analysisInterval = setInterval(() => {
-        if (step < analysisSteps.length) {
-            addTerminalOutput(analysisSteps[step]);
-            step++;
-        } else {
-            clearInterval(analysisInterval);
-            addTerminalOutput('Results: PumpAlien shows unprecedented complexity. Further research required.');
-        }
+    // Add message
+    addAlienMessage('👽 *Telepathic communication initiated*');
+    
+    // Reset after animation
+    setTimeout(() => {
+        elements.alienCore.style.transform = '';
+        elements.alienCore.style.filter = '';
     }, 1000);
 }
 
-// Classified Mode Toggle
-function toggleClassifiedMode() {
-    appState.classifiedMode = !appState.classifiedMode;
+// Timeline Step Activation
+function activateStep(stepNumber) {
+    // Update current step
+    appState.currentStep = stepNumber;
     
-    if (appState.classifiedMode) {
-        document.body.classList.add('classified-mode');
-        addTerminalOutput('Classified mode activated. Enhanced security protocols enabled.');
-    } else {
-        document.body.classList.remove('classified-mode');
-        addTerminalOutput('Classified mode deactivated. Returning to public mode.');
-    }
-    
-    updateClassifiedModeUI();
-}
-
-// Update Classified Mode UI
-function updateClassifiedModeUI() {
-    const classifiedElements = document.querySelectorAll('.classified-content');
-    classifiedElements.forEach(el => {
-        if (appState.classifiedMode) {
-            el.style.display = 'block';
+    // Update visual state
+    const steps = document.querySelectorAll('.timeline-step');
+    steps.forEach((step, index) => {
+        if (index + 1 <= stepNumber) {
+            step.classList.add('active');
         } else {
-            el.style.display = 'none';
+            step.classList.remove('active');
         }
     });
-}
-
-// Form Handlers
-function setupFormHandlers() {
-    const contactForm = document.querySelector('.secure-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleContactForm);
+    
+    // Trigger step-specific effects
+    switch(stepNumber) {
+        case 1:
+            addAlienMessage('👽 Signal detected in Andromeda sector...');
+            break;
+        case 2:
+            addAlienMessage('👽 First contact protocol initiated...');
+            break;
+        case 3:
+            addAlienMessage('👽 Analysis complete. Entity classified as PumpAlien.');
+            break;
     }
 }
 
-// Handle Contact Form Submission
-function handleContactForm(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const clearance = formData.get('security-clearance');
-    const message = formData.get('contact-message');
-    
-    if (!clearance || !message) {
-        showNotification('Please fill in all required fields.', 'error');
-        return;
-    }
-    
-    // Simulate form submission
-    showNotification('Secure message sent successfully. Research team will respond within 24 hours.', 'success');
-    
-    // Reset form
-    event.target.reset();
-    
-    // Log to terminal if available
-    if (elements.terminal) {
-        addTerminalOutput(`Secure message sent via ${clearance} clearance level.`);
-    }
-}
-
-// Notification System
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
-        color: white;
-        font-weight: 500;
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-    `;
-    
-    // Set background color based on type
-    const colors = {
-        success: '#10b981',
-        error: '#ef4444',
-        warning: '#f59e0b',
-        info: '#3b82f6'
+// Expand Information
+function expandInfo(type) {
+    const infoData = {
+        biology: {
+            title: '🧬 Biological Profile',
+            content: `
+                <div class="info-detail">
+                    <h4>Species Classification</h4>
+                    <p>PumpAlien represents an unknown branch of extraterrestrial evolution, 
+                    existing as an energy-matter hybrid form.</p>
+                    
+                    <h4>Physical Composition</h4>
+                    <p>The entity can transition between pure energy and solid matter states, 
+                    suggesting advanced control over quantum physics.</p>
+                    
+                    <h4>Consciousness Level</h4>
+                    <p>Intelligence beyond current human measurement capabilities, 
+                    operating on multiple cognitive levels simultaneously.</p>
+                </div>
+            `
+        },
+        tech: {
+            title: '⚡ Technological Capabilities',
+            content: `
+                <div class="info-detail">
+                    <h4>Energy Manipulation</h4>
+                    <p>Mastery over energy forms previously thought impossible, 
+                    creating, destroying, and transforming energy at will.</p>
+                    
+                    <h4>Space-Time Control</h4>
+                    <p>Advanced sensors detect localized distortions in space-time, 
+                    suggesting manipulation of reality's fundamental fabric.</p>
+                    
+                    <h4>Communication Systems</h4>
+                    <p>Quantum entanglement communication, bypassing normal 
+                    communication limitations across any distance.</p>
+                </div>
+            `
+        },
+        behavior: {
+            title: '🧠 Behavioral Patterns',
+            content: `
+                <div class="info-detail">
+                    <h4>Motivation Analysis</h4>
+                    <p>PumpAlien appears to be studying human civilization, 
+                    though the purpose remains unclear.</p>
+                    
+                    <h4>Interaction Style</h4>
+                    <p>Maintains non-hostile stance, respects boundaries and protocols, 
+                    suggesting advanced social understanding.</p>
+                    
+                    <h4>Communication Method</h4>
+                    <p>Telepathic communication, projecting thoughts directly into 
+                    observers' minds, bypassing language barriers.</p>
+                </div>
+            `
+        }
     };
     
-    notification.style.background = colors[type] || colors.info;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 5000);
+    if (infoData[type]) {
+        showModal(infoData[type].title, infoData[type].content);
+    }
 }
 
-// Keyboard Shortcuts
-function setupKeyboardShortcuts() {
-    document.addEventListener('keydown', (event) => {
-        // Ctrl/Cmd + K to focus terminal
-        if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
-            event.preventDefault();
-            if (elements.terminal) {
-                elements.terminal.focus();
-            }
-        }
+// Interactive Functions
+function scanFrequency() {
+    if (!elements.scannerDisplay) return;
+    
+    // Visual scanning effect
+    const scanner = elements.scannerDisplay;
+    scanner.style.background = 'linear-gradient(45deg, var(--accent-color), var(--alien-color))';
+    
+    // Simulate scanning
+    setTimeout(() => {
+        scanner.style.background = '';
+        addAlienMessage('🔬 Frequency scan complete. Alien signals detected!');
         
-        // Escape to close modals
-        if (event.key === 'Escape') {
-            closeModal();
-        }
+        // Update energy level
+        updateEnergyLevel(Math.random() * 100);
+    }, 2000);
+}
+
+function sendMessage(event) {
+    if (event && event.key !== 'Enter') return;
+    
+    const input = document.getElementById('human-input');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Add human message
+    addHumanMessage(message);
+    input.value = '';
+    
+    // Simulate alien response
+    setTimeout(() => {
+        const responses = [
+            '👽 *Telepathic acknowledgment received*',
+            '👽 Your message has been processed, Earth being.',
+            '👽 *Curious energy patterns detected*',
+            '👽 Communication protocol established successfully.'
+        ];
         
-        // Ctrl/Cmd + / to toggle classified mode
-        if ((event.ctrlKey || event.metaKey) && event.key === '/') {
-            event.preventDefault();
-            toggleClassifiedMode();
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        addAlienMessage(randomResponse);
+    }, 1500);
+}
+
+function analyzeEnergy() {
+    if (!elements.energyMeter) return;
+    
+    // Simulate energy analysis
+    const newLevel = Math.random() * 100;
+    updateEnergyLevel(newLevel);
+    
+    // Add analysis message
+    addAlienMessage(`⚡ Energy analysis complete. Current level: ${Math.round(newLevel)}%`);
+}
+
+// Update Energy Level
+function updateEnergyLevel(level) {
+    if (!elements.energyMeter) return;
+    
+    appState.energyLevel = level;
+    elements.energyMeter.style.width = `${level}%`;
+    
+    // Color change based on level
+    if (level < 30) {
+        elements.energyMeter.style.background = 'var(--energy-color)';
+    } else if (level < 70) {
+        elements.energyMeter.style.background = 'var(--accent-color)';
+    } else {
+        elements.energyMeter.style.background = 'var(--alien-color)';
+    }
+}
+
+// Message Functions
+function addAlienMessage(message) {
+    addMessage(message, 'alien');
+}
+
+function addHumanMessage(message) {
+    addMessage(`👤 ${message}`, 'human');
+}
+
+function addMessage(message, type) {
+    if (!elements.messageDisplay) return;
+    
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${type}-message`;
+    messageElement.textContent = message;
+    
+    elements.messageDisplay.appendChild(messageElement);
+    elements.messageDisplay.scrollTop = elements.messageDisplay.scrollHeight;
+    
+    // Store message
+    appState.messages.push({ text: message, type, timestamp: Date.now() });
+}
+
+// Reveal Finding
+function revealFinding(findingNumber) {
+    const findings = [
+        {
+            title: '🔬 Energy Patterns',
+            content: 'Unique quantum signatures detected in PumpAlien\'s energy field. These patterns suggest advanced understanding of dimensional physics beyond current human knowledge.'
+        },
+        {
+            title: '🌌 Dimensional Presence',
+            content: 'PumpAlien exists across multiple dimensions simultaneously. Advanced sensors detected presence in 11 different dimensional planes, suggesting capabilities beyond three-dimensional constraints.'
+        },
+        {
+            title: '💊 Pump Effect',
+            content: 'The mysterious substance known as "Pump" appears to enhance PumpAlien\'s abilities. Research suggests it may be a catalyst for dimensional manipulation and energy amplification.'
         }
-    });
+    ];
+    
+    if (findings[findingNumber - 1]) {
+        const finding = findings[findingNumber - 1];
+        showModal(finding.title, `<p>${finding.content}</p>`);
+        
+        // Add to findings list
+        if (!appState.findings.includes(findingNumber)) {
+            appState.findings.push(findingNumber);
+        }
+    }
+}
+
+// Hero Section Functions
+function beginAlienContact() {
+    const entitySection = document.querySelector('#entity');
+    if (entitySection) {
+        entitySection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Trigger contact effect
+        setTimeout(() => {
+            triggerAlienReaction();
+        }, 1000);
+    }
+}
+
+function scanAlienSignals() {
+    const interactiveSection = document.querySelector('#interactive');
+    if (interactiveSection) {
+        interactiveSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Auto-trigger scan
+        setTimeout(() => {
+            scanFrequency();
+        }, 1000);
+    }
+}
+
+// Alien Mode Toggle
+function toggleAlienMode() {
+    appState.alienMode = !appState.alienMode;
+    
+    if (appState.alienMode) {
+        document.body.classList.add('alien-mode');
+        addAlienMessage('👽 Alien mode activated. Enhanced perception enabled.');
+    } else {
+        document.body.classList.remove('alien-mode');
+        addAlienMessage('👽 Alien mode deactivated. Returning to normal perception.');
+    }
+}
+
+// Activate Beam
+function activateBeam() {
+    // Visual beam effect
+    const beam = document.createElement('div');
+    beam.className = 'energy-beam';
+    beam.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 50%;
+        width: 10px;
+        height: 100vh;
+        background: linear-gradient(to bottom, var(--accent-color), var(--alien-color));
+        transform: translateX(-50%);
+        z-index: 1000;
+        animation: beam-activate 2s ease-in-out;
+    `;
+    
+    document.body.appendChild(beam);
+    
+    // Add beam effect to CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes beam-activate {
+            0% { opacity: 0; transform: translateX(-50%) scaleY(0); }
+            50% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+            100% { opacity: 0; transform: translateX(-50%) scaleY(0); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Remove beam after animation
+    setTimeout(() => {
+        document.body.removeChild(beam);
+        addAlienMessage('⚡ Energy beam activated. Scanning complete.');
+    }, 2000);
 }
 
 // Modal System
 function showModal(title, content) {
-    const modal = document.getElementById('analysis-modal');
+    const modal = document.getElementById('info-modal');
     if (!modal) return;
     
     const modalTitle = document.getElementById('modal-title');
@@ -478,202 +504,59 @@ function showModal(title, content) {
     if (modalBody) modalBody.innerHTML = content;
     
     modal.classList.add('show');
-    appState.modalOpen = true;
     
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-    const modal = document.getElementById('analysis-modal');
+    const modal = document.getElementById('info-modal');
     if (!modal) return;
     
     modal.classList.remove('show');
-    appState.modalOpen = false;
     
     // Restore body scroll
     document.body.style.overflow = '';
 }
 
-// Analysis Modal Functions
-function viewDetailedAnalysis(type) {
-    const analysisData = {
-        biological: {
-            title: 'Biological Profile - Detailed Analysis',
-            content: `
-                <div class="analysis-detail">
-                    <h4>Species Classification</h4>
-                    <p>PumpAlien represents a previously unknown branch of extraterrestrial evolution, 
-                    exhibiting characteristics that challenge our understanding of biological possibility.</p>
-                    
-                    <h4>Physical Composition</h4>
-                    <p>The entity appears to exist in a state between pure energy and solid matter, 
-                    capable of transitioning between forms at will. This suggests advanced control over 
-                    quantum states and dimensional physics.</p>
-                    
-                    <h4>Consciousness Analysis</h4>
-                    <p>Initial attempts to measure consciousness levels have failed, suggesting 
-                    intelligence beyond current human measurement capabilities. The entity appears 
-                    to operate on multiple cognitive levels simultaneously.</p>
-                    
-                    <h4>Lifespan Assessment</h4>
-                    <p>No signs of aging or cellular decay have been observed. The entity may be 
-                    effectively immortal, existing outside normal temporal constraints.</p>
-                </div>
-            `
-        },
-        technological: {
-            title: 'Technological Capabilities - Detailed Analysis',
-            content: `
-                <div class="analysis-detail">
-                    <h4>Energy Manipulation</h4>
-                    <p>PumpAlien demonstrates mastery over energy forms previously thought impossible. 
-                    The entity can create, destroy, and transform energy at will, suggesting understanding 
-                    of physics beyond current human knowledge.</p>
-                    
-                    <h4>Space-Time Control</h4>
-                    <p>Advanced sensors have detected localized distortions in space-time around 
-                    the entity. This suggests the ability to manipulate the fundamental fabric of reality, 
-                    a technology that could revolutionize human understanding of physics.</p>
-                    
-                    <h4>Communication Systems</h4>
-                    <p>The entity communicates through quantum entanglement, bypassing normal 
-                    communication limitations. This technology could enable instant communication 
-                    across any distance.</p>
-                    
-                    <h4>Threat Assessment</h4>
-                    <p>While PumpAlien has shown no hostile intent, its capabilities represent 
-                    a potential threat if misused. Current containment protocols are designed 
-                    to prevent any unauthorized access to these technologies.</p>
-                </div>
-            `
-        },
-        behavioral: {
-            title: 'Behavioral Patterns - Detailed Analysis',
-            content: `
-                <div class="analysis-detail">
-                    <h4>Motivation Analysis</h4>
-                    <p>PumpAlien's motivations remain unclear. The entity appears to be studying 
-                    human civilization, but the purpose of this observation is unknown. Theories 
-                    range from scientific curiosity to preparation for contact.</p>
-                    
-                    <h4>Interaction Patterns</h4>
-                    <p>The entity has maintained a non-hostile stance throughout all encounters. 
-                    It appears to respect boundaries and protocols, suggesting advanced understanding 
-                    of social dynamics and cultural sensitivity.</p>
-                    
-                    <h4>Communication Methods</h4>
-                    <p>PumpAlien communicates through telepathic means, projecting thoughts and 
-                    concepts directly into the minds of observers. This method bypasses language 
-                    barriers and cultural differences.</p>
-                    
-                    <h4>Social Structure</h4>
-                    <p>Current observations suggest PumpAlien operates as an individual entity, 
-                    though this may be a limitation of our observation methods. The entity may 
-                    be part of a larger collective consciousness or civilization.</p>
-                </div>
-            `
-        }
-    };
-    
-    if (analysisData[type]) {
-        showModal(analysisData[type].title, analysisData[type].content);
-    }
-}
-
-// Hero Section Functions
-function beginInvestigation() {
-    const discoverySection = document.getElementById('discovery');
-    if (discoverySection) {
-        discoverySection.scrollIntoView({ behavior: 'smooth' });
-        appState.currentSection = 'discovery';
-    }
-}
-
-function viewClassifiedFiles() {
-    if (!appState.classifiedMode) {
-        showNotification('Classified mode required to access restricted files.', 'warning');
-        return;
-    }
-    
-    showModal('Classified Files - PumpAlien Research', `
-        <div class="classified-files">
-            <h4>Restricted Access Files</h4>
-            <p>Welcome to the classified research database. The following files contain 
-            sensitive information about PumpAlien and related phenomena.</p>
-            
-            <div class="file-list">
-                <div class="file-item">
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">XT-2024-001_Initial_Contact.pdf</span>
-                    <span class="file-status">Classified</span>
-                </div>
-                <div class="file-item">
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">PumpAlien_Biological_Analysis.pdf</span>
-                    <span class="file-status">Classified</span>
-                </div>
-                <div class="file-item">
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">Energy_Signature_Research.pdf</span>
-                    <span class="file-status">Classified</span>
-                </div>
-                <div class="file-item">
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">Contact_Protocols_v2.1.pdf</span>
-                    <span class="file-status">Classified</span>
-                </div>
-            </div>
-            
-            <p class="warning">⚠️ These files contain sensitive information. Unauthorized access 
-            will result in immediate termination of research privileges.</p>
-        </div>
-    `);
-}
-
-// Secure Terminal Access
-function accessSecureTerminal() {
-    const terminalSection = document.querySelector('.terminal-section');
-    if (terminalSection) {
-        terminalSection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Focus terminal after scroll
-        setTimeout(() => {
-            if (elements.terminal) {
-                elements.terminal.focus();
+// Keyboard Handler
+function handleKeyboard(event) {
+    switch(event.key) {
+        case 'Escape':
+            closeModal();
+            break;
+        case '1':
+        case '2':
+        case '3':
+            activateStep(parseInt(event.key));
+            break;
+        case 'a':
+            if (event.ctrlKey || event.metaKey) {
+                event.preventDefault();
+                toggleAlienMode();
             }
-        }, 1000);
+            break;
+        case 'b':
+            if (event.ctrlKey || event.metaKey) {
+                event.preventDefault();
+                activateBeam();
+            }
+            break;
     }
 }
-
-// Utility Functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Performance Optimization
-const optimizedScrollHandler = debounce(() => {
-    // Handle scroll-based animations and effects
-}, 16); // ~60fps
-
-window.addEventListener('scroll', optimizedScrollHandler);
 
 // Export functions for global access
-window.beginInvestigation = beginInvestigation;
-window.viewClassifiedFiles = viewClassifiedFiles;
-window.accessSecureTerminal = accessSecureTerminal;
-window.toggleClassifiedMode = toggleClassifiedMode;
-window.viewDetailedAnalysis = viewDetailedAnalysis;
+window.activateStep = activateStep;
+window.expandInfo = expandInfo;
+window.scanFrequency = scanFrequency;
+window.sendMessage = sendMessage;
+window.analyzeEnergy = analyzeEnergy;
+window.revealFinding = revealFinding;
+window.beginAlienContact = beginAlienContact;
+window.scanAlienSignals = scanAlienSignals;
+window.toggleAlienMode = toggleAlienMode;
+window.activateBeam = activateBeam;
 window.closeModal = closeModal;
-window.handleTerminalCommand = handleTerminalCommand;
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {

@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PumpAlien Discovery - Official Report | Cosmic Research Institute</title>
+    <title>PumpAlien Discovery | Cosmic Research Institute</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <meta name="description" content="Official discovery report of PumpAlien - A mysterious extraterrestrial entity found in deep space. Classified research by Cosmic Research Institute.">
-    <meta name="keywords" content="PumpAlien, extraterrestrial, alien discovery, cosmic research, space exploration, classified research">
 </head>
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
             <div class="loading-logo">
-                <div class="logo-icon">🌌</div>
-                <div class="logo-text">CRI</div>
+                <div class="logo-icon">👽</div>
+                <div class="logo-text">PUMPALIEN</div>
             </div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
-            <div class="loading-status">Initializing classified protocols...</div>
+            <div class="loading-status">Scanning cosmic signals...</div>
         </div>
     </div>
 
@@ -28,22 +26,21 @@
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
-                <div class="logo-symbol">🌌</div>
+                <div class="logo-symbol">👽</div>
                 <div class="logo-text">
-                    <span class="logo-main">Cosmic Research Institute</span>
-                    <span class="logo-sub">Classified Division</span>
+                    <span class="logo-main">PumpAlien</span>
+                    <span class="logo-sub">Discovery Project</span>
                 </div>
             </div>
             <div class="nav-menu">
                 <a href="#discovery" class="nav-link">Discovery</a>
-                <a href="#analysis" class="nav-link">Analysis</a>
+                <a href="#entity" class="nav-link">Entity</a>
+                <a href="#interactive" class="nav-link">Interactive</a>
                 <a href="#research" class="nav-link">Research</a>
-                <a href="#protocols" class="nav-link">Protocols</a>
-                <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="nav-actions">
-                <button class="btn-secondary" onclick="toggleClassifiedMode()">Classified Mode</button>
-                <button class="btn-primary" onclick="accessSecureTerminal()">Secure Terminal</button>
+                <button class="btn-secondary" onclick="toggleAlienMode()">Alien Mode</button>
+                <button class="btn-primary" onclick="activateBeam()">Activate Beam</button>
             </div>
         </div>
     </nav>
@@ -53,396 +50,167 @@
         <div class="hero-background">
             <div class="cosmic-particles"></div>
             <div class="nebula-effect"></div>
+            <div class="alien-ship">🛸</div>
+            <div class="floating-alien">👽</div>
         </div>
         <div class="hero-content">
-            <div class="hero-badge">CLASSIFIED DISCOVERY</div>
+            <div class="hero-badge">ALIEN ENTITY DETECTED</div>
             <h1 class="hero-title">
                 <span class="title-line">PUMPALIEN</span>
-                <span class="title-subtitle">Entity Designation: XT-2024-001</span>
+                <span class="title-subtitle">Entity XT-2024-001</span>
             </h1>
             <p class="hero-description">
-                A mysterious extraterrestrial entity discovered in deep space, exhibiting unprecedented 
-                biological and technological characteristics. This classified report contains the first 
-                comprehensive analysis of PumpAlien and its implications for humanity.
+                A mysterious extraterrestrial entity discovered in deep space. 
+                Interact with the discovery and explore its secrets.
             </p>
             <div class="hero-actions">
-                <button class="btn-hero-primary" onclick="beginInvestigation()">Begin Investigation</button>
-                <button class="btn-hero-secondary" onclick="viewClassifiedFiles()">View Classified Files</button>
+                <button class="btn-hero-primary" onclick="beginAlienContact()">Begin Contact</button>
+                <button class="btn-hero-secondary" onclick="scanAlienSignals()">Scan Signals</button>
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
                     <div class="stat-number">2024</div>
-                    <div class="stat-label">Discovery Year</div>
+                    <div class="stat-label">Discovery</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">Classified</div>
-                    <div class="stat-label">Security Level</div>
+                    <div class="stat-number">👽</div>
+                    <div class="stat-label">Alien</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">Active</div>
-                    <div class="stat-label">Research Status</div>
+                    <div class="stat-number">🌌</div>
+                    <div class="stat-label">Space</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Discovery Timeline -->
+    <!-- Discovery Section -->
     <section id="discovery" class="discovery-section">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Discovery Timeline</h2>
-                <p class="section-subtitle">The chronological sequence of events leading to PumpAlien's discovery</p>
+                <p class="section-subtitle">The moment we found PumpAlien</p>
             </div>
-            <div class="timeline-container">
-                <div class="timeline-item" data-date="2024-01-15">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">January 15, 2024</div>
-                        <h3 class="timeline-title">Anomaly Detection</h3>
-                        <p class="timeline-description">
-                            Deep space monitoring systems detected unusual energy signatures in the 
-                            Andromeda sector. Initial analysis suggested artificial origin.
-                        </p>
-                        <div class="timeline-evidence">
-                            <span class="evidence-tag">Energy Signature</span>
-                            <span class="evidence-tag">Spatial Distortion</span>
-                            <span class="evidence-tag">Unknown Frequency</span>
-                        </div>
+            <div class="timeline-simple">
+                <div class="timeline-step active" onclick="activateStep(1)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Signal Detected</h3>
+                        <p>Unusual energy patterns in Andromeda sector</p>
                     </div>
                 </div>
-                <div class="timeline-item" data-date="2024-02-03">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">February 3, 2024</div>
-                        <h3 class="timeline-title">First Contact Protocol</h3>
-                        <p class="timeline-description">
-                            Research vessel CRI-Explorer initiated first contact protocols. 
-                            Visual confirmation of PumpAlien entity obtained.
-                        </p>
-                        <div class="timeline-evidence">
-                            <span class="evidence-tag">Visual Confirmation</span>
-                            <span class="evidence-tag">Communication Attempt</span>
-                            <span class="evidence-tag">Biological Analysis</span>
-                        </div>
+                <div class="timeline-step" onclick="activateStep(2)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>First Contact</h3>
+                        <p>Visual confirmation of PumpAlien entity</p>
                     </div>
                 </div>
-                <div class="timeline-item" data-date="2024-02-15">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">February 15, 2024</div>
-                        <h3 class="timeline-title">Entity Classification</h3>
-                        <p class="timeline-description">
-                            PumpAlien officially classified as XT-2024-001. Biological and 
-                            technological analysis reveals unprecedented complexity.
-                        </p>
-                        <div class="timeline-evidence">
-                            <span class="evidence-tag">Biological Classification</span>
-                            <span class="evidence-tag">Technology Assessment</span>
-                            <span class="evidence-tag">Threat Analysis</span>
-                        </div>
+                <div class="timeline-step" onclick="activateStep(3)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Analysis Complete</h3>
+                        <p>Entity classified and research initiated</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Entity Analysis -->
-    <section id="analysis" class="analysis-section">
+    <!-- Entity Section -->
+    <section id="entity" class="entity-section">
         <div class="section-container">
             <div class="section-header">
-                <h2 class="section-title">Entity Analysis</h2>
-                <p class="section-subtitle">Comprehensive analysis of PumpAlien's characteristics and capabilities</p>
+                <h2 class="section-title">PumpAlien Entity</h2>
+                <p class="section-subtitle">What we know about our cosmic visitor</p>
             </div>
-            <div class="analysis-grid">
-                <div class="analysis-card biological">
-                    <div class="card-header">
-                        <div class="card-icon">🧬</div>
-                        <h3 class="card-title">Biological Profile</h3>
+            <div class="entity-display">
+                <div class="alien-visual">
+                    <div class="alien-core">👽</div>
+                    <div class="energy-rings">
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <div class="ring ring-3"></div>
                     </div>
-                    <div class="card-content">
-                        <div class="analysis-item">
-                            <span class="item-label">Species Type:</span>
-                            <span class="item-value">Unknown Extraterrestrial</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Physical Form:</span>
-                            <span class="item-value">Energy-Matter Hybrid</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Consciousness Level:</span>
-                            <span class="item-value">Beyond Human Comprehension</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Lifespan:</span>
-                            <span class="item-value">Unknown (Possibly Immortal)</span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="btn-analysis" onclick="viewDetailedAnalysis('biological')">View Details</button>
-                    </div>
+                    <div class="pump-effect">💊</div>
                 </div>
-                <div class="analysis-card technological">
-                    <div class="card-header">
-                        <div class="card-icon">⚡</div>
-                        <h3 class="card-title">Technological Capabilities</h3>
+                <div class="entity-info">
+                    <div class="info-card" onclick="expandInfo('biology')">
+                        <h3>🧬 Biology</h3>
+                        <p>Energy-matter hybrid form</p>
                     </div>
-                    <div class="card-content">
-                        <div class="analysis-item">
-                            <span class="item-label">Energy Manipulation:</span>
-                            <span class="item-value">Master Level</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Space-Time Control:</span>
-                            <span class="item-value">Advanced</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Communication Method:</span>
-                            <span class="item-value">Quantum Entanglement</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Threat Level:</span>
-                            <span class="item-value">Classified</span>
-                        </div>
+                    <div class="info-card" onclick="expandInfo('tech')">
+                        <h3>⚡ Technology</h3>
+                        <p>Advanced energy manipulation</p>
                     </div>
-                    <div class="card-actions">
-                        <button class="btn-analysis" onclick="viewDetailedAnalysis('technological')">View Details</button>
-                    </div>
-                </div>
-                <div class="analysis-card behavioral">
-                    <div class="card-header">
-                        <div class="card-icon">🧠</div>
-                        <h3 class="card-title">Behavioral Patterns</h3>
-                    </div>
-                    <div class="card-content">
-                        <div class="analysis-item">
-                            <span class="item-label">Motivation:</span>
-                            <span class="item-value">Unknown</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Interaction Style:</span>
-                            <span class="item-value">Non-Hostile</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Communication:</span>
-                            <span class="item-value">Telepathic</span>
-                        </div>
-                        <div class="analysis-item">
-                            <span class="item-label">Social Structure:</span>
-                            <span class="item-value">Individual Entity</span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="btn-analysis" onclick="viewDetailedAnalysis('behavioral')">View Details</button>
+                    <div class="info-card" onclick="expandInfo('behavior')">
+                        <h3>🧠 Behavior</h3>
+                        <p>Non-hostile, telepathic</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Research Findings -->
+    <!-- Interactive Section -->
+    <section id="interactive" class="interactive-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Interactive Research</h2>
+                <p class="section-subtitle">Engage with PumpAlien directly</p>
+            </div>
+            <div class="interactive-grid">
+                <div class="interactive-panel">
+                    <h3>Signal Scanner</h3>
+                    <div class="scanner-display">
+                        <div class="frequency-line"></div>
+                        <div class="signal-peaks"></div>
+                    </div>
+                    <button class="btn-interactive" onclick="scanFrequency()">Scan Frequency</button>
+                </div>
+                <div class="interactive-panel">
+                    <h3>Alien Communication</h3>
+                    <div class="communication-interface">
+                        <div class="message-display" id="message-display">
+                            <div class="alien-message">👽 Greetings, Earth beings...</div>
+                        </div>
+                        <input type="text" id="human-input" placeholder="Type your message..." onkeypress="sendMessage(event)">
+                        <button class="btn-interactive" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+                <div class="interactive-panel">
+                    <h3>Energy Analysis</h3>
+                    <div class="energy-meter">
+                        <div class="meter-fill" id="energy-level"></div>
+                    </div>
+                    <button class="btn-interactive" onclick="analyzeEnergy()">Analyze Energy</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
     <section id="research" class="research-section">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Research Findings</h2>
-                <p class="section-subtitle">Key discoveries and implications from ongoing research</p>
+                <p class="section-subtitle">Latest discoveries about PumpAlien</p>
             </div>
-            <div class="findings-container">
-                <div class="finding-item">
-                    <div class="finding-number">01</div>
-                    <div class="finding-content">
-                        <h3 class="finding-title">Energy Signature Analysis</h3>
-                        <p class="finding-description">
-                            PumpAlien emits energy signatures unlike anything previously documented. 
-                            The patterns suggest advanced understanding of quantum mechanics and 
-                            dimensional physics beyond current human knowledge.
-                        </p>
-                        <div class="finding-metrics">
-                            <div class="metric">
-                                <span class="metric-value">99.9%</span>
-                                <span class="metric-label">Unknown Pattern</span>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-value">Classified</span>
-                                <span class="metric-label">Energy Source</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="findings-grid">
+                <div class="finding-card" onclick="revealFinding(1)">
+                    <div class="finding-icon">🔬</div>
+                    <h3>Energy Patterns</h3>
+                    <p>Unique quantum signatures detected</p>
                 </div>
-                <div class="finding-item">
-                    <div class="finding-number">02</div>
-                    <div class="finding-content">
-                        <h3 class="finding-title">Communication Protocol</h3>
-                        <p class="finding-description">
-                            Initial attempts at communication revealed a complex system involving 
-                            quantum entanglement and consciousness projection. PumpAlien appears 
-                            to communicate through thought patterns and energy fluctuations.
-                        </p>
-                        <div class="finding-metrics">
-                            <div class="metric">
-                                <span class="metric-value">0%</span>
-                                <span class="metric-label">Verbal Communication</span>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-value">100%</span>
-                                <span class="metric-label">Telepathic Ability</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="finding-card" onclick="revealFinding(2)">
+                    <div class="finding-icon">🌌</div>
+                    <h3>Dimensional Presence</h3>
+                    <p>Exists across multiple dimensions</p>
                 </div>
-                <div class="finding-item">
-                    <div class="finding-number">03</div>
-                    <div class="finding-content">
-                        <h3 class="finding-title">Dimensional Presence</h3>
-                        <p class="finding-description">
-                            Advanced sensors detected PumpAlien's presence across multiple 
-                            dimensions simultaneously. This suggests capabilities beyond 
-                            three-dimensional space-time constraints.
-                        </p>
-                        <div class="finding-metrics">
-                            <div class="metric">
-                                <span class="metric-value">11</span>
-                                <span class="metric-label">Dimensions Detected</span>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-value">Active</span>
-                                <span class="metric-label">Multi-Dimensional State</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Security Protocols -->
-    <section id="protocols" class="protocols-section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Security Protocols</h2>
-                <p class="section-subtitle">Established protocols for handling PumpAlien research and contact</p>
-            </div>
-            <div class="protocols-grid">
-                <div class="protocol-card">
-                    <div class="protocol-header">
-                        <div class="protocol-level">Level 1</div>
-                        <h3 class="protocol-title">Information Control</h3>
-                    </div>
-                    <div class="protocol-content">
-                        <p>All information regarding PumpAlien is classified at the highest level. 
-                        Access is restricted to authorized personnel only.</p>
-                        <ul class="protocol-list">
-                            <li>Need-to-know basis access</li>
-                            <li>Encrypted communication channels</li>
-                            <li>Regular security audits</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="protocol-card">
-                    <div class="protocol-header">
-                        <div class="protocol-level">Level 2</div>
-                        <h3 class="protocol-title">Contact Procedures</h3>
-                    </div>
-                    <div class="protocol-content">
-                        <p>Strict protocols govern all interactions with PumpAlien to ensure 
-                        safety and prevent unauthorized contact.</p>
-                        <ul class="protocol-list">
-                            <li>Authorized personnel only</li>
-                            <li>Real-time monitoring required</li>
-                            <li>Immediate reporting mandatory</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="protocol-card">
-                    <div class="protocol-header">
-                        <div class="protocol-level">Level 3</div>
-                        <h3 class="protocol-title">Research Containment</h3>
-                    </div>
-                    <div class="protocol-content">
-                        <p>All research activities are conducted in secure, isolated environments 
-                        with multiple containment systems.</p>
-                        <ul class="protocol-list">
-                            <li>Isolated research facilities</li>
-                            <li>Multiple containment layers</li>
-                            <li>Emergency protocols active</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Terminal -->
-    <section class="terminal-section">
-        <div class="section-container">
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <div class="terminal-title">Secure Research Terminal</div>
-                    <div class="terminal-status">Connected to CRI Mainframe</div>
-                </div>
-                <div class="terminal-body">
-                    <div class="terminal-output" id="terminal-output">
-                        <div class="output-line">> Initializing PumpAlien Research Terminal...</div>
-                        <div class="output-line">> Loading classified protocols...</div>
-                        <div class="output-line">> Access granted. Welcome, Researcher.</div>
-                        <div class="output-line">> Type 'help' for available commands.</div>
-                    </div>
-                    <div class="terminal-input">
-                        <span class="input-prompt">></span>
-                        <input type="text" id="terminal-input" placeholder="Enter command..." onkeypress="handleTerminalCommand(event)">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Contact Research Team</h2>
-                <p class="section-subtitle">For authorized personnel and emergency protocols</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-details">
-                            <h4>Emergency Contact</h4>
-                            <p>classified@cosmic-research.gov</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🔒</div>
-                        <div class="contact-details">
-                            <h4>Secure Channel</h4>
-                            <p>Protocol: XT-2024-001</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🌐</div>
-                        <div class="contact-details">
-                            <h4>Research Network</h4>
-                            <p>CRI Internal Network</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form class="secure-form">
-                        <div class="form-group">
-                            <label for="security-clearance">Security Clearance</label>
-                            <select id="security-clearance" required>
-                                <option value="">Select Clearance Level</option>
-                                <option value="level1">Level 1 - Basic Access</option>
-                                <option value="level2">Level 2 - Research Access</option>
-                                <option value="level3">Level 3 - Full Access</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-message">Message</label>
-                            <textarea id="contact-message" placeholder="Enter your message..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">Send Secure Message</button>
-                    </form>
+                <div class="finding-card" onclick="revealFinding(3)">
+                    <div class="finding-icon">💊</div>
+                    <h3>Pump Effect</h3>
+                    <p>Mysterious substance enhances abilities</p>
                 </div>
             </div>
         </div>
@@ -453,41 +221,27 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <div class="logo-symbol">🌌</div>
-                    <div class="logo-text">Cosmic Research Institute</div>
+                    <div class="logo-symbol">👽</div>
+                    <div class="logo-text">PumpAlien Discovery</div>
                 </div>
                 <div class="footer-links">
-                    <div class="footer-section">
-                        <h4>Research</h4>
-                        <a href="#discovery">Discovery</a>
-                        <a href="#analysis">Analysis</a>
-                        <a href="#research">Findings</a>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Security</h4>
-                        <a href="#protocols">Protocols</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#" onclick="accessSecureTerminal()">Terminal</a>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Legal</h4>
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Classified Information Act</a>
-                    </div>
+                    <a href="#discovery">Discovery</a>
+                    <a href="#entity">Entity</a>
+                    <a href="#interactive">Interactive</a>
+                    <a href="#research">Research</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Cosmic Research Institute. All rights reserved. Classified information protected under government protocols.</p>
+                <p>© 2024 PumpAlien Discovery Project | Exploring the cosmic unknown</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal Components -->
-    <div id="analysis-modal" class="modal">
+    <!-- Modal -->
+    <div id="info-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modal-title">Detailed Analysis</h3>
+                <h3 id="modal-title">Entity Information</h3>
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body" id="modal-body">
@@ -496,7 +250,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
