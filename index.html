@@ -1,191 +1,308 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>费米悖论：PumpAlien的宇宙探索</title>
+    <title>Fermi Paradox: PumpAlien's Cosmic Quest</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P:wght@400;700;900&family=VT323:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
+    <!-- Pixel Background -->
+    <div id="pixel-bg"></div>
     
-    <header class="cosmic-header">
-        <h1 class="main-title">费米悖论：PumpAlien的宇宙探索</h1>
-        <p class="subtitle">"宇宙如此浩瀚，为何我们如此孤独？"</p>
+    <!-- Floating Pixel Elements -->
+    <div id="floating-elements">
+        <div class="pixel-ship" data-speed="2">🚀</div>
+        <div class="pixel-alien" data-speed="1.5">👽</div>
+        <div class="pixel-ufo" data-speed="3">🛸</div>
+        <div class="pixel-star" data-speed="1">⭐</div>
+        <div class="pixel-planet" data-speed="0.8">🪐</div>
+    </div>
+    
+    <!-- Pixel Particles -->
+    <div id="pixel-particles"></div>
+    
+    <header class="pixel-header">
+        <div class="pixel-border">
+            <h1 class="pixel-title">FERMI PARADOX</h1>
+            <p class="pixel-subtitle">PUMPALIEN'S COSMIC QUEST</p>
+            <div class="pixel-decoration">⚡💊👽⚡</div>
+        </div>
     </header>
 
     <main class="main-content">
-        <!-- 开场动画区域 -->
+        <!-- Opening Scene -->
         <section id="opening-scene" class="scene active">
-            <div class="scene-content">
-                <div class="pump-alien">
-                    <div class="alien-body">👽</div>
+            <div class="scene-content pixel-box">
+                <div class="pump-alien-pixel">
+                    <div class="alien-sprite">👽</div>
                     <div class="pump-effect">💊</div>
+                    <div class="pixel-glow"></div>
                 </div>
-                <h2>欢迎来到 PumpAlien 的宇宙</h2>
-                <p>你是一个服用了神秘药物💊Pump的外星人，现在要探索人类最大的宇宙之谜...</p>
-                <button class="start-btn" onclick="startJourney()">开始探索</button>
+                <h2 class="pixel-text">WELCOME TO PUMPALIEN'S UNIVERSE</h2>
+                <p class="pixel-description">You are an alien who consumed the mysterious 💊Pump drug. Now explore humanity's greatest cosmic mystery...</p>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn start-btn" onclick="startJourney()">START QUEST</button>
+                    <button class="pixel-btn" onclick="togglePixelMode()">PIXEL MODE</button>
+                </div>
             </div>
         </section>
 
-        <!-- 费米悖论介绍 -->
+        <!-- Fermi Paradox Introduction -->
         <section id="fermi-intro" class="scene">
-            <div class="scene-content">
-                <h2>费米悖论：宇宙的沉默</h2>
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">FERMI PARADOX: COSMIC SILENCE</h2>
                 <div class="scientific-data">
-                    <div class="data-card">
-                        <h3>德雷克方程</h3>
-                        <p>N = R* × fp × ne × fl × fi × fc × L</p>
-                        <p>其中：</p>
-                        <ul>
-                            <li>R* = 银河系恒星形成率 (7/年)</li>
-                            <li>fp = 有行星的恒星比例 (0.5)</li>
-                            <li>ne = 宜居行星数量 (2)</li>
-                            <li>fl = 生命出现的概率 (0.1)</li>
-                            <li>fi = 智能生命概率 (0.01)</li>
-                            <li>fc = 文明通信概率 (0.1)</li>
-                            <li>L = 文明寿命 (1000年)</li>
-                        </ul>
-                        <p class="result">结果：N ≈ 7 个可通信文明</p>
+                    <div class="data-card pixel-card">
+                        <h3 class="pixel-heading">DRAKE EQUATION</h3>
+                        <div class="equation-display">
+                            <p class="equation">N = R* × fp × ne × fl × fi × fc × L</p>
+                            <div class="equation-breakdown">
+                                <div class="param-item">
+                                    <span class="param-name">R*</span>
+                                    <span class="param-value">= 7 (stars/year)</span>
+                                </div>
+                                <div class="param-item">
+                                    <span class="param-name">fp</span>
+                                    <span class="param-value">= 0.5 (planets)</span>
+                                </div>
+                                <div class="param-item">
+                                    <span class="param-name">ne</span>
+                                    <span class="param-value">= 2 (habitable)</span>
+                                </div>
+                                <div class="param-item">
+                                    <span class="param-name">fl</span>
+                                    <span class="param-value">= 0.1 (life)</span>
+                                </div>
+                                <div class="param-item">
+                                    <span class="param-name">fi</span>
+                                    <span class="param-value">= 0.01 (intelligence)</span>
+                                </div>
+                                <div class="param-item">
+                                    <span class="param-name">fc</span>
+                                    <span class="param-value">= 0.1 (communication)</span>
+                                </div>
+                                <div class="param-item">
+                                    <span class="param-name">L</span>
+                                    <span class="param-value">= 1000 (lifetime)</span>
+                                </div>
+                            </div>
+                            <div class="result pixel-result">RESULT: N ≈ 7 COMMUNICATING CIVILIZATIONS</div>
+                        </div>
                     </div>
                 </div>
-                <button class="next-btn" onclick="nextScene('fermi-intro', 'paradox-explanation')">继续</button>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn next-btn" onclick="nextScene('fermi-intro', 'paradox-explanation')">CONTINUE</button>
+                    <button class="pixel-btn" onclick="animateEquation()">ANIMATE</button>
+                </div>
             </div>
         </section>
 
-        <!-- 悖论解释 -->
+        <!-- Paradox Explanation -->
         <section id="paradox-explanation" class="scene">
-            <div class="scene-content">
-                <h2>为什么我们听不到他们的声音？</h2>
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">WHY CAN'T WE HEAR THEM?</h2>
                 <div class="paradox-grid">
-                    <div class="paradox-card" onclick="showHypothesis('great-filter')">
-                        <h3>大过滤器假说</h3>
-                        <p>某种未知因素阻止了文明发展到星际旅行阶段</p>
+                    <div class="paradox-card pixel-card" onclick="showHypothesis('great-filter')">
+                        <div class="card-icon">🔥</div>
+                        <h3 class="pixel-heading">GREAT FILTER HYPOTHESIS</h3>
+                        <p>Some unknown factor prevents civilizations from reaching interstellar travel</p>
+                        <div class="card-glow"></div>
                     </div>
-                    <div class="paradox-card" onclick="showHypothesis('zoo-hypothesis')">
-                        <h3>动物园假说</h3>
-                        <p>高级文明在观察我们，但选择不接触</p>
+                    <div class="paradox-card pixel-card" onclick="showHypothesis('zoo-hypothesis')">
+                        <div class="card-icon">🦁</div>
+                        <h3 class="pixel-heading">ZOO HYPOTHESIS</h3>
+                        <p>Advanced civilizations observe us but choose not to contact</p>
+                        <div class="card-glow"></div>
                     </div>
-                    <div class="paradox-card" onclick="showHypothesis('rare-earth')">
-                        <h3>稀有地球假说</h3>
-                        <p>地球的条件极其特殊，生命极其罕见</p>
+                    <div class="paradox-card pixel-card" onclick="showHypothesis('rare-earth')">
+                        <div class="card-icon">🌍</div>
+                        <h3 class="pixel-heading">RARE EARTH HYPOTHESIS</h3>
+                        <p>Earth's conditions are extremely special, life is extremely rare</p>
+                        <div class="card-glow"></div>
                     </div>
                 </div>
-                <button class="next-btn" onclick="nextScene('paradox-explanation', 'pump-alien-story')">PumpAlien的故事</button>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn next-btn" onclick="nextScene('paradox-explanation', 'pump-alien-story')">PUMPALIEN'S STORY</button>
+                    <button class="pixel-btn" onclick="shuffleCards()">SHUFFLE</button>
+                </div>
             </div>
         </section>
 
-        <!-- PumpAlien的故事 -->
+        <!-- PumpAlien's Story -->
         <section id="pump-alien-story" class="scene">
-            <div class="scene-content">
-                <h2>PumpAlien的觉醒</h2>
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">PUMPALIEN'S AWAKENING</h2>
                 <div class="story-container">
-                    <div class="story-text">
-                        <p>在服用了神秘的💊Pump后，你获得了前所未有的感知能力...</p>
-                        <p>现在你可以看到平行宇宙、时间线，甚至感知到其他文明的存在！</p>
+                    <div class="story-text pixel-text">
+                        <p>After consuming the mysterious 💊Pump, you gained unprecedented perception abilities...</p>
+                        <p>Now you can see parallel universes, timelines, and even sense other civilizations!</p>
                     </div>
                     <div class="interactive-choice">
-                        <h3>选择你的探索方向：</h3>
-                        <button onclick="choosePath('scientific')">🔬 科学探索</button>
-                        <button onclick="choosePath('philosophical')">🤔 哲学思考</button>
-                        <button onclick="choosePath('adventure')">🚀 冒险模式</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 科学探索路径 -->
-        <section id="scientific-path" class="scene">
-            <div class="scene-content">
-                <h2>科学证据与数据</h2>
-                <div class="evidence-container">
-                    <div class="evidence-item">
-                        <h3>SETI项目数据</h3>
-                        <p>自1960年代以来，人类一直在监听外星信号</p>
-                        <div class="data-visualization">
-                            <div class="signal-bar" data-frequency="1420">1420 MHz (氢线)</div>
-                            <div class="signal-bar" data-frequency="1665">1665 MHz (羟基线)</div>
-                            <div class="signal-bar" data-frequency="22000">22 GHz (水线)</div>
+                        <h3 class="pixel-heading">CHOOSE YOUR PATH:</h3>
+                        <div class="choice-grid">
+                            <button class="pixel-btn choice-btn" onclick="choosePath('scientific')">
+                                <span class="btn-icon">🔬</span>
+                                <span class="btn-text">SCIENTIFIC EXPLORATION</span>
+                            </button>
+                            <button class="pixel-btn choice-btn" onclick="choosePath('philosophical')">
+                                <span class="btn-icon">🤔</span>
+                                <span class="btn-text">PHILOSOPHICAL THINKING</span>
+                            </button>
+                            <button class="pixel-btn choice-btn" onclick="choosePath('adventure')">
+                                <span class="btn-icon">🚀</span>
+                                <span class="btn-text">ADVENTURE MODE</span>
+                            </button>
                         </div>
                     </div>
-                    <div class="evidence-item">
-                        <h3>系外行星发现</h3>
-                        <p>已确认的系外行星数量：5,000+</p>
-                        <p>宜居带行星：约50个</p>
-                    </div>
                 </div>
-                <button class="next-btn" onclick="nextScene('scientific-path', 'conclusion')">得出结论</button>
             </div>
         </section>
 
-        <!-- 哲学思考路径 -->
+        <!-- Scientific Path -->
+        <section id="scientific-path" class="scene">
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">SCIENTIFIC EVIDENCE & DATA</h2>
+                <div class="evidence-container">
+                    <div class="evidence-item pixel-card">
+                        <h3 class="pixel-heading">SETI PROJECT DATA</h3>
+                        <p>Humans have been listening for alien signals since the 1960s</p>
+                        <div class="data-visualization">
+                            <div class="signal-bar" data-frequency="1420">
+                                <span class="freq-label">1420 MHz (Hydrogen Line)</span>
+                                <div class="signal-wave"></div>
+                            </div>
+                            <div class="signal-bar" data-frequency="1665">
+                                <span class="freq-label">1665 MHz (Hydroxyl Line)</span>
+                                <div class="signal-wave"></div>
+                            </div>
+                            <div class="signal-bar" data-frequency="22000">
+                                <span class="freq-label">22 GHz (Water Line)</span>
+                                <div class="signal-wave"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="evidence-item pixel-card">
+                        <h3 class="pixel-heading">EXOPLANET DISCOVERIES</h3>
+                        <p>Confirmed exoplanets: 5,000+</p>
+                        <p>Habitable zone planets: ~50</p>
+                        <div class="planet-counter">
+                            <div class="counter-display">
+                                <span class="counter-number">5000</span>
+                                <span class="counter-label">PLANETS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn next-btn" onclick="nextScene('scientific-path', 'conclusion')">DRAW CONCLUSION</button>
+                    <button class="pixel-btn" onclick="scanForSignals()">SCAN SIGNALS</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophical Path -->
         <section id="philosophical-path" class="scene">
-            <div class="scene-content">
-                <h2>哲学思考：存在的意义</h2>
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">PHILOSOPHICAL THINKING: MEANING OF EXISTENCE</h2>
                 <div class="philosophy-content">
-                    <div class="thought-experiment">
-                        <h3>思想实验：宇宙文明</h3>
-                        <p>如果宇宙中有无数文明，为什么我们如此特殊？</p>
-                        <p>还是说，我们其实并不特殊？</p>
+                    <div class="thought-experiment pixel-card">
+                        <h3 class="pixel-heading">THOUGHT EXPERIMENT: COSMIC CIVILIZATIONS</h3>
+                        <p>If there are countless civilizations in the universe, why are we so special?</p>
+                        <p>Or are we not special at all?</p>
                     </div>
-                    <div class="philosophy-question">
-                        <h3>深度思考</h3>
-                        <p>也许孤独本身就是宇宙的真相...</p>
-                        <p>或者，我们从未真正孤独过？</p>
+                    <div class="philosophy-question pixel-card">
+                        <h3 class="pixel-heading">DEEP THINKING</h3>
+                        <p>Perhaps loneliness itself is the truth of the universe...</p>
+                        <p>Or have we never been truly alone?</p>
+                    </div>
+                    <div class="philosophy-interactive">
+                        <button class="pixel-btn" onclick="generateThought()">GENERATE THOUGHT</button>
+                        <button class="pixel-btn" onclick="meditate()">MEDITATE</button>
                     </div>
                 </div>
-                <button class="next-btn" onclick="nextScene('philosophical-path', 'conclusion')">继续探索</button>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn next-btn" onclick="nextScene('philosophical-path', 'conclusion')">CONTINUE EXPLORATION</button>
+                </div>
             </div>
         </section>
 
-        <!-- 冒险模式路径 -->
+        <!-- Adventure Mode -->
         <section id="adventure-path" class="scene">
-            <div class="scene-content">
-                <h2>宇宙冒险：寻找其他文明</h2>
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">COSMIC ADVENTURE: FINDING OTHER CIVILIZATIONS</h2>
                 <div class="adventure-game">
+                    <div class="game-status pixel-status">
+                        <div class="status-item">
+                            <span class="status-icon">⚡</span>
+                            <span class="status-value" id="energy-display">100</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">🌍</span>
+                            <span class="status-value" id="civilizations-display">0</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">📡</span>
+                            <span class="status-value" id="signals-display">0</span>
+                        </div>
+                    </div>
                     <div class="game-area">
                         <div class="space-map">
-                            <div class="star-system" data-civilization="none">⭐</div>
-                            <div class="star-system" data-civilization="ancient">🌟</div>
-                            <div class="star-system" data-civilization="advanced">✨</div>
-                            <div class="star-system" data-civilization="none">⭐</div>
+                            <div class="star-system" data-civilization="none" data-index="0">⭐</div>
+                            <div class="star-system" data-civilization="ancient" data-index="1">🌟</div>
+                            <div class="star-system" data-civilization="advanced" data-index="2">✨</div>
+                            <div class="star-system" data-civilization="none" data-index="3">⭐</div>
                         </div>
                         <div class="game-controls">
-                            <button onclick="scanSystem()">🔍 扫描星系</button>
-                            <button onclick="sendSignal()">📡 发送信号</button>
-                            <button onclick="travel()">🚀 星际旅行</button>
+                            <button class="pixel-btn game-btn" onclick="scanSystem()">🔍 SCAN SYSTEM</button>
+                            <button class="pixel-btn game-btn" onclick="sendSignal()">📡 SEND SIGNAL</button>
+                            <button class="pixel-btn game-btn" onclick="travel()">🚀 TRAVEL</button>
+                            <button class="pixel-btn game-btn" onclick="upgradeShip()">⚡ UPGRADE</button>
                         </div>
                     </div>
                 </div>
-                <button class="next-btn" onclick="nextScene('adventure-path', 'conclusion')">完成冒险</button>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn next-btn" onclick="nextScene('adventure-path', 'conclusion')">COMPLETE ADVENTURE</button>
+                </div>
             </div>
         </section>
 
-        <!-- 结论 -->
+        <!-- Conclusion -->
         <section id="conclusion" class="scene">
-            <div class="scene-content">
-                <h2>PumpAlien的宇宙启示</h2>
+            <div class="scene-content pixel-box">
+                <h2 class="pixel-text">PUMPALIEN'S COSMIC REVELATION</h2>
                 <div class="conclusion-content">
-                    <p>通过💊Pump的力量，你体验了费米悖论的深度...</p>
-                    <p>也许答案不在于寻找其他文明，而在于理解我们自己的存在。</p>
-                    <div class="final-message">
-                        <h3>宇宙的真相是：</h3>
-                        <p id="final-revelation">点击揭示真相...</p>
-                        <button onclick="revealTruth()">揭示真相</button>
+                    <p>Through the power of 💊Pump, you experienced the depth of the Fermi Paradox...</p>
+                    <p>Perhaps the answer isn't in finding other civilizations, but in understanding our own existence.</p>
+                    <div class="final-message pixel-card">
+                        <h3 class="pixel-heading">THE TRUTH OF THE UNIVERSE IS:</h3>
+                        <p id="final-revelation" class="pixel-text">Click to reveal the truth...</p>
+                        <button class="pixel-btn" onclick="revealTruth()">REVEAL TRUTH</button>
                     </div>
                 </div>
-                <button class="restart-btn" onclick="restartJourney()">重新开始</button>
+                <div class="pixel-buttons">
+                    <button class="pixel-btn restart-btn" onclick="restartJourney()">RESTART JOURNEY</button>
+                    <button class="pixel-btn" onclick="shareExperience()">SHARE EXPERIENCE</button>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="cosmic-footer">
-        <p>© 2024 PumpAlien宇宙探索项目 | 基于真实科学数据创作</p>
+    <footer class="pixel-footer">
+        <div class="footer-content">
+            <p>© 2024 PumpAlien Cosmic Quest Project | Based on Real Scientific Data</p>
+            <div class="footer-icons">🚀👽💊🌌</div>
+        </div>
     </footer>
+
+    <!-- Pixel Mode Toggle -->
+    <div id="pixel-mode-toggle" class="pixel-toggle">
+        <button onclick="togglePixelMode()">PIXEL</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
+</html>
+
 </html>

@@ -1,22 +1,25 @@
-// 全局变量
+// Pixel Art NFT Meme Style JavaScript
+// Global Variables
 let currentScene = 'opening-scene';
 let gameState = {
     energy: 100,
     discoveredCivilizations: 0,
     signalsSent: 0,
-    currentLocation: 0
+    currentLocation: 0,
+    pixelMode: true,
+    particles: []
 };
 
-// 科学数据和研究资料
+// Scientific Data and Research Materials
 const scientificData = {
     drakeEquation: {
-        R: 7, // 银河系恒星形成率
-        fp: 0.5, // 有行星的恒星比例
-        ne: 2, // 宜居行星数量
-        fl: 0.1, // 生命出现的概率
-        fi: 0.01, // 智能生命概率
-        fc: 0.1, // 文明通信概率
-        L: 1000 // 文明寿命
+        R: 7, // Star formation rate
+        fp: 0.5, // Fraction with planets
+        ne: 2, // Habitable planets
+        fl: 0.1, // Life probability
+        fi: 0.01, // Intelligence probability
+        fc: 0.1, // Communication probability
+        L: 1000 // Civilization lifetime
     },
     setiData: {
         frequencies: [1420, 1665, 22000],
@@ -30,89 +33,217 @@ const scientificData = {
     }
 };
 
-// 费米悖论假说详情
+// Fermi Paradox Hypotheses
 const hypotheses = {
     'great-filter': {
-        title: '大过滤器假说',
-        description: '在文明发展的某个阶段，存在一个几乎无法跨越的障碍。这可能包括：\n\n• 核战争\n• 气候变化\n• 人工智能失控\n• 生物技术灾难\n• 小行星撞击\n\n如果这个假说成立，那么大多数文明在达到星际旅行能力之前就已经灭绝了。',
-        evidence: '人类文明目前正面临多个潜在的生存威胁，包括气候变化、核武器扩散和人工智能发展。',
-        probability: '高 (70-80%)'
+        title: 'Great Filter Hypothesis',
+        description: 'Some unknown factor prevents civilizations from reaching interstellar travel. This might include:\n\n• Nuclear war\n• Climate change\n• AI runaway\n• Biotech disaster\n• Asteroid impact\n\nIf this hypothesis holds, most civilizations become extinct before reaching interstellar travel capability.',
+        evidence: 'Human civilization currently faces multiple potential survival threats, including climate change, nuclear proliferation, and AI development.',
+        probability: 'High (70-80%)'
     },
     'zoo-hypothesis': {
-        title: '动物园假说',
-        description: '高级文明知道我们的存在，但选择不接触我们，就像我们在动物园里观察动物一样。\n\n可能的原因：\n• 保护我们免受文化冲击\n• 等待我们达到某种成熟度\n• 避免干扰我们的自然发展\n• 遵守某种宇宙公约',
-        evidence: '人类在接触原始部落时也采用类似的"不接触"政策。',
-        probability: '中等 (20-30%)'
+        title: 'Zoo Hypothesis',
+        description: 'Advanced civilizations know of our existence but choose not to contact us, like we observe animals in a zoo.\n\nPossible reasons:\n• Protect us from cultural shock\n• Wait for us to reach certain maturity\n• Avoid interfering with our natural development\n• Follow some cosmic convention',
+        evidence: 'Humans also adopt similar "no-contact" policies when encountering primitive tribes.',
+        probability: 'Medium (20-30%)'
     },
     'rare-earth': {
-        title: '稀有地球假说',
-        description: '地球的条件极其特殊，生命出现的概率极低。\n\n关键因素包括：\n• 适中的恒星类型和距离\n• 稳定的行星轨道\n• 月球的存在稳定地球自转\n• 板块构造活动\n• 磁场保护\n• 适中的重力',
-        evidence: '迄今为止发现的系外行星中，真正类似地球的极少。',
-        probability: '中等 (15-25%)'
+        title: 'Rare Earth Hypothesis',
+        description: 'Earth\'s conditions are extremely special, making life emergence extremely rare.\n\nKey factors include:\n• Moderate star type and distance\n• Stable planetary orbit\n• Moon\'s existence stabilizing Earth\'s rotation\n• Plate tectonic activity\n• Magnetic field protection\n• Moderate gravity',
+        evidence: 'Among discovered exoplanets, truly Earth-like ones are extremely rare.',
+        probability: 'Medium (15-25%)'
     }
 };
 
-// 初始化
+// Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    initializeStars();
+    initializePixelElements();
     setupEventListeners();
-    console.log('🚀 PumpAlien宇宙探索项目已启动！');
+    generateParticles();
+    console.log('🚀 PumpAlien Cosmic Quest Project - Pixel Mode Activated!');
 });
 
-// 创建动态星空
-function initializeStars() {
-    const starsContainer = document.getElementById('stars');
-    const stars2Container = document.getElementById('stars2');
-    const stars3Container = document.getElementById('stars3');
+// Initialize Pixel Elements
+function initializePixelElements() {
+    // Create floating pixel elements
+    createFloatingElements();
     
-    // 创建更多星星
-    for (let i = 0; i < 200; i++) {
-        createStar(starsContainer, 'star');
-        createStar(stars2Container, 'star2');
-        createStar(stars3Container, 'star3');
+    // Generate pixel particles
+    generateParticles();
+    
+    // Add pixel scan lines
+    addScanLines();
+}
+
+// Create Floating Elements
+function createFloatingElements() {
+    const container = document.getElementById('floating-elements');
+    
+    // Add more variety to floating elements
+    const elements = [
+        { emoji: '🚀', speed: 2, delay: 0 },
+        { emoji: '👽', speed: 1.5, delay: 4 },
+        { emoji: '🛸', speed: 3, delay: 8 },
+        { emoji: '⭐', speed: 1, delay: 12 },
+        { emoji: '🪐', speed: 0.8, delay: 16 },
+        { emoji: '💊', speed: 2.5, delay: 20 },
+        { emoji: '⚡', speed: 1.8, delay: 24 },
+        { emoji: '🌌', speed: 1.2, delay: 28 }
+    ];
+    
+    elements.forEach((element, index) => {
+        const div = document.createElement('div');
+        div.className = `pixel-${element.emoji === '🚀' ? 'ship' : 
+                               element.emoji === '👽' ? 'alien' : 
+                               element.emoji === '🛸' ? 'ufo' : 
+                               element.emoji === '⭐' ? 'star' : 
+                               element.emoji === '🪐' ? 'planet' : 'element'}`;
+        div.textContent = element.emoji;
+        div.style.animationDelay = `${element.delay}s`;
+        div.style.animationDuration = `${20 / element.speed}s`;
+        container.appendChild(div);
+    });
+}
+
+// Generate Pixel Particles
+function generateParticles() {
+    const container = document.getElementById('pixel-particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        container.appendChild(particle);
     }
 }
 
-function createStar(container, className) {
-    const star = document.createElement('div');
-    star.className = className;
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.animationDelay = Math.random() * 20 + 's';
-    star.style.animationDuration = (Math.random() * 10 + 10) + 's';
-    container.appendChild(star);
+// Add Scan Lines
+function addScanLines() {
+    const scanLine = document.createElement('div');
+    scanLine.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        animation: scan-line 3s linear infinite;
+        z-index: 1000;
+        pointer-events: none;
+    `;
+    document.body.appendChild(scanLine);
 }
 
-// 设置事件监听器
+// Setup Event Listeners
 function setupEventListeners() {
-    // 悖论卡片点击事件
+    // Paradox card click events
     document.querySelectorAll('.paradox-card').forEach(card => {
         card.addEventListener('click', function() {
-            const hypothesis = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-            showHypothesis(hypothesis);
+            const hypothesis = this.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+            if (hypothesis) showHypothesis(hypothesis);
+        });
+    });
+    
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', handleKeyboard);
+    
+    // Add touch gestures
+    setupTouchGestures();
+    
+    // Add mouse effects
+    setupMouseEffects();
+}
+
+// Handle Keyboard
+function handleKeyboard(e) {
+    switch(e.key) {
+        case 'ArrowRight':
+            e.preventDefault();
+            nextSceneFromKeyboard();
+            break;
+        case 'ArrowLeft':
+            e.preventDefault();
+            previousSceneFromKeyboard();
+            break;
+        case 'Escape':
+            closeAllModals();
+            break;
+        case 'p':
+        case 'P':
+            togglePixelMode();
+            break;
+        case ' ':
+            e.preventDefault();
+            if (currentScene === 'opening-scene') startJourney();
+            break;
+    }
+}
+
+// Setup Touch Gestures
+function setupTouchGestures() {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchStartY - touchEndY;
+        
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+                nextSceneFromKeyboard();
+            } else {
+                previousSceneFromKeyboard();
+            }
+        }
+    });
+}
+
+// Setup Mouse Effects
+function setupMouseEffects() {
+    document.addEventListener('mousemove', function(e) {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach((particle, index) => {
+            const speed = (index % 3 + 1) * 0.5;
+            const x = (e.clientX * speed) / window.innerWidth;
+            const y = (e.clientY * speed) / window.innerHeight;
+            particle.style.transform = `translate(${x}px, ${y}px)`;
         });
     });
 }
 
-// 开始探索
+// Start Journey
 function startJourney() {
-    console.log('🌟 PumpAlien开始宇宙探索！');
-    playSound('start');
+    console.log('🌟 PumpAlien begins cosmic exploration!');
+    playPixelSound('start');
+    addPixelEffect('start');
     nextScene('opening-scene', 'fermi-intro');
 }
 
-// 场景切换
+// Scene Navigation
 function nextScene(fromScene, toScene) {
     const fromElement = document.getElementById(fromScene);
     const toElement = document.getElementById(toScene);
     
     if (fromElement && toElement) {
         fromElement.classList.remove('active');
+        addPixelEffect('transition');
+        
         setTimeout(() => {
             toElement.classList.add('active');
             currentScene = toScene;
             
-            // 特殊场景效果
+            // Special scene effects
             if (toScene === 'fermi-intro') {
                 animateDrakeEquation();
             } else if (toScene === 'paradox-explanation') {
@@ -125,9 +256,9 @@ function nextScene(fromScene, toScene) {
     }
 }
 
-// 选择探索路径
+// Choose Exploration Path
 function choosePath(path) {
-    console.log(`🚀 选择了${path}路径`);
+    console.log(`🚀 Chose ${path} path`);
     
     let targetScene;
     switch(path) {
@@ -143,94 +274,97 @@ function choosePath(path) {
     }
     
     if (targetScene) {
+        addPixelEffect('choice');
         nextScene('pump-alien-story', targetScene);
     }
 }
 
-// 显示假说详情
+// Show Hypothesis Details
 function showHypothesis(hypothesisKey) {
     const hypothesis = hypotheses[hypothesisKey];
     if (!hypothesis) return;
     
-    // 创建模态框
+    // Create modal
     const modal = document.createElement('div');
     modal.className = 'hypothesis-modal';
     modal.style.display = 'flex';
     
     modal.innerHTML = `
         <div class="hypothesis-content">
-            <h3>${hypothesis.title}</h3>
-            <p style="white-space: pre-line; text-align: left; margin: 1rem 0;">${hypothesis.description}</p>
-            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
-                <strong>科学证据：</strong> ${hypothesis.evidence}
+            <h3 class="pixel-heading">${hypothesis.title}</h3>
+            <p style="white-space: pre-line; text-align: left; margin: 1rem 0; font-family: 'VT323', monospace;">${hypothesis.description}</p>
+            <div style="background: rgba(0,255,65,0.1); padding: 1rem; border: 2px solid var(--primary-color); margin: 1rem 0;">
+                <strong>Scientific Evidence:</strong> ${hypothesis.evidence}
             </div>
-            <div style="background: rgba(255,107,107,0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
-                <strong>成立概率：</strong> ${hypothesis.probability}
+            <div style="background: rgba(255,0,255,0.1); padding: 1rem; border: 2px solid var(--secondary-color); margin: 1rem 0;">
+                <strong>Probability:</strong> ${hypothesis.probability}
             </div>
-            <button class="close-modal" onclick="this.parentElement.parentElement.remove()">关闭</button>
+            <button class="close-modal" onclick="this.parentElement.parentElement.remove()">CLOSE</button>
         </div>
     `;
     
     document.body.appendChild(modal);
     
-    // 添加点击外部关闭功能
+    // Add click outside to close
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             modal.remove();
         }
     });
+    
+    addPixelEffect('modal');
 }
 
-// 德雷克方程动画
+// Animate Drake Equation
 function animateDrakeEquation() {
-    const resultElement = document.querySelector('.result');
+    const resultElement = document.querySelector('.pixel-result');
     if (resultElement) {
-        resultElement.style.opacity = '0';
-        resultElement.style.transform = 'scale(0.8)';
-        
+        resultElement.classList.add('pixel-fade-in');
         setTimeout(() => {
-            resultElement.style.transition = 'all 1s ease';
-            resultElement.style.opacity = '1';
-            resultElement.style.transform = 'scale(1)';
+            resultElement.classList.remove('pixel-fade-in');
         }, 500);
     }
-}
-
-// 悖论卡片动画
-function animateParadoxCards() {
-    const cards = document.querySelectorAll('.paradox-card');
-    cards.forEach((card, index) => {
+    
+    // Animate parameters one by one
+    const params = document.querySelectorAll('.param-item');
+    params.forEach((param, index) => {
         setTimeout(() => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(50px)';
-            card.style.transition = 'all 0.6s ease';
-            
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 100);
+            param.classList.add('pixel-fade-in');
+            setTimeout(() => param.classList.remove('pixel-fade-in'), 500);
         }, index * 200);
     });
 }
 
-// PumpAlien动画
-function animatePumpAlien() {
-    const alien = document.querySelector('.alien-body');
-    const pump = document.querySelector('.pump-effect');
-    
-    if (alien && pump) {
-        alien.style.animation = 'alien-float 1s ease-in-out infinite';
-        pump.style.animation = 'pump-glow 0.8s ease-in-out infinite';
-        
-        // 添加特殊效果
+// Animate Paradox Cards
+function animateParadoxCards() {
+    const cards = document.querySelectorAll('.paradox-card');
+    cards.forEach((card, index) => {
         setTimeout(() => {
-            alien.style.filter = 'drop-shadow(0 0 30px rgba(138,43,226,1))';
-            pump.style.filter = 'drop-shadow(0 0 25px #ff6b6b)';
+            card.classList.add('pixel-fade-in');
+            setTimeout(() => card.classList.remove('pixel-fade-in'), 500);
+        }, index * 200);
+    });
+}
+
+// Animate PumpAlien
+function animatePumpAlien() {
+    const alien = document.querySelector('.alien-sprite');
+    const pump = document.querySelector('.pump-effect');
+    const glow = document.querySelector('.pixel-glow');
+    
+    if (alien && pump && glow) {
+        alien.classList.add('pixel-shake');
+        pump.classList.add('pixel-fade-in');
+        glow.style.animation = 'glow-pulse 0.5s ease-in-out infinite';
+        
+        setTimeout(() => {
+            alien.classList.remove('pixel-shake');
+            pump.classList.remove('pixel-fade-in');
         }, 1000);
     }
 }
 
-// 冒险游戏功能
+// Adventure Game Functions
 function scanSystem() {
     const currentSystem = document.querySelector(`[data-civilization]:nth-child(${gameState.currentLocation + 1})`);
     if (currentSystem) {
@@ -239,22 +373,25 @@ function scanSystem() {
         
         switch(civilization) {
             case 'none':
-                message = '🔍 扫描结果：这个星系没有发现文明迹象';
+                message = '🔍 Scan Result: No civilization signs detected in this system';
                 break;
             case 'ancient':
-                message = '🔍 扫描结果：发现古代文明遗迹！能量消耗：20';
+                message = '🔍 Scan Result: Ancient civilization ruins discovered! Energy cost: 20';
                 gameState.energy -= 20;
                 gameState.discoveredCivilizations++;
+                addPixelEffect('discovery');
                 break;
             case 'advanced':
-                message = '🔍 扫描结果：发现高级文明！能量消耗：30';
+                message = '🔍 Scan Result: Advanced civilization found! Energy cost: 30';
                 gameState.energy -= 30;
                 gameState.discoveredCivilizations++;
+                addPixelEffect('discovery');
                 break;
         }
         
         showGameMessage(message);
         updateGameState();
+        addPixelEffect('scan');
     }
 }
 
@@ -263,23 +400,25 @@ function sendSignal() {
         gameState.energy -= 25;
         gameState.signalsSent++;
         
-        const message = `📡 信号已发送！等待回应...\n能量剩余：${gameState.energy}`;
+        const message = `📡 Signal sent! Waiting for response...\nEnergy remaining: ${gameState.energy}`;
         showGameMessage(message);
         updateGameState();
+        addPixelEffect('signal');
         
-        // 模拟信号回应
+        // Simulate signal response
         setTimeout(() => {
             const responses = [
-                '收到微弱的回应信号...',
-                '信号被某种干扰阻挡了',
-                '没有收到回应',
-                '检测到未知信号源！'
+                'Received weak response signal...',
+                'Signal blocked by interference',
+                'No response received',
+                'Unknown signal source detected!'
             ];
             const response = responses[Math.floor(Math.random() * responses.length)];
             showGameMessage(`📡 ${response}`);
         }, 2000);
     } else {
-        showGameMessage('❌ 能量不足，无法发送信号！');
+        showGameMessage('❌ Insufficient energy to send signal!');
+        addPixelEffect('error');
     }
 }
 
@@ -288,104 +427,160 @@ function travel() {
         gameState.energy -= 40;
         gameState.currentLocation = (gameState.currentLocation + 1) % 4;
         
-        const message = `🚀 已到达新的星系！\n当前位置：${gameState.currentLocation + 1}\n能量剩余：${gameState.energy}`;
+        const message = `🚀 Arrived at new star system!\nCurrent location: ${gameState.currentLocation + 1}\nEnergy remaining: ${gameState.energy}`;
         showGameMessage(message);
         updateGameState();
+        addPixelEffect('travel');
         
-        // 更新星系显示
+        // Update system display
         highlightCurrentSystem();
     } else {
-        showGameMessage('❌ 能量不足，无法进行星际旅行！');
+        showGameMessage('❌ Insufficient energy for interstellar travel!');
+        addPixelEffect('error');
+    }
+}
+
+function upgradeShip() {
+    if (gameState.energy >= 50) {
+        gameState.energy -= 50;
+        gameState.energy = Math.min(100, gameState.energy + 20);
+        
+        const message = `⚡ Ship upgraded! Energy restored to ${gameState.energy}`;
+        showGameMessage(message);
+        updateGameState();
+        addPixelEffect('upgrade');
+    } else {
+        showGameMessage('❌ Insufficient energy for upgrade!');
+        addPixelEffect('error');
     }
 }
 
 function highlightCurrentSystem() {
     document.querySelectorAll('.star-system').forEach((system, index) => {
         if (index === gameState.currentLocation) {
-            system.style.borderColor = '#4ecdc4';
+            system.style.borderColor = 'var(--accent-color)';
             system.style.transform = 'scale(1.2)';
+            system.style.boxShadow = '0 0 20px var(--shadow-color)';
         } else {
-            system.style.borderColor = 'rgba(255,255,255,0.1)';
+            system.style.borderColor = 'var(--border-color)';
             system.style.transform = 'scale(1)';
+            system.style.boxShadow = 'none';
         }
     });
 }
 
 function showGameMessage(message) {
-    // 创建消息提示
+    // Create message display
     const messageDiv = document.createElement('div');
     messageDiv.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
         background: rgba(0,0,0,0.9);
-        color: white;
+        color: var(--text-color);
         padding: 1rem;
-        border-radius: 10px;
-        border-left: 4px solid #4ecdc4;
+        border: var(--pixel-size) solid var(--border-color);
         max-width: 300px;
         z-index: 1000;
-        font-family: 'Exo 2', sans-serif;
+        font-family: 'VT323', monospace;
         white-space: pre-line;
+        animation: pixel-fade-in 0.3s ease-in;
     `;
     messageDiv.textContent = message;
     
     document.body.appendChild(messageDiv);
     
-    // 3秒后自动消失
+    // Auto-remove after 3 seconds
     setTimeout(() => {
-        messageDiv.style.opacity = '0';
-        messageDiv.style.transform = 'translateX(100%)';
-        messageDiv.style.transition = 'all 0.5s ease';
-        setTimeout(() => messageDiv.remove(), 500);
+        messageDiv.style.animation = 'pixel-fade-in 0.3s ease-in reverse';
+        setTimeout(() => messageDiv.remove(), 300);
     }, 3000);
 }
 
 function updateGameState() {
-    // 更新游戏状态显示
-    const gameArea = document.querySelector('.adventure-game');
-    if (gameArea) {
-        let statusDiv = gameArea.querySelector('.game-status');
-        if (!statusDiv) {
-            statusDiv = document.createElement('div');
-            statusDiv.className = 'game-status';
-            statusDiv.style.cssText = `
-                background: rgba(0,0,0,0.5);
-                padding: 1rem;
-                border-radius: 10px;
-                margin: 1rem 0;
-                font-family: 'Orbitron', monospace;
-            `;
-            gameArea.appendChild(statusDiv);
-        }
-        
-        statusDiv.innerHTML = `
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
-                <div>⚡ 能量: ${gameState.energy}</div>
-                <div>🌍 发现文明: ${gameState.discoveredCivilizations}</div>
-                <div>📡 发送信号: ${gameState.signalsSent}</div>
-            </div>
-        `;
-    }
+    // Update game status display
+    const energyDisplay = document.getElementById('energy-display');
+    const civilizationsDisplay = document.getElementById('civilizations-display');
+    const signalsDisplay = document.getElementById('signals-display');
+    
+    if (energyDisplay) energyDisplay.textContent = gameState.energy;
+    if (civilizationsDisplay) civilizationsDisplay.textContent = gameState.discoveredCivilizations;
+    if (signalsDisplay) signalsDisplay.textContent = gameState.signalsSent;
 }
 
-// 揭示真相
+// Philosophical Path Functions
+function generateThought() {
+    const thoughts = [
+        "If we are alone, does that make us special or insignificant?",
+        "Perhaps the universe is waiting for us to mature enough to join the cosmic community.",
+        "Maybe loneliness is the price we pay for consciousness.",
+        "In the vastness of space, every connection becomes precious.",
+        "The search for others might be the search for ourselves."
+    ];
+    
+    const randomThought = thoughts[Math.floor(Math.random() * thoughts.length)];
+    showGameMessage(`🤔 ${randomThought}`);
+    addPixelEffect('thought');
+}
+
+function meditate() {
+    showGameMessage('🧘 Meditating...\nEnergy restored by 10');
+    gameState.energy = Math.min(100, gameState.energy + 10);
+    updateGameState();
+    addPixelEffect('meditation');
+}
+
+// Scientific Path Functions
+function scanForSignals() {
+    showGameMessage('🔬 Scanning for signals...\nThis may take a moment...');
+    
+    setTimeout(() => {
+        const signals = Math.floor(Math.random() * 5);
+        if (signals > 0) {
+            showGameMessage(`🔬 Found ${signals} potential signal(s)!`);
+            addPixelEffect('discovery');
+        } else {
+            showGameMessage('🔬 No signals detected in this frequency range.');
+        }
+    }, 2000);
+}
+
+// Utility Functions
+function shuffleCards() {
+    const cards = document.querySelectorAll('.paradox-card');
+    cards.forEach(card => {
+        card.style.animation = 'pixel-shake 0.5s ease-in-out';
+        setTimeout(() => card.style.animation = '', 500);
+    });
+    addPixelEffect('shuffle');
+}
+
+function animateEquation() {
+    const equation = document.querySelector('.equation');
+    if (equation) {
+        equation.style.animation = 'pixel-shake 0.5s ease-in-out';
+        setTimeout(() => equation.style.animation = '', 500);
+    }
+    addPixelEffect('equation');
+}
+
+// Reveal Truth
 function revealTruth() {
     const revelationElement = document.getElementById('final-revelation');
     const truths = [
-        "宇宙的真相是：我们从未真正孤独过。每一个文明都在寻找彼此，就像我们在寻找他们一样。",
-        "费米悖论不是问题，而是答案：宇宙的浩瀚让我们明白，真正的联系不在于距离，而在于理解。",
-        "也许其他文明就在我们身边，只是我们还没有学会如何感知他们的存在。",
-        "孤独是宇宙给我们的礼物，它让我们珍惜每一次相遇，每一次发现。",
-        "真相是：我们都是宇宙的孩子，在寻找回家的路。"
+        "The truth of the universe is: We were never truly alone. Every civilization is searching for others, just as we search for them.",
+        "The Fermi Paradox is not a problem, but an answer: The vastness of the universe teaches us that true connection lies not in distance, but in understanding.",
+        "Perhaps other civilizations are right beside us, we just haven't learned how to perceive their existence yet.",
+        "Loneliness is the universe's gift to us, making us cherish every encounter, every discovery.",
+        "The truth is: We are all children of the universe, searching for our way home."
     ];
     
-    const randomTruth = truths[Math.floor(Math.random() * truths.length)];
+    const randomTruth = truths[Math.floor(Math.random() * randomTruth.length)];
     
-    // 打字机效果
+    // Typewriter effect
     let i = 0;
     revelationElement.textContent = '';
-    revelationElement.style.color = '#4ecdc4';
+    revelationElement.style.color = 'var(--accent-color)';
     
     const typeWriter = setInterval(() => {
         if (i < randomTruth.length) {
@@ -393,25 +588,29 @@ function revealTruth() {
             i++;
         } else {
             clearInterval(typeWriter);
-            // 添加闪烁效果
+            // Add blinking effect
             setInterval(() => {
                 revelationElement.style.opacity = revelationElement.style.opacity === '0.5' ? '1' : '0.5';
             }, 1000);
         }
     }, 50);
+    
+    addPixelEffect('revelation');
 }
 
-// 重新开始
+// Restart Journey
 function restartJourney() {
-    // 重置游戏状态
+    // Reset game state
     gameState = {
         energy: 100,
         discoveredCivilizations: 0,
         signalsSent: 0,
-        currentLocation: 0
+        currentLocation: 0,
+        pixelMode: gameState.pixelMode,
+        particles: []
     };
     
-    // 回到开场场景
+    // Return to opening scene
     document.querySelectorAll('.scene').forEach(scene => {
         scene.classList.remove('active');
     });
@@ -419,63 +618,140 @@ function restartJourney() {
     document.getElementById('opening-scene').classList.add('active');
     currentScene = 'opening-scene';
     
-    console.log('🔄 宇宙探索重新开始！');
+    addPixelEffect('restart');
+    console.log('🔄 Cosmic exploration restarted!');
 }
 
-// 音效系统（模拟）
-function playSound(soundType) {
-    // 这里可以集成真实的音效
-    console.log(`🔊 播放音效: ${soundType}`);
+// Share Experience
+function shareExperience() {
+    const shareText = `I just explored the Fermi Paradox with PumpAlien! 🚀👽💊\nCheck out this cosmic quest!`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'PumpAlien Cosmic Quest',
+            text: shareText,
+            url: window.location.href
+        });
+    } else {
+        // Fallback for browsers without Web Share API
+        navigator.clipboard.writeText(shareText + '\n' + window.location.href);
+        showGameMessage('📋 Experience copied to clipboard!');
+    }
+    
+    addPixelEffect('share');
 }
 
-// 添加键盘快捷键
-document.addEventListener('keydown', function(e) {
-    switch(e.key) {
-        case 'ArrowRight':
-            e.preventDefault();
-            // 下一个场景
-            break;
-        case 'ArrowLeft':
-            e.preventDefault();
-            // 上一个场景
-            break;
-        case 'Escape':
-            // 关闭模态框
-            const modal = document.querySelector('.hypothesis-modal');
-            if (modal) modal.remove();
-            break;
-    }
-});
-
-// 添加触摸手势支持
-let touchStartX = 0;
-let touchStartY = 0;
-
-document.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-});
-
-document.addEventListener('touchend', function(e) {
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
+// Pixel Effects
+function addPixelEffect(effectType) {
+    const effects = {
+        start: () => createPixelExplosion(),
+        transition: () => createPixelTrail(),
+        choice: () => createPixelRipple(),
+        scan: () => createPixelScan(),
+        signal: () => createPixelWave(),
+        travel: () => createPixelWarp(),
+        upgrade: () => createPixelUpgrade(),
+        discovery: () => createPixelDiscovery(),
+        error: () => createPixelError(),
+        thought: () => createPixelThought(),
+        meditation: () => createPixelMeditation(),
+        shuffle: () => createPixelShuffle(),
+        equation: () => createPixelEquation(),
+        revelation: () => createPixelRevelation(),
+        restart: () => createPixelRestart(),
+        share: () => createPixelShare(),
+        modal: () => createPixelModal()
+    };
     
-    const diffX = touchStartX - touchEndX;
-    const diffY = touchStartY - touchEndY;
-    
-    // 检测滑动手势
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-            // 向左滑动 - 下一个场景
-            console.log('👈 向左滑动');
-        } else {
-            // 向右滑动 - 上一个场景
-            console.log('👉 向右滑动');
-        }
+    if (effects[effectType]) {
+        effects[effectType]();
     }
-});
+}
 
-// 性能优化：节流函数
+// Create various pixel effects
+function createPixelExplosion() {
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = '50%';
+        particle.style.top = '50%';
+        particle.style.animation = `pixel-explosion 1s ease-out forwards`;
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 1000);
+    }
+}
+
+function createPixelTrail() {
+    const trail = document.createElement('div');
+    trail.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        opacity: 0.3;
+        animation: pixel-trail 0.5s ease-out forwards;
+        pointer-events: none;
+        z-index: 999;
+    `;
+    document.body.appendChild(trail);
+    
+    setTimeout(() => trail.remove(), 500);
+}
+
+// Add more pixel effect functions as needed...
+
+// Toggle Pixel Mode
+function togglePixelMode() {
+    gameState.pixelMode = !gameState.pixelMode;
+    
+    if (gameState.pixelMode) {
+        document.body.classList.add('pixel-mode');
+        document.body.classList.remove('smooth-mode');
+    } else {
+        document.body.classList.remove('pixel-mode');
+        document.body.classList.add('smooth-mode');
+    }
+    
+    addPixelEffect('toggle');
+}
+
+// Close All Modals
+function closeAllModals() {
+    const modals = document.querySelectorAll('.hypothesis-modal');
+    modals.forEach(modal => modal.remove());
+}
+
+// Navigation from Keyboard
+function nextSceneFromKeyboard() {
+    const scenes = ['opening-scene', 'fermi-intro', 'paradox-explanation', 'pump-alien-story', 'scientific-path', 'philosophical-path', 'adventure-path', 'conclusion'];
+    const currentIndex = scenes.indexOf(currentScene);
+    const nextIndex = (currentIndex + 1) % scenes.length;
+    
+    if (nextIndex > 0) {
+        nextScene(currentScene, scenes[nextIndex]);
+    }
+}
+
+function previousSceneFromKeyboard() {
+    const scenes = ['opening-scene', 'fermi-intro', 'paradox-explanation', 'pump-alien-story', 'scientific-path', 'philosophical-path', 'adventure-path', 'conclusion'];
+    const currentIndex = scenes.indexOf(currentScene);
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : scenes.length - 1;
+    
+    if (prevIndex >= 0) {
+        nextScene(currentScene, scenes[prevIndex]);
+    }
+}
+
+// Sound System (Simulated)
+function playPixelSound(soundType) {
+    // Here you can integrate real pixel sound effects
+    console.log(`🔊 Playing pixel sound: ${soundType}`);
+}
+
+// Performance Optimization
 function throttle(func, limit) {
     let inThrottle;
     return function() {
@@ -489,10 +765,35 @@ function throttle(func, limit) {
     }
 }
 
-// 响应式处理
+// Responsive Handling
 window.addEventListener('resize', throttle(function() {
-    // 处理窗口大小变化
-    console.log('🔄 窗口大小已调整');
+    console.log('🔄 Window resized');
 }, 100));
 
-console.log('🚀 PumpAlien宇宙探索项目JavaScript已加载完成！');
+// Add CSS animations for pixel effects
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes pixel-explosion {
+        0% { transform: scale(0) rotate(0deg); opacity: 1; }
+        100% { transform: scale(1) rotate(360deg); opacity: 0; }
+    }
+    
+    @keyframes pixel-trail {
+        0% { transform: translateX(-100%); opacity: 0.3; }
+        50% { transform: translateX(0%); opacity: 0.6; }
+        100% { transform: translateX(100%); opacity: 0; }
+    }
+    
+    .pixel-mode {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+    }
+    
+    .smooth-mode {
+        image-rendering: auto;
+    }
+`;
+document.head.appendChild(style);
+
+console.log('🚀 PumpAlien Cosmic Quest Project - Pixel JavaScript Loaded!');
