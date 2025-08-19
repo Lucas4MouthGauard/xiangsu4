@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>费米悖论：PumpAlien的宇宙探索</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    
+    <header class="cosmic-header">
+        <h1 class="main-title">费米悖论：PumpAlien的宇宙探索</h1>
+        <p class="subtitle">"宇宙如此浩瀚，为何我们如此孤独？"</p>
+    </header>
+
+    <main class="main-content">
+        <!-- 开场动画区域 -->
+        <section id="opening-scene" class="scene active">
+            <div class="scene-content">
+                <div class="pump-alien">
+                    <div class="alien-body">👽</div>
+                    <div class="pump-effect">💊</div>
+                </div>
+                <h2>欢迎来到 PumpAlien 的宇宙</h2>
+                <p>你是一个服用了神秘药物💊Pump的外星人，现在要探索人类最大的宇宙之谜...</p>
+                <button class="start-btn" onclick="startJourney()">开始探索</button>
+            </div>
+        </section>
+
+        <!-- 费米悖论介绍 -->
+        <section id="fermi-intro" class="scene">
+            <div class="scene-content">
+                <h2>费米悖论：宇宙的沉默</h2>
+                <div class="scientific-data">
+                    <div class="data-card">
+                        <h3>德雷克方程</h3>
+                        <p>N = R* × fp × ne × fl × fi × fc × L</p>
+                        <p>其中：</p>
+                        <ul>
+                            <li>R* = 银河系恒星形成率 (7/年)</li>
+                            <li>fp = 有行星的恒星比例 (0.5)</li>
+                            <li>ne = 宜居行星数量 (2)</li>
+                            <li>fl = 生命出现的概率 (0.1)</li>
+                            <li>fi = 智能生命概率 (0.01)</li>
+                            <li>fc = 文明通信概率 (0.1)</li>
+                            <li>L = 文明寿命 (1000年)</li>
+                        </ul>
+                        <p class="result">结果：N ≈ 7 个可通信文明</p>
+                    </div>
+                </div>
+                <button class="next-btn" onclick="nextScene('fermi-intro', 'paradox-explanation')">继续</button>
+            </div>
+        </section>
+
+        <!-- 悖论解释 -->
+        <section id="paradox-explanation" class="scene">
+            <div class="scene-content">
+                <h2>为什么我们听不到他们的声音？</h2>
+                <div class="paradox-grid">
+                    <div class="paradox-card" onclick="showHypothesis('great-filter')">
+                        <h3>大过滤器假说</h3>
+                        <p>某种未知因素阻止了文明发展到星际旅行阶段</p>
+                    </div>
+                    <div class="paradox-card" onclick="showHypothesis('zoo-hypothesis')">
+                        <h3>动物园假说</h3>
+                        <p>高级文明在观察我们，但选择不接触</p>
+                    </div>
+                    <div class="paradox-card" onclick="showHypothesis('rare-earth')">
+                        <h3>稀有地球假说</h3>
+                        <p>地球的条件极其特殊，生命极其罕见</p>
+                    </div>
+                </div>
+                <button class="next-btn" onclick="nextScene('paradox-explanation', 'pump-alien-story')">PumpAlien的故事</button>
+            </div>
+        </section>
+
+        <!-- PumpAlien的故事 -->
+        <section id="pump-alien-story" class="scene">
+            <div class="scene-content">
+                <h2>PumpAlien的觉醒</h2>
+                <div class="story-container">
+                    <div class="story-text">
+                        <p>在服用了神秘的💊Pump后，你获得了前所未有的感知能力...</p>
+                        <p>现在你可以看到平行宇宙、时间线，甚至感知到其他文明的存在！</p>
+                    </div>
+                    <div class="interactive-choice">
+                        <h3>选择你的探索方向：</h3>
+                        <button onclick="choosePath('scientific')">🔬 科学探索</button>
+                        <button onclick="choosePath('philosophical')">🤔 哲学思考</button>
+                        <button onclick="choosePath('adventure')">🚀 冒险模式</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 科学探索路径 -->
+        <section id="scientific-path" class="scene">
+            <div class="scene-content">
+                <h2>科学证据与数据</h2>
+                <div class="evidence-container">
+                    <div class="evidence-item">
+                        <h3>SETI项目数据</h3>
+                        <p>自1960年代以来，人类一直在监听外星信号</p>
+                        <div class="data-visualization">
+                            <div class="signal-bar" data-frequency="1420">1420 MHz (氢线)</div>
+                            <div class="signal-bar" data-frequency="1665">1665 MHz (羟基线)</div>
+                            <div class="signal-bar" data-frequency="22000">22 GHz (水线)</div>
+                        </div>
+                    </div>
+                    <div class="evidence-item">
+                        <h3>系外行星发现</h3>
+                        <p>已确认的系外行星数量：5,000+</p>
+                        <p>宜居带行星：约50个</p>
+                    </div>
+                </div>
+                <button class="next-btn" onclick="nextScene('scientific-path', 'conclusion')">得出结论</button>
+            </div>
+        </section>
+
+        <!-- 哲学思考路径 -->
+        <section id="philosophical-path" class="scene">
+            <div class="scene-content">
+                <h2>哲学思考：存在的意义</h2>
+                <div class="philosophy-content">
+                    <div class="thought-experiment">
+                        <h3>思想实验：宇宙文明</h3>
+                        <p>如果宇宙中有无数文明，为什么我们如此特殊？</p>
+                        <p>还是说，我们其实并不特殊？</p>
+                    </div>
+                    <div class="philosophy-question">
+                        <h3>深度思考</h3>
+                        <p>也许孤独本身就是宇宙的真相...</p>
+                        <p>或者，我们从未真正孤独过？</p>
+                    </div>
+                </div>
+                <button class="next-btn" onclick="nextScene('philosophical-path', 'conclusion')">继续探索</button>
+            </div>
+        </section>
+
+        <!-- 冒险模式路径 -->
+        <section id="adventure-path" class="scene">
+            <div class="scene-content">
+                <h2>宇宙冒险：寻找其他文明</h2>
+                <div class="adventure-game">
+                    <div class="game-area">
+                        <div class="space-map">
+                            <div class="star-system" data-civilization="none">⭐</div>
+                            <div class="star-system" data-civilization="ancient">🌟</div>
+                            <div class="star-system" data-civilization="advanced">✨</div>
+                            <div class="star-system" data-civilization="none">⭐</div>
+                        </div>
+                        <div class="game-controls">
+                            <button onclick="scanSystem()">🔍 扫描星系</button>
+                            <button onclick="sendSignal()">📡 发送信号</button>
+                            <button onclick="travel()">🚀 星际旅行</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="next-btn" onclick="nextScene('adventure-path', 'conclusion')">完成冒险</button>
+            </div>
+        </section>
+
+        <!-- 结论 -->
+        <section id="conclusion" class="scene">
+            <div class="scene-content">
+                <h2>PumpAlien的宇宙启示</h2>
+                <div class="conclusion-content">
+                    <p>通过💊Pump的力量，你体验了费米悖论的深度...</p>
+                    <p>也许答案不在于寻找其他文明，而在于理解我们自己的存在。</p>
+                    <div class="final-message">
+                        <h3>宇宙的真相是：</h3>
+                        <p id="final-revelation">点击揭示真相...</p>
+                        <button onclick="revealTruth()">揭示真相</button>
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restartJourney()">重新开始</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="cosmic-footer">
+        <p>© 2024 PumpAlien宇宙探索项目 | 基于真实科学数据创作</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

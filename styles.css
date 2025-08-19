@@ -1,0 +1,485 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Exo 2', sans-serif;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 星空背景动画 */
+#stars, #stars2, #stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#stars {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white"/></svg>') repeat top center;
+    animation: move-stars 200s linear infinite;
+}
+
+#stars2 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="0.5" fill="white"/></svg>') repeat top center;
+    animation: move-stars 150s linear infinite;
+}
+
+#stars3 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="0.3" fill="white"/></svg>') repeat top center;
+    animation: move-stars 100s linear infinite;
+}
+
+@keyframes move-stars {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-2000px); }
+}
+
+/* 头部样式 */
+.cosmic-header {
+    text-align: center;
+    padding: 2rem 0;
+    background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(25,25,112,0.6));
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(138,43,226,0.5);
+}
+
+.main-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255,255,255,0.3);
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #b8c6db;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* 主要内容区域 */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 场景样式 */
+.scene {
+    display: none;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scene.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scene-content {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 2rem 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* PumpAlien 角色样式 */
+.pump-alien {
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.alien-body {
+    font-size: 8rem;
+    animation: alien-float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(138,43,226,0.8));
+}
+
+.pump-effect {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 2rem;
+    animation: pump-glow 2s ease-in-out infinite;
+}
+
+@keyframes alien-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes pump-glow {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #ff6b6b); }
+    50% { transform: scale(1.2); filter: drop-shadow(0 0 20px #ff6b6b); }
+}
+
+/* 按钮样式 */
+.start-btn, .next-btn, .restart-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.start-btn:hover, .next-btn:hover, .restart-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    background: linear-gradient(45deg, #764ba2, #667eea);
+}
+
+/* 科学数据卡片 */
+.scientific-data {
+    margin: 2rem 0;
+}
+
+.data-card {
+    background: rgba(0,0,0,0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    border-left: 5px solid #4ecdc4;
+    margin: 1rem 0;
+}
+
+.data-card h3 {
+    color: #4ecdc4;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', monospace;
+}
+
+.data-card ul {
+    list-style: none;
+    margin: 1rem 0;
+}
+
+.data-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.result {
+    font-size: 1.3rem;
+    color: #ff6b6b;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255,107,107,0.1);
+    border-radius: 10px;
+}
+
+/* 悖论解释网格 */
+.paradox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.paradox-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+}
+
+.paradox-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255,255,255,0.1);
+    border-color: #4ecdc4;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.paradox-card h3 {
+    color: #4ecdc4;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', monospace;
+}
+
+/* 交互选择 */
+.interactive-choice {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.interactive-choice button {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    margin: 0.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.interactive-choice button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* 科学证据容器 */
+.evidence-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.evidence-item {
+    background: rgba(0,0,0,0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.evidence-item h3 {
+    color: #4ecdc4;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', monospace;
+}
+
+/* 数据可视化 */
+.data-visualization {
+    margin: 1rem 0;
+}
+
+.signal-bar {
+    background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 25px;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.signal-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: signal-scan 2s linear infinite;
+}
+
+@keyframes signal-scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* 哲学内容 */
+.philosophy-content {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.thought-experiment, .philosophy-question {
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.thought-experiment h3, .philosophy-question h3 {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', monospace;
+}
+
+/* 冒险游戏 */
+.adventure-game {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.space-map {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+.star-system {
+    font-size: 3rem;
+    padding: 2rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.1);
+}
+
+.star-system:hover {
+    transform: scale(1.1);
+    border-color: #4ecdc4;
+}
+
+.game-controls {
+    margin: 2rem 0;
+}
+
+.game-controls button {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    margin: 0.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.game-controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* 结论内容 */
+.conclusion-content {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.final-message {
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.final-message h3 {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', monospace;
+}
+
+#final-revelation {
+    font-size: 1.2rem;
+    color: #b8c6db;
+    margin: 1rem 0;
+    min-height: 2rem;
+}
+
+/* 页脚 */
+.cosmic-footer {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0,0,0,0.8);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 4rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .scene-content {
+        padding: 2rem;
+        margin: 1rem 0;
+    }
+    
+    .paradox-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .evidence-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .space-map {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+    }
+}
+
+/* 特殊效果 */
+.hypothesis-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hypothesis-content {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 600px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.hypothesis-content h3 {
+    color: #4ecdc4;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', monospace;
+}
+
+.close-modal {
+    background: #ff6b6b;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
