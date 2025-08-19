@@ -428,16 +428,22 @@ body {
     margin-bottom: var(--spacing-xl);
 }
 
+/* 修改时间线标题颜色 */
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--accent-color);
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
 .title-line {
     display: block;
     font-size: 6rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--alien-color) 50%, var(--cosmic-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent-color);
     margin-bottom: var(--spacing-md);
-    text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
     animation: title-float 4s ease-in-out infinite;
 }
 
@@ -565,16 +571,6 @@ body {
 .section-header {
     text-align: center;
     margin-bottom: var(--spacing-3xl);
-}
-
-.section-title {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-md);
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--alien-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .section-subtitle {
@@ -1313,8 +1309,9 @@ body {
         display: none;
     }
     
-    .title-line {
-        font-size: 3.5rem;
+    /* 修改时间线标题颜色 */
+    .section-title {
+        font-size: 2rem;
     }
     
     .hero-actions {
@@ -1393,10 +1390,7 @@ body {
         padding: 0 var(--spacing-md);
     }
     
-    .title-line {
-        font-size: 2.5rem;
-    }
-    
+    /* 修改时间线标题颜色 */
     .section-title {
         font-size: 2rem;
     }
@@ -1460,7 +1454,8 @@ body {
         padding: var(--spacing-lg) 0;
     }
     
-    .title-line {
+    /* 修改时间线标题颜色 */
+    .section-title {
         background: none;
         -webkit-text-fill-color: #000000;
         color: #000000;
