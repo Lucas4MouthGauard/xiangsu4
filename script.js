@@ -1,799 +1,683 @@
-// Pixel Art NFT Meme Style JavaScript
-// Global Variables
-let currentScene = 'opening-scene';
-let gameState = {
-    energy: 100,
-    discoveredCivilizations: 0,
-    signalsSent: 0,
-    currentLocation: 0,
-    pixelMode: true,
-    particles: []
+// Cosmic Research Institute - PumpAlien Discovery Project
+// Professional JavaScript Implementation
+
+// Global State Management
+const appState = {
+    isLoading: true,
+    currentSection: 'hero',
+    classifiedMode: false,
+    terminalHistory: [],
+    modalOpen: false
 };
 
-// Scientific Data and Research Materials
-const scientificData = {
-    drakeEquation: {
-        R: 7, // Star formation rate
-        fp: 0.5, // Fraction with planets
-        ne: 2, // Habitable planets
-        fl: 0.1, // Life probability
-        fi: 0.01, // Intelligence probability
-        fc: 0.1, // Communication probability
-        L: 1000 // Civilization lifetime
-    },
-    setiData: {
-        frequencies: [1420, 1665, 22000],
-        searchYears: 60,
-        totalObservations: 1000000
-    },
-    exoplanets: {
-        total: 5000,
-        habitable: 50,
-        earthLike: 12
-    }
+// DOM Elements Cache
+const elements = {
+    loadingScreen: null,
+    nav: null,
+    terminal: null,
+    modal: null
 };
 
-// Fermi Paradox Hypotheses
-const hypotheses = {
-    'great-filter': {
-        title: 'Great Filter Hypothesis',
-        description: 'Some unknown factor prevents civilizations from reaching interstellar travel. This might include:\n\n• Nuclear war\n• Climate change\n• AI runaway\n• Biotech disaster\n• Asteroid impact\n\nIf this hypothesis holds, most civilizations become extinct before reaching interstellar travel capability.',
-        evidence: 'Human civilization currently faces multiple potential survival threats, including climate change, nuclear proliferation, and AI development.',
-        probability: 'High (70-80%)'
-    },
-    'zoo-hypothesis': {
-        title: 'Zoo Hypothesis',
-        description: 'Advanced civilizations know of our existence but choose not to contact us, like we observe animals in a zoo.\n\nPossible reasons:\n• Protect us from cultural shock\n• Wait for us to reach certain maturity\n• Avoid interfering with our natural development\n• Follow some cosmic convention',
-        evidence: 'Humans also adopt similar "no-contact" policies when encountering primitive tribes.',
-        probability: 'Medium (20-30%)'
-    },
-    'rare-earth': {
-        title: 'Rare Earth Hypothesis',
-        description: 'Earth\'s conditions are extremely special, making life emergence extremely rare.\n\nKey factors include:\n• Moderate star type and distance\n• Stable planetary orbit\n• Moon\'s existence stabilizing Earth\'s rotation\n• Plate tectonic activity\n• Magnetic field protection\n• Moderate gravity',
-        evidence: 'Among discovered exoplanets, truly Earth-like ones are extremely rare.',
-        probability: 'Medium (15-25%)'
-    }
-};
-
-// Initialize
+// Initialize Application
 document.addEventListener('DOMContentLoaded', function() {
-    initializePixelElements();
-    setupEventListeners();
-    generateParticles();
-    console.log('🚀 PumpAlien Cosmic Quest Project - Pixel Mode Activated!');
+    initializeApp();
 });
 
-// Initialize Pixel Elements
-function initializePixelElements() {
-    // Create floating pixel elements
-    createFloatingElements();
+// Main Initialization Function
+function initializeApp() {
+    cacheElements();
+    setupEventListeners();
+    startLoadingSequence();
     
-    // Generate pixel particles
-    generateParticles();
-    
-    // Add pixel scan lines
-    addScanLines();
+    console.log('🚀 Cosmic Research Institute - PumpAlien Discovery Project Initialized');
 }
 
-// Create Floating Elements
-function createFloatingElements() {
-    const container = document.getElementById('floating-elements');
-    
-    // Add more variety to floating elements
-    const elements = [
-        { emoji: '🚀', speed: 2, delay: 0 },
-        { emoji: '👽', speed: 1.5, delay: 4 },
-        { emoji: '🛸', speed: 3, delay: 8 },
-        { emoji: '⭐', speed: 1, delay: 12 },
-        { emoji: '🪐', speed: 0.8, delay: 16 },
-        { emoji: '💊', speed: 2.5, delay: 20 },
-        { emoji: '⚡', speed: 1.8, delay: 24 },
-        { emoji: '🌌', speed: 1.2, delay: 28 }
-    ];
-    
-    elements.forEach((element, index) => {
-        const div = document.createElement('div');
-        div.className = `pixel-${element.emoji === '🚀' ? 'ship' : 
-                               element.emoji === '👽' ? 'alien' : 
-                               element.emoji === '🛸' ? 'ufo' : 
-                               element.emoji === '⭐' ? 'star' : 
-                               element.emoji === '🪐' ? 'planet' : 'element'}`;
-        div.textContent = element.emoji;
-        div.style.animationDelay = `${element.delay}s`;
-        div.style.animationDuration = `${20 / element.speed}s`;
-        container.appendChild(div);
-    });
-}
-
-// Generate Pixel Particles
-function generateParticles() {
-    const container = document.getElementById('pixel-particles');
-    const particleCount = 50;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 10 + 's';
-        particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        container.appendChild(particle);
-    }
-}
-
-// Add Scan Lines
-function addScanLines() {
-    const scanLine = document.createElement('div');
-    scanLine.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-        animation: scan-line 3s linear infinite;
-        z-index: 1000;
-        pointer-events: none;
-    `;
-    document.body.appendChild(scanLine);
+// Cache DOM Elements
+function cacheElements() {
+    elements.loadingScreen = document.getElementById('loading-screen');
+    elements.nav = document.querySelector('.main-nav');
+    elements.terminal = document.getElementById('terminal-input');
+    elements.modal = document.getElementById('analysis-modal');
 }
 
 // Setup Event Listeners
 function setupEventListeners() {
-    // Paradox card click events
-    document.querySelectorAll('.paradox-card').forEach(card => {
-        card.addEventListener('click', function() {
-            const hypothesis = this.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
-            if (hypothesis) showHypothesis(hypothesis);
-        });
-    });
+    // Navigation scroll effects
+    setupNavigationEffects();
     
-    // Add keyboard shortcuts
-    document.addEventListener('keydown', handleKeyboard);
+    // Terminal functionality
+    setupTerminal();
     
-    // Add touch gestures
-    setupTouchGestures();
+    // Form submissions
+    setupFormHandlers();
     
-    // Add mouse effects
-    setupMouseEffects();
+    // Keyboard shortcuts
+    setupKeyboardShortcuts();
+    
+    // Intersection Observer for animations
+    setupScrollAnimations();
 }
 
-// Handle Keyboard
-function handleKeyboard(e) {
-    switch(e.key) {
-        case 'ArrowRight':
-            e.preventDefault();
-            nextSceneFromKeyboard();
-            break;
-        case 'ArrowLeft':
-            e.preventDefault();
-            previousSceneFromKeyboard();
-            break;
-        case 'Escape':
-            closeAllModals();
-            break;
-        case 'p':
-        case 'P':
-            togglePixelMode();
-            break;
-        case ' ':
-            e.preventDefault();
-            if (currentScene === 'opening-scene') startJourney();
-            break;
-    }
-}
-
-// Setup Touch Gestures
-function setupTouchGestures() {
-    let touchStartX = 0;
-    let touchStartY = 0;
-    
-    document.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-    });
-    
-    document.addEventListener('touchend', function(e) {
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-        
-        const diffX = touchStartX - touchEndX;
-        const diffY = touchStartY - touchEndY;
-        
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-            if (diffX > 0) {
-                nextSceneFromKeyboard();
-            } else {
-                previousSceneFromKeyboard();
-            }
-        }
-    });
-}
-
-// Setup Mouse Effects
-function setupMouseEffects() {
-    document.addEventListener('mousemove', function(e) {
-        const particles = document.querySelectorAll('.particle');
-        particles.forEach((particle, index) => {
-            const speed = (index % 3 + 1) * 0.5;
-            const x = (e.clientX * speed) / window.innerWidth;
-            const y = (e.clientY * speed) / window.innerHeight;
-            particle.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    });
-}
-
-// Start Journey
-function startJourney() {
-    console.log('🌟 PumpAlien begins cosmic exploration!');
-    playPixelSound('start');
-    addPixelEffect('start');
-    nextScene('opening-scene', 'fermi-intro');
-}
-
-// Scene Navigation
-function nextScene(fromScene, toScene) {
-    const fromElement = document.getElementById(fromScene);
-    const toElement = document.getElementById(toScene);
-    
-    if (fromElement && toElement) {
-        fromElement.classList.remove('active');
-        addPixelEffect('transition');
-        
-        setTimeout(() => {
-            toElement.classList.add('active');
-            currentScene = toScene;
-            
-            // Special scene effects
-            if (toScene === 'fermi-intro') {
-                animateDrakeEquation();
-            } else if (toScene === 'paradox-explanation') {
-                animateParadoxCards();
-            } else if (toScene === 'pump-alien-story') {
-                animatePumpAlien();
-            }
-            
-        }, 300);
-    }
-}
-
-// Choose Exploration Path
-function choosePath(path) {
-    console.log(`🚀 Chose ${path} path`);
-    
-    let targetScene;
-    switch(path) {
-        case 'scientific':
-            targetScene = 'scientific-path';
-            break;
-        case 'philosophical':
-            targetScene = 'philosophical-path';
-            break;
-        case 'adventure':
-            targetScene = 'adventure-path';
-            break;
-    }
-    
-    if (targetScene) {
-        addPixelEffect('choice');
-        nextScene('pump-alien-story', targetScene);
-    }
-}
-
-// Show Hypothesis Details
-function showHypothesis(hypothesisKey) {
-    const hypothesis = hypotheses[hypothesisKey];
-    if (!hypothesis) return;
-    
-    // Create modal
-    const modal = document.createElement('div');
-    modal.className = 'hypothesis-modal';
-    modal.style.display = 'flex';
-    
-    modal.innerHTML = `
-        <div class="hypothesis-content">
-            <h3 class="pixel-heading">${hypothesis.title}</h3>
-            <p style="white-space: pre-line; text-align: left; margin: 1rem 0; font-family: 'VT323', monospace;">${hypothesis.description}</p>
-            <div style="background: rgba(0,255,65,0.1); padding: 1rem; border: 2px solid var(--primary-color); margin: 1rem 0;">
-                <strong>Scientific Evidence:</strong> ${hypothesis.evidence}
-            </div>
-            <div style="background: rgba(255,0,255,0.1); padding: 1rem; border: 2px solid var(--secondary-color); margin: 1rem 0;">
-                <strong>Probability:</strong> ${hypothesis.probability}
-            </div>
-            <button class="close-modal" onclick="this.parentElement.parentElement.remove()">CLOSE</button>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Add click outside to close
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.remove();
-        }
-    });
-    
-    addPixelEffect('modal');
-}
-
-// Animate Drake Equation
-function animateDrakeEquation() {
-    const resultElement = document.querySelector('.pixel-result');
-    if (resultElement) {
-        resultElement.classList.add('pixel-fade-in');
-        setTimeout(() => {
-            resultElement.classList.remove('pixel-fade-in');
-        }, 500);
-    }
-    
-    // Animate parameters one by one
-    const params = document.querySelectorAll('.param-item');
-    params.forEach((param, index) => {
-        setTimeout(() => {
-            param.classList.add('pixel-fade-in');
-            setTimeout(() => param.classList.remove('pixel-fade-in'), 500);
-        }, index * 200);
-    });
-}
-
-// Animate Paradox Cards
-function animateParadoxCards() {
-    const cards = document.querySelectorAll('.paradox-card');
-    cards.forEach((card, index) => {
-        setTimeout(() => {
-            card.classList.add('pixel-fade-in');
-            setTimeout(() => card.classList.remove('pixel-fade-in'), 500);
-        }, index * 200);
-    });
-}
-
-// Animate PumpAlien
-function animatePumpAlien() {
-    const alien = document.querySelector('.alien-sprite');
-    const pump = document.querySelector('.pump-effect');
-    const glow = document.querySelector('.pixel-glow');
-    
-    if (alien && pump && glow) {
-        alien.classList.add('pixel-shake');
-        pump.classList.add('pixel-fade-in');
-        glow.style.animation = 'glow-pulse 0.5s ease-in-out infinite';
-        
-        setTimeout(() => {
-            alien.classList.remove('pixel-shake');
-            pump.classList.remove('pixel-fade-in');
-        }, 1000);
-    }
-}
-
-// Adventure Game Functions
-function scanSystem() {
-    const currentSystem = document.querySelector(`[data-civilization]:nth-child(${gameState.currentLocation + 1})`);
-    if (currentSystem) {
-        const civilization = currentSystem.getAttribute('data-civilization');
-        let message = '';
-        
-        switch(civilization) {
-            case 'none':
-                message = '🔍 Scan Result: No civilization signs detected in this system';
-                break;
-            case 'ancient':
-                message = '🔍 Scan Result: Ancient civilization ruins discovered! Energy cost: 20';
-                gameState.energy -= 20;
-                gameState.discoveredCivilizations++;
-                addPixelEffect('discovery');
-                break;
-            case 'advanced':
-                message = '🔍 Scan Result: Advanced civilization found! Energy cost: 30';
-                gameState.energy -= 30;
-                gameState.discoveredCivilizations++;
-                addPixelEffect('discovery');
-                break;
-        }
-        
-        showGameMessage(message);
-        updateGameState();
-        addPixelEffect('scan');
-    }
-}
-
-function sendSignal() {
-    if (gameState.energy >= 25) {
-        gameState.energy -= 25;
-        gameState.signalsSent++;
-        
-        const message = `📡 Signal sent! Waiting for response...\nEnergy remaining: ${gameState.energy}`;
-        showGameMessage(message);
-        updateGameState();
-        addPixelEffect('signal');
-        
-        // Simulate signal response
-        setTimeout(() => {
-            const responses = [
-                'Received weak response signal...',
-                'Signal blocked by interference',
-                'No response received',
-                'Unknown signal source detected!'
-            ];
-            const response = responses[Math.floor(Math.random() * responses.length)];
-            showGameMessage(`📡 ${response}`);
-        }, 2000);
-    } else {
-        showGameMessage('❌ Insufficient energy to send signal!');
-        addPixelEffect('error');
-    }
-}
-
-function travel() {
-    if (gameState.energy >= 40) {
-        gameState.energy -= 40;
-        gameState.currentLocation = (gameState.currentLocation + 1) % 4;
-        
-        const message = `🚀 Arrived at new star system!\nCurrent location: ${gameState.currentLocation + 1}\nEnergy remaining: ${gameState.energy}`;
-        showGameMessage(message);
-        updateGameState();
-        addPixelEffect('travel');
-        
-        // Update system display
-        highlightCurrentSystem();
-    } else {
-        showGameMessage('❌ Insufficient energy for interstellar travel!');
-        addPixelEffect('error');
-    }
-}
-
-function upgradeShip() {
-    if (gameState.energy >= 50) {
-        gameState.energy -= 50;
-        gameState.energy = Math.min(100, gameState.energy + 20);
-        
-        const message = `⚡ Ship upgraded! Energy restored to ${gameState.energy}`;
-        showGameMessage(message);
-        updateGameState();
-        addPixelEffect('upgrade');
-    } else {
-        showGameMessage('❌ Insufficient energy for upgrade!');
-        addPixelEffect('error');
-    }
-}
-
-function highlightCurrentSystem() {
-    document.querySelectorAll('.star-system').forEach((system, index) => {
-        if (index === gameState.currentLocation) {
-            system.style.borderColor = 'var(--accent-color)';
-            system.style.transform = 'scale(1.2)';
-            system.style.boxShadow = '0 0 20px var(--shadow-color)';
-        } else {
-            system.style.borderColor = 'var(--border-color)';
-            system.style.transform = 'scale(1)';
-            system.style.boxShadow = 'none';
-        }
-    });
-}
-
-function showGameMessage(message) {
-    // Create message display
-    const messageDiv = document.createElement('div');
-    messageDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: rgba(0,0,0,0.9);
-        color: var(--text-color);
-        padding: 1rem;
-        border: var(--pixel-size) solid var(--border-color);
-        max-width: 300px;
-        z-index: 1000;
-        font-family: 'VT323', monospace;
-        white-space: pre-line;
-        animation: pixel-fade-in 0.3s ease-in;
-    `;
-    messageDiv.textContent = message;
-    
-    document.body.appendChild(messageDiv);
-    
-    // Auto-remove after 3 seconds
-    setTimeout(() => {
-        messageDiv.style.animation = 'pixel-fade-in 0.3s ease-in reverse';
-        setTimeout(() => messageDiv.remove(), 300);
-    }, 3000);
-}
-
-function updateGameState() {
-    // Update game status display
-    const energyDisplay = document.getElementById('energy-display');
-    const civilizationsDisplay = document.getElementById('civilizations-display');
-    const signalsDisplay = document.getElementById('signals-display');
-    
-    if (energyDisplay) energyDisplay.textContent = gameState.energy;
-    if (civilizationsDisplay) civilizationsDisplay.textContent = gameState.discoveredCivilizations;
-    if (signalsDisplay) signalsDisplay.textContent = gameState.signalsSent;
-}
-
-// Philosophical Path Functions
-function generateThought() {
-    const thoughts = [
-        "If we are alone, does that make us special or insignificant?",
-        "Perhaps the universe is waiting for us to mature enough to join the cosmic community.",
-        "Maybe loneliness is the price we pay for consciousness.",
-        "In the vastness of space, every connection becomes precious.",
-        "The search for others might be the search for ourselves."
+// Loading Sequence
+function startLoadingSequence() {
+    const loadingSteps = [
+        'Initializing classified protocols...',
+        'Loading PumpAlien research data...',
+        'Establishing secure connections...',
+        'Access granted. Welcome, Researcher.'
     ];
     
-    const randomThought = thoughts[Math.floor(Math.random() * thoughts.length)];
-    showGameMessage(`🤔 ${randomThought}`);
-    addPixelEffect('thought');
+    let currentStep = 0;
+    const statusElement = document.querySelector('.loading-status');
+    
+    const updateStatus = () => {
+        if (currentStep < loadingSteps.length) {
+            statusElement.textContent = loadingSteps[currentStep];
+            currentStep++;
+        }
+    };
+    
+    // Update status every 1.5 seconds
+    const statusInterval = setInterval(updateStatus, 1500);
+    
+    // Simulate loading completion after 6 seconds
+    setTimeout(() => {
+        clearInterval(statusInterval);
+        completeLoading();
+    }, 6000);
 }
 
-function meditate() {
-    showGameMessage('🧘 Meditating...\nEnergy restored by 10');
-    gameState.energy = Math.min(100, gameState.energy + 10);
-    updateGameState();
-    addPixelEffect('meditation');
+// Complete Loading Sequence
+function completeLoading() {
+    elements.loadingScreen.classList.add('fade-out');
+    
+    setTimeout(() => {
+        elements.loadingScreen.style.display = 'none';
+        appState.isLoading = false;
+        
+        // Initialize hero section animations
+        initializeHeroAnimations();
+        
+        // Show navigation
+        showNavigation();
+    }, 500);
 }
 
-// Scientific Path Functions
+// Initialize Hero Animations
+function initializeHeroAnimations() {
+    const heroElements = [
+        '.hero-badge',
+        '.hero-title',
+        '.hero-description',
+        '.hero-actions',
+        '.hero-stats'
+    ];
+    
+    heroElements.forEach((selector, index) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                element.style.transition = 'all 0.8s ease';
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, index * 200);
+        }
+    });
+}
+
+// Show Navigation
+function showNavigation() {
+    elements.nav.style.transform = 'translateY(0)';
+    elements.nav.style.opacity = '1';
+}
+
+// Navigation Effects
+function setupNavigationEffects() {
+    let lastScrollY = window.scrollY;
+    
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        
+        // Add/remove scrolled class for styling
+        if (currentScrollY > 100) {
+            elements.nav.classList.add('scrolled');
+        } else {
+            elements.nav.classList.remove('scrolled');
+        }
+        
+        // Hide/show navigation on scroll
+        if (currentScrollY > lastScrollY && currentScrollY > 200) {
+            elements.nav.style.transform = 'translateY(-100%)';
+        } else {
+            elements.nav.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollY = currentScrollY;
+    });
+}
+
+// Scroll Animations
+function setupScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.timeline-item, .analysis-card, .finding-item, .protocol-card');
+    animatedElements.forEach(el => observer.observe(el));
+}
+
+// Terminal System
+function setupTerminal() {
+    if (!elements.terminal) return;
+    
+    const terminalCommands = {
+        help: {
+            description: 'Show available commands',
+            execute: () => showTerminalHelp()
+        },
+        clear: {
+            description: 'Clear terminal output',
+            execute: () => clearTerminal()
+        },
+        status: {
+            description: 'Show system status',
+            execute: () => showSystemStatus()
+        },
+        scan: {
+            description: 'Scan for PumpAlien signals',
+            execute: () => scanForSignals()
+        },
+        analyze: {
+            description: 'Analyze current data',
+            execute: () => analyzeData()
+        },
+        classified: {
+            description: 'Toggle classified mode',
+            execute: () => toggleClassifiedMode()
+        }
+    };
+    
+    // Store commands globally for access
+    window.terminalCommands = terminalCommands;
+}
+
+// Handle Terminal Commands
+function handleTerminalCommand(event) {
+    if (event.key === 'Enter') {
+        const input = event.target.value.trim();
+        if (input) {
+            executeCommand(input);
+            event.target.value = '';
+        }
+    }
+}
+
+// Execute Terminal Command
+function executeCommand(input) {
+    const command = input.toLowerCase().split(' ')[0];
+    const args = input.split(' ').slice(1);
+    
+    addTerminalOutput(`> ${input}`);
+    
+    if (window.terminalCommands && window.terminalCommands[command]) {
+        try {
+            window.terminalCommands[command].execute(args);
+        } catch (error) {
+            addTerminalOutput(`Error: ${error.message}`);
+        }
+    } else {
+        addTerminalOutput(`Command not found: ${command}. Type 'help' for available commands.`);
+    }
+}
+
+// Terminal Output Functions
+function addTerminalOutput(message) {
+    const terminalOutput = document.getElementById('terminal-output');
+    if (!terminalOutput) return;
+    
+    const outputLine = document.createElement('div');
+    outputLine.className = 'output-line';
+    outputLine.textContent = message;
+    
+    terminalOutput.appendChild(outputLine);
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function clearTerminal() {
+    const terminalOutput = document.getElementById('terminal-output');
+    if (terminalOutput) {
+        terminalOutput.innerHTML = '';
+        addTerminalOutput('Terminal cleared.');
+    }
+}
+
+// Terminal Commands Implementation
+function showTerminalHelp() {
+    const helpText = [
+        'Available Commands:',
+        '  help      - Show this help message',
+        '  clear     - Clear terminal output',
+        '  status    - Show system status',
+        '  scan      - Scan for PumpAlien signals',
+        '  analyze   - Analyze current data',
+        '  classified - Toggle classified mode'
+    ];
+    
+    helpText.forEach(line => addTerminalOutput(line));
+}
+
+function showSystemStatus() {
+    const status = [
+        'System Status:',
+        `  Loading: ${appState.isLoading ? 'Yes' : 'No'}`,
+        `  Classified Mode: ${appState.classifiedMode ? 'Active' : 'Inactive'}`,
+        `  Current Section: ${appState.currentSection}`,
+        `  Security Level: ${appState.classifiedMode ? 'Classified' : 'Public'}`,
+        '  All systems operational.'
+    ];
+    
+    status.forEach(line => addTerminalOutput(line));
+}
+
 function scanForSignals() {
-    showGameMessage('🔬 Scanning for signals...\nThis may take a moment...');
+    addTerminalOutput('Initiating signal scan...');
     
     setTimeout(() => {
         const signals = Math.floor(Math.random() * 5);
         if (signals > 0) {
-            showGameMessage(`🔬 Found ${signals} potential signal(s)!`);
-            addPixelEffect('discovery');
+            addTerminalOutput(`Scan complete. Found ${signals} potential signal(s)!`);
+            addTerminalOutput('Analyzing signal patterns...');
+            
+            setTimeout(() => {
+                addTerminalOutput('Signal analysis complete. Patterns suggest PumpAlien activity.');
+            }, 2000);
         } else {
-            showGameMessage('🔬 No signals detected in this frequency range.');
+            addTerminalOutput('Scan complete. No signals detected in current frequency range.');
         }
-    }, 2000);
+    }, 3000);
+}
+
+function analyzeData() {
+    addTerminalOutput('Starting data analysis...');
+    
+    const analysisSteps = [
+        'Loading research data...',
+        'Analyzing biological patterns...',
+        'Processing energy signatures...',
+        'Cross-referencing with known entities...',
+        'Analysis complete.'
+    ];
+    
+    let step = 0;
+    const analysisInterval = setInterval(() => {
+        if (step < analysisSteps.length) {
+            addTerminalOutput(analysisSteps[step]);
+            step++;
+        } else {
+            clearInterval(analysisInterval);
+            addTerminalOutput('Results: PumpAlien shows unprecedented complexity. Further research required.');
+        }
+    }, 1000);
+}
+
+// Classified Mode Toggle
+function toggleClassifiedMode() {
+    appState.classifiedMode = !appState.classifiedMode;
+    
+    if (appState.classifiedMode) {
+        document.body.classList.add('classified-mode');
+        addTerminalOutput('Classified mode activated. Enhanced security protocols enabled.');
+    } else {
+        document.body.classList.remove('classified-mode');
+        addTerminalOutput('Classified mode deactivated. Returning to public mode.');
+    }
+    
+    updateClassifiedModeUI();
+}
+
+// Update Classified Mode UI
+function updateClassifiedModeUI() {
+    const classifiedElements = document.querySelectorAll('.classified-content');
+    classifiedElements.forEach(el => {
+        if (appState.classifiedMode) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    });
+}
+
+// Form Handlers
+function setupFormHandlers() {
+    const contactForm = document.querySelector('.secure-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactForm);
+    }
+}
+
+// Handle Contact Form Submission
+function handleContactForm(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const clearance = formData.get('security-clearance');
+    const message = formData.get('contact-message');
+    
+    if (!clearance || !message) {
+        showNotification('Please fill in all required fields.', 'error');
+        return;
+    }
+    
+    // Simulate form submission
+    showNotification('Secure message sent successfully. Research team will respond within 24 hours.', 'success');
+    
+    // Reset form
+    event.target.reset();
+    
+    // Log to terminal if available
+    if (elements.terminal) {
+        addTerminalOutput(`Secure message sent via ${clearance} clearance level.`);
+    }
+}
+
+// Notification System
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        color: white;
+        font-weight: 500;
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        max-width: 400px;
+    `;
+    
+    // Set background color based on type
+    const colors = {
+        success: '#10b981',
+        error: '#ef4444',
+        warning: '#f59e0b',
+        info: '#3b82f6'
+    };
+    
+    notification.style.background = colors[type] || colors.info;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 5000);
+}
+
+// Keyboard Shortcuts
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (event) => {
+        // Ctrl/Cmd + K to focus terminal
+        if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+            event.preventDefault();
+            if (elements.terminal) {
+                elements.terminal.focus();
+            }
+        }
+        
+        // Escape to close modals
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+        
+        // Ctrl/Cmd + / to toggle classified mode
+        if ((event.ctrlKey || event.metaKey) && event.key === '/') {
+            event.preventDefault();
+            toggleClassifiedMode();
+        }
+    });
+}
+
+// Modal System
+function showModal(title, content) {
+    const modal = document.getElementById('analysis-modal');
+    if (!modal) return;
+    
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    if (modalTitle) modalTitle.textContent = title;
+    if (modalBody) modalBody.innerHTML = content;
+    
+    modal.classList.add('show');
+    appState.modalOpen = true;
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('analysis-modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    appState.modalOpen = false;
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}
+
+// Analysis Modal Functions
+function viewDetailedAnalysis(type) {
+    const analysisData = {
+        biological: {
+            title: 'Biological Profile - Detailed Analysis',
+            content: `
+                <div class="analysis-detail">
+                    <h4>Species Classification</h4>
+                    <p>PumpAlien represents a previously unknown branch of extraterrestrial evolution, 
+                    exhibiting characteristics that challenge our understanding of biological possibility.</p>
+                    
+                    <h4>Physical Composition</h4>
+                    <p>The entity appears to exist in a state between pure energy and solid matter, 
+                    capable of transitioning between forms at will. This suggests advanced control over 
+                    quantum states and dimensional physics.</p>
+                    
+                    <h4>Consciousness Analysis</h4>
+                    <p>Initial attempts to measure consciousness levels have failed, suggesting 
+                    intelligence beyond current human measurement capabilities. The entity appears 
+                    to operate on multiple cognitive levels simultaneously.</p>
+                    
+                    <h4>Lifespan Assessment</h4>
+                    <p>No signs of aging or cellular decay have been observed. The entity may be 
+                    effectively immortal, existing outside normal temporal constraints.</p>
+                </div>
+            `
+        },
+        technological: {
+            title: 'Technological Capabilities - Detailed Analysis',
+            content: `
+                <div class="analysis-detail">
+                    <h4>Energy Manipulation</h4>
+                    <p>PumpAlien demonstrates mastery over energy forms previously thought impossible. 
+                    The entity can create, destroy, and transform energy at will, suggesting understanding 
+                    of physics beyond current human knowledge.</p>
+                    
+                    <h4>Space-Time Control</h4>
+                    <p>Advanced sensors have detected localized distortions in space-time around 
+                    the entity. This suggests the ability to manipulate the fundamental fabric of reality, 
+                    a technology that could revolutionize human understanding of physics.</p>
+                    
+                    <h4>Communication Systems</h4>
+                    <p>The entity communicates through quantum entanglement, bypassing normal 
+                    communication limitations. This technology could enable instant communication 
+                    across any distance.</p>
+                    
+                    <h4>Threat Assessment</h4>
+                    <p>While PumpAlien has shown no hostile intent, its capabilities represent 
+                    a potential threat if misused. Current containment protocols are designed 
+                    to prevent any unauthorized access to these technologies.</p>
+                </div>
+            `
+        },
+        behavioral: {
+            title: 'Behavioral Patterns - Detailed Analysis',
+            content: `
+                <div class="analysis-detail">
+                    <h4>Motivation Analysis</h4>
+                    <p>PumpAlien's motivations remain unclear. The entity appears to be studying 
+                    human civilization, but the purpose of this observation is unknown. Theories 
+                    range from scientific curiosity to preparation for contact.</p>
+                    
+                    <h4>Interaction Patterns</h4>
+                    <p>The entity has maintained a non-hostile stance throughout all encounters. 
+                    It appears to respect boundaries and protocols, suggesting advanced understanding 
+                    of social dynamics and cultural sensitivity.</p>
+                    
+                    <h4>Communication Methods</h4>
+                    <p>PumpAlien communicates through telepathic means, projecting thoughts and 
+                    concepts directly into the minds of observers. This method bypasses language 
+                    barriers and cultural differences.</p>
+                    
+                    <h4>Social Structure</h4>
+                    <p>Current observations suggest PumpAlien operates as an individual entity, 
+                    though this may be a limitation of our observation methods. The entity may 
+                    be part of a larger collective consciousness or civilization.</p>
+                </div>
+            `
+        }
+    };
+    
+    if (analysisData[type]) {
+        showModal(analysisData[type].title, analysisData[type].content);
+    }
+}
+
+// Hero Section Functions
+function beginInvestigation() {
+    const discoverySection = document.getElementById('discovery');
+    if (discoverySection) {
+        discoverySection.scrollIntoView({ behavior: 'smooth' });
+        appState.currentSection = 'discovery';
+    }
+}
+
+function viewClassifiedFiles() {
+    if (!appState.classifiedMode) {
+        showNotification('Classified mode required to access restricted files.', 'warning');
+        return;
+    }
+    
+    showModal('Classified Files - PumpAlien Research', `
+        <div class="classified-files">
+            <h4>Restricted Access Files</h4>
+            <p>Welcome to the classified research database. The following files contain 
+            sensitive information about PumpAlien and related phenomena.</p>
+            
+            <div class="file-list">
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">XT-2024-001_Initial_Contact.pdf</span>
+                    <span class="file-status">Classified</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">PumpAlien_Biological_Analysis.pdf</span>
+                    <span class="file-status">Classified</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">Energy_Signature_Research.pdf</span>
+                    <span class="file-status">Classified</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">Contact_Protocols_v2.1.pdf</span>
+                    <span class="file-status">Classified</span>
+                </div>
+            </div>
+            
+            <p class="warning">⚠️ These files contain sensitive information. Unauthorized access 
+            will result in immediate termination of research privileges.</p>
+        </div>
+    `);
+}
+
+// Secure Terminal Access
+function accessSecureTerminal() {
+    const terminalSection = document.querySelector('.terminal-section');
+    if (terminalSection) {
+        terminalSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Focus terminal after scroll
+        setTimeout(() => {
+            if (elements.terminal) {
+                elements.terminal.focus();
+            }
+        }, 1000);
+    }
 }
 
 // Utility Functions
-function shuffleCards() {
-    const cards = document.querySelectorAll('.paradox-card');
-    cards.forEach(card => {
-        card.style.animation = 'pixel-shake 0.5s ease-in-out';
-        setTimeout(() => card.style.animation = '', 500);
-    });
-    addPixelEffect('shuffle');
-}
-
-function animateEquation() {
-    const equation = document.querySelector('.equation');
-    if (equation) {
-        equation.style.animation = 'pixel-shake 0.5s ease-in-out';
-        setTimeout(() => equation.style.animation = '', 500);
-    }
-    addPixelEffect('equation');
-}
-
-// Reveal Truth
-function revealTruth() {
-    const revelationElement = document.getElementById('final-revelation');
-    const truths = [
-        "The truth of the universe is: We were never truly alone. Every civilization is searching for others, just as we search for them.",
-        "The Fermi Paradox is not a problem, but an answer: The vastness of the universe teaches us that true connection lies not in distance, but in understanding.",
-        "Perhaps other civilizations are right beside us, we just haven't learned how to perceive their existence yet.",
-        "Loneliness is the universe's gift to us, making us cherish every encounter, every discovery.",
-        "The truth is: We are all children of the universe, searching for our way home."
-    ];
-    
-    const randomTruth = truths[Math.floor(Math.random() * randomTruth.length)];
-    
-    // Typewriter effect
-    let i = 0;
-    revelationElement.textContent = '';
-    revelationElement.style.color = 'var(--accent-color)';
-    
-    const typeWriter = setInterval(() => {
-        if (i < randomTruth.length) {
-            revelationElement.textContent += randomTruth.charAt(i);
-            i++;
-        } else {
-            clearInterval(typeWriter);
-            // Add blinking effect
-            setInterval(() => {
-                revelationElement.style.opacity = revelationElement.style.opacity === '0.5' ? '1' : '0.5';
-            }, 1000);
-        }
-    }, 50);
-    
-    addPixelEffect('revelation');
-}
-
-// Restart Journey
-function restartJourney() {
-    // Reset game state
-    gameState = {
-        energy: 100,
-        discoveredCivilizations: 0,
-        signalsSent: 0,
-        currentLocation: 0,
-        pixelMode: gameState.pixelMode,
-        particles: []
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
     };
-    
-    // Return to opening scene
-    document.querySelectorAll('.scene').forEach(scene => {
-        scene.classList.remove('active');
-    });
-    
-    document.getElementById('opening-scene').classList.add('active');
-    currentScene = 'opening-scene';
-    
-    addPixelEffect('restart');
-    console.log('🔄 Cosmic exploration restarted!');
-}
-
-// Share Experience
-function shareExperience() {
-    const shareText = `I just explored the Fermi Paradox with PumpAlien! 🚀👽💊\nCheck out this cosmic quest!`;
-    
-    if (navigator.share) {
-        navigator.share({
-            title: 'PumpAlien Cosmic Quest',
-            text: shareText,
-            url: window.location.href
-        });
-    } else {
-        // Fallback for browsers without Web Share API
-        navigator.clipboard.writeText(shareText + '\n' + window.location.href);
-        showGameMessage('📋 Experience copied to clipboard!');
-    }
-    
-    addPixelEffect('share');
-}
-
-// Pixel Effects
-function addPixelEffect(effectType) {
-    const effects = {
-        start: () => createPixelExplosion(),
-        transition: () => createPixelTrail(),
-        choice: () => createPixelRipple(),
-        scan: () => createPixelScan(),
-        signal: () => createPixelWave(),
-        travel: () => createPixelWarp(),
-        upgrade: () => createPixelUpgrade(),
-        discovery: () => createPixelDiscovery(),
-        error: () => createPixelError(),
-        thought: () => createPixelThought(),
-        meditation: () => createPixelMeditation(),
-        shuffle: () => createPixelShuffle(),
-        equation: () => createPixelEquation(),
-        revelation: () => createPixelRevelation(),
-        restart: () => createPixelRestart(),
-        share: () => createPixelShare(),
-        modal: () => createPixelModal()
-    };
-    
-    if (effects[effectType]) {
-        effects[effectType]();
-    }
-}
-
-// Create various pixel effects
-function createPixelExplosion() {
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = '50%';
-        particle.style.top = '50%';
-        particle.style.animation = `pixel-explosion 1s ease-out forwards`;
-        document.body.appendChild(particle);
-        
-        setTimeout(() => particle.remove(), 1000);
-    }
-}
-
-function createPixelTrail() {
-    const trail = document.createElement('div');
-    trail.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-        opacity: 0.3;
-        animation: pixel-trail 0.5s ease-out forwards;
-        pointer-events: none;
-        z-index: 999;
-    `;
-    document.body.appendChild(trail);
-    
-    setTimeout(() => trail.remove(), 500);
-}
-
-// Add more pixel effect functions as needed...
-
-// Toggle Pixel Mode
-function togglePixelMode() {
-    gameState.pixelMode = !gameState.pixelMode;
-    
-    if (gameState.pixelMode) {
-        document.body.classList.add('pixel-mode');
-        document.body.classList.remove('smooth-mode');
-    } else {
-        document.body.classList.remove('pixel-mode');
-        document.body.classList.add('smooth-mode');
-    }
-    
-    addPixelEffect('toggle');
-}
-
-// Close All Modals
-function closeAllModals() {
-    const modals = document.querySelectorAll('.hypothesis-modal');
-    modals.forEach(modal => modal.remove());
-}
-
-// Navigation from Keyboard
-function nextSceneFromKeyboard() {
-    const scenes = ['opening-scene', 'fermi-intro', 'paradox-explanation', 'pump-alien-story', 'scientific-path', 'philosophical-path', 'adventure-path', 'conclusion'];
-    const currentIndex = scenes.indexOf(currentScene);
-    const nextIndex = (currentIndex + 1) % scenes.length;
-    
-    if (nextIndex > 0) {
-        nextScene(currentScene, scenes[nextIndex]);
-    }
-}
-
-function previousSceneFromKeyboard() {
-    const scenes = ['opening-scene', 'fermi-intro', 'paradox-explanation', 'pump-alien-story', 'scientific-path', 'philosophical-path', 'adventure-path', 'conclusion'];
-    const currentIndex = scenes.indexOf(currentScene);
-    const prevIndex = currentIndex > 0 ? currentIndex - 1 : scenes.length - 1;
-    
-    if (prevIndex >= 0) {
-        nextScene(currentScene, scenes[prevIndex]);
-    }
-}
-
-// Sound System (Simulated)
-function playPixelSound(soundType) {
-    // Here you can integrate real pixel sound effects
-    console.log(`🔊 Playing pixel sound: ${soundType}`);
 }
 
 // Performance Optimization
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    }
+const optimizedScrollHandler = debounce(() => {
+    // Handle scroll-based animations and effects
+}, 16); // ~60fps
+
+window.addEventListener('scroll', optimizedScrollHandler);
+
+// Export functions for global access
+window.beginInvestigation = beginInvestigation;
+window.viewClassifiedFiles = viewClassifiedFiles;
+window.accessSecureTerminal = accessSecureTerminal;
+window.toggleClassifiedMode = toggleClassifiedMode;
+window.viewDetailedAnalysis = viewDetailedAnalysis;
+window.closeModal = closeModal;
+window.handleTerminalCommand = handleTerminalCommand;
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
 }
-
-// Responsive Handling
-window.addEventListener('resize', throttle(function() {
-    console.log('🔄 Window resized');
-}, 100));
-
-// Add CSS animations for pixel effects
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes pixel-explosion {
-        0% { transform: scale(0) rotate(0deg); opacity: 1; }
-        100% { transform: scale(1) rotate(360deg); opacity: 0; }
-    }
-    
-    @keyframes pixel-trail {
-        0% { transform: translateX(-100%); opacity: 0.3; }
-        50% { transform: translateX(0%); opacity: 0.6; }
-        100% { transform: translateX(100%); opacity: 0; }
-    }
-    
-    .pixel-mode {
-        image-rendering: pixelated;
-        image-rendering: -moz-crisp-edges;
-        image-rendering: crisp-edges;
-    }
-    
-    .smooth-mode {
-        image-rendering: auto;
-    }
-`;
-document.head.appendChild(style);
-
-console.log('🚀 PumpAlien Cosmic Quest Project - Pixel JavaScript Loaded!');
