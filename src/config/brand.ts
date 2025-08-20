@@ -2,11 +2,11 @@ export const brandConfig = {
   name: 'PumpAlien Discovery',
   description: '像素风格外星人发现平台',
   images: {
-    logo: '../../images/pumpalien.png',
-    alien: '../../images/alien.png',
-    pump: '../../images/pump.png',
-    ufo1: '../../images/ufo1.png',
-    ufo2: '../../images/ufo2.png'
+    logo: '/images/pumpalien.png',
+    alien: '/images/alien.png',
+    pump: '/images/pump.png',
+    ufo1: '/images/ufo1.png',
+    ufo2: '/images/ufo2.png'
   },
   colors: {
     primary: '#00ff88',

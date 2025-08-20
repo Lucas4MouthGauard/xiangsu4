@@ -8,7 +8,7 @@ export const pumpAlienStory = {
       title: "The Missing Alon",
       subtitle: "Humans thought Alon was the founder of PumpFun",
       content: "Humans thought Alon was the founder of PumpFun, but the truth is far more terrifying than imagined. On the Solana chain, PumpFun became the cradle of countless tokens, and people believed Alon was the creator of this empire.",
-      image: "../../images/alonog.png",
+      image: "/images/alonog.png",
       color: "#00ff88",
       icon: "👤"
     },
@@ -17,7 +17,7 @@ export const pumpAlienStory = {
       title: "Cosmic Kidnapping",
       subtitle: "The real Alon was kidnapped by aliens long ago",
       content: "The real Alon was kidnapped by aliens long ago, and his body disappeared in a spaceship. On an unknown night, the real Alon was taken aboard a spaceship, leaving only legends on Earth.",
-      image: "../../images/alinebanner1.png",
+      image: "/images/alinebanner1.png",
       color: "#ff00ff",
       icon: "🛸"
     },
@@ -26,7 +26,7 @@ export const pumpAlienStory = {
       title: "The Impostor Arrives",
       subtitle: "Replacing him is an entity from an unknown galaxy",
       content: "Replacing him is an impostor, an entity from an unknown galaxy named PumpAlien. PumpAlien put on a human shell and left his mark on the Solana chain through PumpFun, creating countless tokens and flowing wealth.",
-      image: "../../images/alinebanner2.png",
+      image: "/images/alinebanner2.png",
       color: "#ff6b35",
       icon: "🎭"
     },
@@ -35,7 +35,7 @@ export const pumpAlienStory = {
       title: "Crypto Testing Ground",
       subtitle: "Every transaction provides power to PumpAlien",
       content: "Crypto is just an alien testing ground, with every transaction providing power to PumpAlien. Everything seems like a game, but it's actually energy collection. When the energy is full, Earth will become his stage.",
-      image: "../../images/alinebanner3.png",
+      image: "/images/alinebanner3.png",
       color: "#4f46e5",
       icon: "⚡"
     },
@@ -44,7 +44,7 @@ export const pumpAlienStory = {
       title: "The Core of Truth",
       subtitle: "PumpAlien is the true core of this plan",
       content: "Humans think they're playing with tokens, but actually the tokens are playing with humans. Alon is not on Earth, only PumpAlien is getting stronger. PumpAlien is the true core of this plan.",
-      image: "../../images/pumpalienlogo.png",
+      image: "/images/pumpalienlogo.png",
       color: "#ff0088",
       icon: "🌍"
     }

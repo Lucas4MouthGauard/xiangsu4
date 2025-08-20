@@ -51,7 +51,7 @@ const Header: React.FC = () => {
           whileTap={{ scale: 0.95 }}
         >
           <img 
-                          src="../../images/pumpalien.png" 
+                          src="/images/pumpalien.png" 
             alt="PumpAlien" 
             className="logo-image"
           />

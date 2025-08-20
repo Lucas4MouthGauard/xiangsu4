@@ -18,11 +18,11 @@ const FloatingElements: React.FC = () => {
 
   useEffect(() => {
               const images = [
-            '../../images/ufo1.png',
-            '../../images/ufo2.png',
-            '../../images/alien.png',
-            '../../images/pump.png',
-            '../../images/pumpalien.png'
+            '/images/ufo1.png',
+            '/images/ufo2.png',
+            '/images/alien.png',
+            '/images/pump.png',
+            '/images/pumpalien.png'
           ]
     
     // 创建30个飘动元素
