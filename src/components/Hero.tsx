@@ -17,7 +17,7 @@ const Hero: React.FC<HeroProps> = () => {
         <div className="hero-content">
           {/* Logo区域 */}
           <div className="hero-logo">
-            <img src="/images/pumpalienlogo.png" alt="PumpAlien Logo" className="logo-image" />
+            <img src="../images/pumpalienlogo.png" alt="PumpAlien Logo" className="logo-image" />
             <div className="logo-text">
               <h1 className="logo-title">PUMPALIEN</h1>
               <p className="logo-subtitle">Truth Revelation Plan</p>

@@ -47,7 +47,7 @@ function App() {
       <div className="pump-alien-loading">
         <div className="loading-container">
           <div className="loading-logo">
-            <img src="/images/pumpalien.png" alt="PumpAlien" />
+                            <img src="./images/pumpalien.png" alt="PumpAlien" />
             <div className="loading-text">PUMPALIEN</div>
           </div>
                                 <div className="loading-progress">

@@ -226,7 +226,7 @@ const StoryReveal: React.FC<StoryRevealProps> = ({ currentChapter, onNextChapter
                 <div className="card-content">
                   {/* PumpAlien Logo 图片 */}
                   <div className="pumpalien-logo-section">
-                    <img src="/images/pumpalienlogo.png" alt="PumpAlien Logo" className="pumpalien-logo" />
+                    <img src="../../images/pumpalienlogo.png" alt="PumpAlien Logo" className="pumpalien-logo" />
                   </div>
                   
                   {/* 描述文字 */}
