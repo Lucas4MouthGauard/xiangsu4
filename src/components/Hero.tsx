@@ -1,95 +1,97 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowDown, Zap, Eye, Rocket } from 'lucide-react'
-import { brandConfig } from '../config/brand'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowDown, Eye, Zap, AlertTriangle } from 'lucide-react'
+import { pumpAlienStory } from '../config/story'
 import './Hero.css'
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  currentChapter: number
+  onChapterChange: (chapter: number) => void
+}
+
+const Hero: React.FC<HeroProps> = ({ currentChapter, onChapterChange }) => {
   const heroRef = useRef<HTMLDivElement>(null)
-  const [floatingElements, setFloatingElements] = useState<Array<{
-    id: number
-    type: 'ufo' | 'alien' | 'pump'
-    x: number
-    y: number
-    delay: number
-  }>>([])
+  const [isTyping, setIsTyping] => [false]
+  const [typedText, setTypedText] = useState('')
+  const [showWarning, setShowWarning] = useState(false)
+
+  const currentStory = pumpAlienStory.chapters[currentChapter]
 
   useEffect(() => {
-    // 创建浮动元素
-    const elements = []
-    for (let i = 0; i < 12; i++) {
-      elements.push({
-        id: i,
-        type: ['ufo', 'alien', 'pump'][Math.floor(Math.random() * 3)] as 'ufo' | 'alien' | 'pump',
-        x: Math.random() * 80 + 10,
-        y: Math.random() * 60 + 20,
-        delay: Math.random() * 10
-      })
-    }
-    setFloatingElements(elements)
-
-    // 鼠标移动效果
-    const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
-        const { clientX, clientY } = e
-        const { width, height, left, top } = heroRef.current.getBoundingClientRect()
-        
-        const x = (clientX - left - width / 2) / width
-        const y = (clientY - top - height / 2) / height
-        
-        heroRef.current.style.setProperty('--mouse-x', `${x}`)
-        heroRef.current.style.setProperty('--mouse-y', `${y}`)
+    // 打字机效果
+    let index = 0
+    const text = currentStory.content
+    setIsTyping(true)
+    setTypedText('')
+    
+    const typeInterval = setInterval(() => {
+      if (index < text.length) {
+        setTypedText(text.slice(0, index + 1))
+        index++
+      } else {
+        setIsTyping(false)
+        clearInterval(typeInterval)
       }
-    }
+    }, 50)
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+    return () => clearInterval(typeInterval)
+  }, [currentChapter])
+
+  useEffect(() => {
+    // 显示警告
+    if (currentChapter >= 3) {
+      const timer = setTimeout(() => setShowWarning(true), 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [currentChapter])
 
   const scrollToNext = () => {
-    const nextSection = document.getElementById('discovery')
+    const nextSection = document.getElementById('story-reveal')
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
-  const getImageByType = (type: string) => {
-    switch (type) {
-      case 'ufo':
-        return Math.random() > 0.5 ? brandConfig.images.ufo1 : brandConfig.images.ufo2
-      case 'alien':
-        return brandConfig.images.alien
-      case 'pump':
-        return brandConfig.images.pump
-      default:
-        return brandConfig.images.ufo1
-    }
-  }
-
   return (
-    <section id="hero" className="pixel-hero" ref={heroRef}>
-      {/* 浮动元素背景 */}
-      <div className="floating-elements-container">
-        {floatingElements.map((element) => (
-          <motion.img
-            key={element.id}
-            src={getImageByType(element.type)}
-            alt={element.type}
-            className={`floating-element floating-${element.type}`}
-            style={{
-              left: `${element.x}%`,
-              top: `${element.y}%`,
-              animationDelay: `${element.delay}s`
-            }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: element.delay * 0.2 }}
-            whileHover={{ scale: 1.2, rotate: 10 }}
-            drag
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            dragElastic={0.1}
-          />
-        ))}
+    <section id="hero" className="pump-alien-hero" ref={heroRef}>
+      {/* 动态背景 */}
+      <div className="hero-background">
+        <div className="crypto-particles">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="crypto-particle"
+              animate={{
+                x: [0, Math.random() * 200 - 100],
+                y: [0, Math.random() * 200 - 100],
+                opacity: [0, 1, 0]
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="energy-grid">
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="energy-line"
+              animate={{
+                scaleY: [0, 1, 0],
+                opacity: [0, 1, 0]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.2
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="hero-container">
@@ -99,165 +101,144 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
+          {/* 章节指示器 */}
           <motion.div
-            className="hero-badge"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            className="chapter-indicator"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
           >
-            <Eye className="badge-icon" />
-            <span>外星实体检测到</span>
+            <span className="chapter-number">{currentChapter + 1}</span>
+            <span className="chapter-total">/5</span>
           </motion.div>
 
-          <motion.h1
-            className="hero-title"
+          {/* 警告横幅 */}
+          <AnimatePresence>
+            {showWarning && (
+              <motion.div
+                className="warning-banner"
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -50 }}
+                transition={{ duration: 0.5 }}
+              >
+                <AlertTriangle className="warning-icon" />
+                <span>⚠️ 警告：真相即将揭露，请谨慎前行</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* 故事标题 */}
+          <motion.div
+            className="story-header"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
           >
-            <span className="title-main">PUMPALIEN</span>
-            <span className="title-sub">实体 XT-2024-001</span>
-          </motion.h1>
+            <div className="story-icon">{currentStory.icon}</div>
+            <h1 className="story-title">{currentStory.title}</h1>
+            <p className="story-subtitle">{currentStory.subtitle}</p>
+          </motion.div>
 
-          <motion.p
-            className="hero-description"
+          {/* 故事内容 */}
+          <motion.div
+            className="story-content"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.5 }}
           >
-            在深空发现的神秘外星实体。与发现互动，探索其秘密。
-            这里，现实与可能性交织，观察者与被观察者相互影响。
-          </motion.p>
+            <div className="typing-container">
+              <span className="typed-text">{typedText}</span>
+              {isTyping && <span className="typing-cursor">|</span>}
+            </div>
+          </motion.div>
 
+          {/* 行动按钮 */}
           <motion.div
             className="hero-actions"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 2 }}
           >
-            <button className="pixel-btn-hero primary" onClick={() => {
-              // 触发外星人反应
-              const alienElements = document.querySelectorAll('.floating-alien')
-              alienElements.forEach((el, index) => {
-                setTimeout(() => {
-                  el.classList.add('reacting')
-                  setTimeout(() => el.classList.remove('reacting'), 1000)
-                }, index * 200)
-              })
-            }}>
-              <Zap className="btn-icon" />
-              开始接触
+            <button 
+              className="pump-btn primary"
+              onClick={() => onChapterChange(Math.min(currentChapter + 1, 4))}
+              disabled={currentChapter >= 4}
+            >
+              <Eye className="btn-icon" />
+              {currentChapter >= 4 ? '故事结束' : '揭示下一章'}
             </button>
             
-            <button className="pixel-btn-hero secondary" onClick={() => {
-              // 触发扫描效果
-              document.querySelectorAll('.floating-ufo').forEach((el, index) => {
-                setTimeout(() => {
-                  el.classList.add('scanning')
-                  setTimeout(() => el.classList.remove('scanning'), 1500)
-                }, index * 300)
-              })
-            }}>
-              <Eye className="btn-icon" />
-              扫描信号
+            <button 
+              className="pump-btn secondary"
+              onClick={() => onChapterChange(Math.max(currentChapter - 1, 0))}
+              disabled={currentChapter <= 0}
+            >
+              <Zap className="btn-icon" />
+              回顾上一章
             </button>
           </motion.div>
 
+          {/* 进度指示器 */}
           <motion.div
-            className="hero-stats"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="story-progress"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 2.5 }}
           >
-            <div className="stat-item">
-              <span className="stat-number">2024</span>
-              <span className="stat-label">发现年份</span>
+            <div className="progress-dots">
+              {pumpAlienStory.chapters.map((_, index) => (
+                <motion.div
+                  key={index}
+                  className={`progress-dot ${index <= currentChapter ? 'active' : ''}`}
+                  whileHover={{ scale: 1.2 }}
+                  onClick={() => onChapterChange(index)}
+                />
+              ))}
             </div>
-            <div className="stat-item">
-              <span className="stat-number">👽</span>
-              <span className="stat-label">外星实体</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">🌌</span>
-              <span className="stat-label">宇宙空间</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">💊</span>
-              <span className="stat-label">泵效应</span>
-            </div>
+            <span className="progress-text">
+              第 {currentChapter + 1} 章 / 共 5 章
+            </span>
           </motion.div>
         </motion.div>
 
+        {/* 视觉元素 */}
         <motion.div
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 1.2 }}
         >
-          <div className="hero-image-grid">
+          <div className="story-image-container">
             <motion.img
-              src={brandConfig.images.alien}
-              alt="PumpAlien Entity"
-              className="hero-alien"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              drag
-              dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
-              dragElastic={0.1}
+              src={currentStory.image}
+              alt={currentStory.title}
+              className="story-image"
+              key={currentChapter}
+              initial={{ opacity: 0, rotate: -180 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.8 }}
+              style={{ borderColor: currentStory.color }}
             />
             
-            <motion.img
-              src={brandConfig.images.pump}
-              alt="Pump Effect"
-              className="hero-pump"
-              whileHover={{ scale: 1.2, rotate: -10 }}
-              animate={{ 
-                y: [0, -10, 0],
-                rotate: [0, 5, 0]
+            <motion.div
+              className="energy-aura"
+              style={{ borderColor: currentStory.color }}
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.8, 0.5]
               }}
-              transition={{ 
-                duration: 3,
+              transition={{
+                duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut"
-              }}
-            />
-            
-            <motion.img
-              src={brandConfig.images.ufo1}
-              alt="UFO 1"
-              className="hero-ufo-1"
-              whileHover={{ scale: 1.15, rotate: 15 }}
-              animate={{ 
-                x: [0, 20, 0],
-                y: [0, -15, 0]
-              }}
-              transition={{ 
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-            />
-            
-            <motion.img
-              src={brandConfig.images.ufo2}
-              alt="UFO 2"
-              className="hero-ufo-2"
-              whileHover={{ scale: 1.15, rotate: -15 }}
-              animate={{ 
-                x: [0, -20, 0],
-                y: [0, 15, 0]
-              }}
-              transition={{ 
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 2
               }}
             />
           </div>
         </motion.div>
       </div>
 
+      {/* 滚动指示器 */}
       <motion.button
         className="scroll-indicator"
         onClick={scrollToNext}
@@ -268,7 +249,7 @@ const Hero: React.FC = () => {
         whileTap={{ scale: 0.9 }}
       >
         <ArrowDown className="scroll-icon" />
-        <span>向下滚动</span>
+        <span>继续探索真相</span>
       </motion.button>
     </section>
   )

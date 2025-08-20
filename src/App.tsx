@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import Discovery from './components/Discovery'
-import Entity from './components/Entity'
-import Interactive from './components/Interactive'
-import Research from './components/Research'
+import StoryReveal from './components/StoryReveal'
+import Timeline from './components/Timeline'
+import EnergyMonitor from './components/EnergyMonitor'
+import CryptoSimulator from './components/CryptoSimulator'
+import TruthRevealer from './components/TruthRevealer'
 import Footer from './components/Footer'
 import PixelParticles from './components/PixelParticles'
 import './styles/App.css'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
+  const [currentChapter, setCurrentChapter] = useState(0)
+  const [energyLevel, setEnergyLevel] = useState(0)
+  const [truthRevealed, setTruthRevealed] = useState(false)
 
   useEffect(() => {
     // 模拟加载时间
@@ -21,17 +25,36 @@ function App() {
     return () => clearTimeout(timer)
   }, [])
 
+  useEffect(() => {
+    // 能量自动增长
+    if (!isLoading && energyLevel < 100) {
+      const interval = setInterval(() => {
+        setEnergyLevel(prev => {
+          if (prev >= 100) {
+            setTruthRevealed(true)
+            return 100
+          }
+          return prev + 0.5
+        })
+      }, 1000)
+      
+      return () => clearInterval(interval)
+    }
+  }, [isLoading, energyLevel])
+
   if (isLoading) {
     return (
-      <div className="pixel-loading">
-        <div className="pixel-spinner">
-          <div className="pixel-orb"></div>
-          <div className="pixel-orb"></div>
-          <div className="pixel-orb"></div>
-        </div>
-        <h2 className="pixel-text">扫描宇宙信号中...</h2>
-        <div className="pixel-progress">
-          <div className="pixel-progress-bar"></div>
+      <div className="pump-alien-loading">
+        <div className="loading-container">
+          <div className="loading-logo">
+            <img src="/images/pumpalien.png" alt="PumpAlien" />
+            <div className="loading-text">PUMPALIEN</div>
+          </div>
+          <div className="loading-progress">
+            <div className="progress-bar" style={{ width: `${energyLevel}%` }}></div>
+          </div>
+          <div className="loading-status">正在收集Crypto能量...</div>
+          <div className="loading-warning">⚠️ 真相即将揭露</div>
         </div>
       </div>
     )
@@ -41,13 +64,40 @@ function App() {
     <div className="App">
       <PixelParticles />
       <Header />
+      
       <main>
-        <Hero />
-        <Discovery />
-        <Entity />
-        <Interactive />
-        <Research />
+        <Hero 
+          currentChapter={currentChapter}
+          onChapterChange={setCurrentChapter}
+        />
+        
+        <StoryReveal 
+          currentChapter={currentChapter}
+          onNextChapter={() => setCurrentChapter(prev => Math.min(prev + 1, 4))}
+        />
+        
+        <Timeline />
+        
+        <EnergyMonitor 
+          energyLevel={energyLevel}
+          onEnergyBoost={() => setEnergyLevel(prev => Math.min(prev + 20, 100))}
+        />
+        
+        <CryptoSimulator 
+          onTransaction={() => setEnergyLevel(prev => Math.min(prev + 5, 100))}
+        />
+        
+        {truthRevealed && (
+          <TruthRevealer 
+            onReset={() => {
+              setEnergyLevel(0)
+              setTruthRevealed(false)
+              setCurrentChapter(0)
+            }}
+          />
+        )}
       </main>
+      
       <Footer />
     </div>
   )
