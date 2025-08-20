@@ -1,50 +1,50 @@
 export const pumpAlienStory = {
-  title: "PumpAlien: 真相揭露",
-  subtitle: "当Crypto成为外星人的试验场",
+  title: "PUMPALIEN Truth Revelation Plan",
+  subtitle: "The Complete PumpAlien Story",
   
   chapters: [
     {
       id: "chapter1",
-      title: "消失的Alon",
-      subtitle: "人类以为Alon是PumpFun的创始人",
-      content: "在Solana链上，PumpFun成为了无数代币的摇篮。人们相信Alon是这个帝国的缔造者，但真相远比想象中可怕。",
-      image: "/images/alien.png",
+      title: "The Missing Alon",
+      subtitle: "Humans thought Alon was the founder of PumpFun",
+      content: "Humans thought Alon was the founder of PumpFun, but the truth is far more terrifying than imagined. On the Solana chain, PumpFun became the cradle of countless tokens, and people believed Alon was the creator of this empire.",
+      image: "/images/alonog.png",
       color: "#00ff88",
       icon: "👤"
     },
     {
       id: "chapter2", 
-      title: "宇宙绑架案",
-      subtitle: "真正的Alon在很久以前就被外星人绑架",
-      content: "在一个不为人知的夜晚，真正的Alon被带上了宇宙飞船。他的身体消失在星际之间，留下的只有地球上的传说。",
-      image: "/images/ufo1.png",
+      title: "Cosmic Kidnapping",
+      subtitle: "The real Alon was kidnapped by aliens long ago",
+      content: "The real Alon was kidnapped by aliens long ago, and his body disappeared in a spaceship. On an unknown night, the real Alon was taken aboard a spaceship, leaving only legends on Earth.",
+      image: "/images/alinebanner1.png",
       color: "#ff00ff",
       icon: "🛸"
     },
     {
       id: "chapter3",
-      title: "伪装者降临",
-      subtitle: "取而代之的是一个来自未知星系的存在",
-      content: "PumpAlien，一个来自遥远星系的存在，穿上了人类的外壳。他完美地模仿了Alon的一切，包括声音、记忆，甚至情感。",
-      image: "/images/pump.png",
+      title: "The Impostor Arrives",
+      subtitle: "Replacing him is an entity from an unknown galaxy",
+      content: "Replacing him is an impostor, an entity from an unknown galaxy named PumpAlien. PumpAlien put on a human shell and left his mark on the Solana chain through PumpFun, creating countless tokens and flowing wealth.",
+      image: "/images/alinebanner2.png",
       color: "#ff6b35",
       icon: "🎭"
     },
     {
       id: "chapter4",
-      title: "Crypto试验场",
-      subtitle: "每一笔交易都为PumpAlien提供力量",
-      content: "Solana链上的每一笔交易，每一个代币的诞生，都在为PumpAlien收集能量。人类以为自己在玩币，但币在玩人。",
-      image: "/images/ufo2.png",
+      title: "Crypto Testing Ground",
+      subtitle: "Every transaction provides power to PumpAlien",
+      content: "Crypto is just an alien testing ground, with every transaction providing power to PumpAlien. Everything seems like a game, but it's actually energy collection. When the energy is full, Earth will become his stage.",
+      image: "/images/alinebanner3.png",
       color: "#4f46e5",
       icon: "⚡"
     },
     {
       id: "chapter5",
-      title: "能量觉醒",
-      subtitle: "当能量充满，地球将成为他的舞台",
-      content: "随着能量的不断积累，PumpAlien的真实形态开始显现。地球不再是人类的家园，而是外星文明的试验场。",
-      image: "/images/pumpalien.png",
+      title: "The Core of Truth",
+      subtitle: "PumpAlien is the true core of this plan",
+      content: "Humans think they're playing with tokens, but actually the tokens are playing with humans. Alon is not on Earth, only PumpAlien is getting stronger. PumpAlien is the true core of this plan.",
+      image: "/images/pumpalienlogo.png",
       color: "#ff0088",
       icon: "🌍"
     }
@@ -53,44 +53,44 @@ export const pumpAlienStory = {
   revelations: [
     {
       id: "revelation1",
-      title: "真相时刻",
-      content: "Alon不在地球，只有PumpAlien在不断变强",
-      impact: "高"
+      title: "Moment of Truth",
+      content: "Alon is not on Earth, only PumpAlien is getting stronger",
+      impact: "High"
     },
     {
       id: "revelation2", 
-      title: "能量收集",
-      content: "Crypto交易是能量收集的完美伪装",
-      impact: "中"
+      title: "Energy Collection",
+      content: "Crypto transactions are the perfect disguise for energy collection",
+      impact: "Medium"
     },
     {
       id: "revelation3",
-      title: "终极计划",
-      content: "PumpAlien计划将地球变成他的能量农场",
-      impact: "极高"
+      title: "Ultimate Plan",
+      content: "PumpAlien plans to turn Earth into his energy farm",
+      impact: "Extremely High"
     }
   ],
   
   timeline: [
     {
       year: "2023",
-      event: "Alon被外星人绑架",
-      description: "真正的Alon消失在宇宙飞船中"
+      event: "Alon Kidnapped by Aliens",
+      description: "The real Alon disappeared in a spaceship"
     },
     {
       year: "2023",
-      event: "PumpAlien降临",
-      description: "伪装者开始接管PumpFun帝国"
+      event: "PumpAlien Arrives",
+      description: "The impostor begins taking over the PumpFun empire"
     },
     {
       year: "2024",
-      event: "能量收集开始",
-      description: "Crypto成为外星人的试验场"
+      event: "Energy Collection Begins",
+      description: "Crypto becomes an alien testing ground"
     },
     {
       year: "2025",
-      event: "真相揭露",
-      description: "PumpAlien的真实计划浮出水面"
+      event: "Truth Revealed",
+      description: "PumpAlien's real plan comes to light"
     }
   ]
 }

@@ -57,7 +57,7 @@ const Header: React.FC = () => {
           />
           <div className="logo-text">
             <span className="logo-title">PUMPALIEN</span>
-            <span className="logo-subtitle">真相揭露计划</span>
+            <span className="logo-subtitle">Truth Revelation Plan</span>
           </div>
         </motion.div>
 
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
                 onClick={() => scrollToSection('hero')}
               >
                 <Eye className="nav-icon" />
-                故事开始
+                The Great Conspiracy
               </button>
             </li>
             <li className="nav-item">
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
                 onClick={() => scrollToSection('story-reveal')}
               >
                 <AlertTriangle className="nav-icon" />
-                真相揭示
+                Truth Revelation
               </button>
             </li>
             <li className="nav-item">
@@ -88,52 +88,41 @@ const Header: React.FC = () => {
                 onClick={() => scrollToSection('timeline')}
               >
                 <Zap className="nav-icon" />
-                时间线
-              </button>
-            </li>
-            <li className="nav-item">
-              <button 
-                className="nav-link"
-                onClick={() => scrollToSection('energy-monitor')}
-              >
-                <Zap className="nav-icon" />
-                能量监控
-              </button>
-            </li>
-            <li className="nav-item">
-              <button 
-                className="nav-link"
-                onClick={() => scrollToSection('crypto-simulator')}
-              >
-                <Zap className="nav-icon" />
-                Crypto试验场
+                Timeline
               </button>
             </li>
           </ul>
         </nav>
 
-        {/* 行动按钮 */}
-        <div className="header-actions">
-          <motion.button
-            className="action-btn primary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection('energy-monitor')}
-          >
-            <Zap className="btn-icon" />
-            能量提升
-          </motion.button>
-          
-          <motion.button
-            className="action-btn secondary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection('crypto-simulator')}
-          >
-            <Eye className="btn-icon" />
-            进入试验场
-          </motion.button>
-        </div>
+        {/* 推特链接 */}
+        <motion.a
+          href="https://x.com/PumpAlien_xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="twitter-link"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg className="twitter-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <span className="twitter-text">@PumpAlien_xyz</span>
+        </motion.a>
+
+        {/* $PumpAlien 链接 */}
+        <motion.button
+          className="pumpalien-link"
+          onClick={() => {
+            const element = document.getElementById('buy-pumpalien-btn')
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' })
+            }
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span className="pumpalien-text">$PumpAlien</span>
+        </motion.button>
 
         {/* 移动端菜单按钮 */}
         <button
@@ -156,69 +145,63 @@ const Header: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <ul className="mobile-nav-list">
+                          <li className="mobile-nav-item">
+              <button 
+                className="mobile-nav-link"
+                onClick={() => scrollToSection('hero')}
+              >
+                <Eye className="nav-icon" />
+                The Great Conspiracy
+              </button>
+            </li>
+            <li className="mobile-nav-item">
+              <button 
+                className="mobile-nav-link"
+                onClick={() => scrollToSection('story-reveal')}
+              >
+                <AlertTriangle className="nav-icon" />
+                Truth Revelation
+              </button>
+            </li>
+            <li className="mobile-nav-item">
+              <button 
+                className="mobile-nav-link"
+                onClick={() => scrollToSection('timeline')}
+              >
+                <Zap className="nav-icon" />
+                Timeline
+              </button>
+            </li>
               <li className="mobile-nav-item">
-                <button 
-                  className="mobile-nav-link"
-                  onClick={() => scrollToSection('hero')}
+                <a 
+                  href="https://x.com/PumpAlien_xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mobile-twitter-link"
                 >
-                  <Eye className="nav-icon" />
-                  故事开始
-                </button>
+                  <svg className="mobile-twitter-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                  @PumpAlien_xyz
+                </a>
               </li>
               <li className="mobile-nav-item">
                 <button 
-                  className="mobile-nav-link"
-                  onClick={() => scrollToSection('story-reveal')}
+                  className="mobile-pumpalien-link"
+                  onClick={() => {
+                    const element = document.getElementById('buy-pumpalien-btn')
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' })
+                    }
+                    setIsMobileMenuOpen(false)
+                  }}
                 >
-                  <AlertTriangle className="nav-icon" />
-                  真相揭示
-                </button>
-              </li>
-              <li className="mobile-nav-item">
-                <button 
-                  className="mobile-nav-link"
-                  onClick={() => scrollToSection('timeline')}
-                >
-                  <Zap className="nav-icon" />
-                  时间线
-                </button>
-              </li>
-              <li className="mobile-nav-item">
-                <button 
-                  className="mobile-nav-link"
-                  onClick={() => scrollToSection('energy-monitor')}
-                >
-                  <Zap className="nav-icon" />
-                  能量监控
-                </button>
-              </li>
-              <li className="mobile-nav-item">
-                <button 
-                  className="mobile-nav-link"
-                  onClick={() => scrollToSection('crypto-simulator')}
-                >
-                  <Zap className="nav-icon" />
-                  Crypto试验场
+                  $PumpAlien
                 </button>
               </li>
             </ul>
             
-            <div className="mobile-actions">
-              <button 
-                className="mobile-action-btn primary"
-                onClick={() => scrollToSection('energy-monitor')}
-              >
-                <Zap className="btn-icon" />
-                能量提升
-              </button>
-              <button 
-                className="mobile-action-btn secondary"
-                onClick={() => scrollToSection('crypto-simulator')}
-              >
-                <Eye className="btn-icon" />
-                进入试验场
-              </button>
-            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
@@ -234,7 +217,7 @@ const Header: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <AlertTriangle className="warning-icon" />
-            <span>⚠️ 警告：PumpAlien计划正在进行中，请谨慎探索真相</span>
+            <span>⚠️ Warning: PumpAlien plan is in progress, please explore the truth carefully</span>
           </motion.div>
         )}
       </AnimatePresence>

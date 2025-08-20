@@ -23,8 +23,8 @@ const Timeline: React.FC = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">时间线：真相的轨迹</h2>
-          <p className="section-subtitle">从Alon消失到PumpAlien计划的揭露</p>
+          <h2 className="section-title">Timeline: The Path of Truth</h2>
+          <p className="section-subtitle">From Alon's disappearance to the revelation of PumpAlien's plan</p>
         </motion.div>
 
         <div className="timeline-wrapper">
@@ -92,35 +92,35 @@ const Timeline: React.FC = () => {
                   </div>
                   <div className="meta-item">
                     <MapPin className="meta-icon" />
-                    <span>地球 / Solana链</span>
+                    <span>Earth / Solana Chain</span>
                   </div>
                 </div>
                 
                 <div className="event-story">
-                  <h4>事件详情</h4>
+                  <h4>Event Details</h4>
                   <p>{pumpAlienStory.timeline[selectedEvent].description}</p>
                   
                   {selectedEvent === 0 && (
                     <div className="story-highlight">
-                      <p>"真正的Alon消失在宇宙飞船中，留下的只有地球上的传说。"</p>
+                      <p>"The real Alon disappeared in a spaceship, leaving only legends on Earth."</p>
                     </div>
                   )}
                   
                   {selectedEvent === 1 && (
                     <div className="story-highlight warning">
-                      <p>"PumpAlien开始接管PumpFun帝国，人类毫无察觉。"</p>
+                      <p>"PumpAlien began taking over the PumpFun empire, with humans completely unaware."</p>
                     </div>
                   )}
                   
                   {selectedEvent === 2 && (
                     <div className="story-highlight danger">
-                      <p>"Crypto成为外星人的试验场，每一笔交易都在收集能量。"</p>
+                      <p>"Crypto became an alien testing ground, with every transaction collecting energy."</p>
                     </div>
                   )}
                   
                   {selectedEvent === 3 && (
                     <div className="story-highlight critical">
-                      <p>"真相揭露，PumpAlien的真实计划浮出水面。"</p>
+                      <p>"The truth is revealed, and PumpAlien's real plan comes to light."</p>
                     </div>
                   )}
                 </div>
@@ -160,20 +160,20 @@ const Timeline: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="summary-content">
-            <h3>时间线总结</h3>
-            <p>从2023年到2025年，PumpAlien的计划逐步展开。每一步都精心设计，让人类在不知不觉中成为能量收集的工具。</p>
+                          <h3>Timeline Summary</h3>
+                          <p>From 2023 to 2025, PumpAlien's plan gradually unfolds. Each step is carefully designed to make humans unwittingly become tools for energy collection.</p>
             <div className="summary-stats">
               <div className="stat-item">
                 <span className="stat-number">2</span>
-                <span className="stat-label">年时间跨度</span>
+                <span className="stat-label">Year Span</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">4</span>
-                <span className="stat-label">关键事件</span>
+                <span className="stat-label">Key Events</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">∞</span>
-                <span className="stat-label">影响范围</span>
+                <span className="stat-label">Impact Scope</span>
               </div>
             </div>
           </div>

@@ -278,7 +278,7 @@ const CryptoSimulator: React.FC<CryptoSimulatorProps> = ({ onTransaction }) => {
           </AnimatePresence>
         </div>
 
-        {/* 真相揭示 */}
+        {/* Truth Revelation */}
         <motion.div
           className="truth-revelation"
           initial={{ opacity: 0 }}
@@ -289,8 +289,8 @@ const CryptoSimulator: React.FC<CryptoSimulatorProps> = ({ onTransaction }) => {
           <div className="revelation-content">
             <AlertTriangle className="revelation-icon" />
             <div className="revelation-text">
-              <h3>⚠️ 真相揭示</h3>
-              <p>每一次代币交易都在为PumpAlien收集能量。你以为自己在投资，实际上在帮助外星人实现计划。</p>
+                              <h3>⚠️ Truth Revelation</h3>
+                <p>Every token transaction collects energy for PumpAlien. You think you\'re investing, but actually you\'re helping aliens achieve their plan.</p>
               <p className="revelation-quote">
                 "人类以为自己在玩币，但其实币在玩人"
               </p>

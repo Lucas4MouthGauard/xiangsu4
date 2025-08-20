@@ -24,7 +24,7 @@ const Discovery: React.FC = () => {
       icon: <CheckCircle />,
       title: '分析完成',
       description: '实体分类和研究启动',
-      details: '经过多维度分析，该实体被正式命名为PumpAlien，并启动了全面的科学研究计划。'
+              details: 'After multi-dimensional analysis, this entity was officially named PumpAlien and launched a comprehensive scientific research plan.'
     }
   ]
 

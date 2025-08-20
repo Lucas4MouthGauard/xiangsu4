@@ -1,0 +1,88 @@
+/* 飘动元素容器 */
+.floating-elements-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* 飘动元素基础样式 */
+.floating-element {
+  position: absolute;
+  filter: drop-shadow(0 0 25px rgba(0, 255, 136, 0.6));
+  image-rendering: pixelated;
+  transition: all 0.3s ease;
+}
+
+/* UFO 特殊效果 */
+.floating-element[src*="ufo"] {
+  filter: drop-shadow(0 0 30px rgba(0, 150, 255, 0.7));
+  animation: ufoGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes ufoGlow {
+  0% { filter: drop-shadow(0 0 20px rgba(0, 150, 255, 0.5)); }
+  100% { filter: drop-shadow(0 0 35px rgba(0, 150, 255, 0.9)); }
+}
+
+/* 外星人特殊效果 */
+.floating-element[src*="alien"] {
+  filter: drop-shadow(0 0 28px rgba(255, 0, 255, 0.7));
+  animation: alienPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes alienPulse {
+  0% { filter: drop-shadow(0 0 18px rgba(255, 0, 255, 0.5)); }
+  100% { filter: drop-shadow(0 0 32px rgba(255, 0, 255, 0.9)); }
+}
+
+/* Pump胶囊特殊效果 */
+.floating-element[src*="pump"] {
+  filter: drop-shadow(0 0 26px rgba(0, 255, 136, 0.7));
+  animation: pumpShine 2s ease-in-out infinite alternate;
+}
+
+@keyframes pumpShine {
+  0% { filter: drop-shadow(0 0 16px rgba(0, 255, 136, 0.5)); }
+  100% { filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.9)); }
+}
+
+/* PumpAlien Logo特殊效果 */
+.floating-element[src*="pumpalien"] {
+  filter: drop-shadow(0 0 35px rgba(255, 0, 0, 0.8));
+  animation: logoFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes logoFloat {
+  0% { 
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.6));
+    transform: translateY(0px);
+  }
+  100% { 
+    filter: drop-shadow(0 0 40px rgba(255, 0, 0, 1.0));
+    transform: translateY(-10px);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .floating-elements-container {
+    z-index: 0; /* 在移动端降低层级，避免遮挡内容 */
+  }
+  
+  .floating-element {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.3));
+  }
+}
+
+/* 性能优化：减少动画复杂度 */
+@media (prefers-reduced-motion: reduce) {
+  .floating-element {
+    animation: none;
+    transition: none;
+  }
+}

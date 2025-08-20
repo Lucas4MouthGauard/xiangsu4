@@ -16,29 +16,29 @@ const TruthRevealer: React.FC<TruthRevealerProps> = ({ onReset }) => {
   const revelations = [
     {
       id: 'final',
-      title: '最终真相：PumpAlien的终极计划',
-      content: 'PumpAlien计划将地球变成他的能量农场，利用人类的Crypto狂热收集无限能量。',
-      impact: '文明级威胁',
+      title: 'Final Truth: PumpAlien\'s Ultimate Plan',
+      content: 'PumpAlien plans to turn Earth into his energy farm, using human Crypto frenzy to collect unlimited energy.',
+      impact: 'Civilization-level threat',
       icon: '🌍'
     },
     {
       id: 'method',
-      title: '收集方法：Crypto作为能量收集器',
-      content: '每一次代币交易、每一个新代币创建，都在为PumpAlien提供能量。',
-      impact: '全球范围',
+      title: 'Collection Method: Crypto as Energy Collector',
+      content: 'Every token transaction, every new token creation, provides energy for PumpAlien.',
+      impact: 'Global scope',
       icon: '⚡'
     },
     {
       id: 'consequence',
-      title: '后果：人类文明的终结',
-      content: '当能量收集完成，PumpAlien将启动终极计划，重塑地球文明。',
-      impact: '物种灭绝',
+      title: 'Consequence: End of Human Civilization',
+      content: 'When energy collection is complete, PumpAlien will launch his ultimate plan to reshape Earth\'s civilization.',
+      impact: 'Species extinction',
       icon: '💀'
     }
   ]
 
   useEffect(() => {
-    // 自动揭示真相
+    // Auto-reveal truth
     const interval = setInterval(() => {
       if (currentRevelation < revelations.length - 1) {
         setCurrentRevelation(prev => prev + 1)
@@ -88,11 +88,11 @@ const TruthRevealer: React.FC<TruthRevealerProps> = ({ onReset }) => {
           transition={{ duration: 1 }}
         >
           <div className="truth-icon">👽</div>
-          <h1 className="truth-title">真相完全揭露</h1>
-          <p className="truth-subtitle">PumpAlien计划已启动，地球文明面临终极考验</p>
+          <h1 className="truth-title">Truth Completely Revealed</h1>
+          <p className="truth-subtitle">PumpAlien plan has been activated, Earth civilization faces ultimate test</p>
         </motion.div>
 
-        {/* 真相揭示过程 */}
+        {/* Truth revelation process */}
         <div className="revelations-container">
           {revelations.map((revelation, index) => (
             <motion.div
@@ -147,24 +147,24 @@ const TruthRevealer: React.FC<TruthRevealerProps> = ({ onReset }) => {
                   <div className="summary-item">
                     <Globe className="summary-icon" />
                     <div className="summary-content">
-                      <h4>地球命运</h4>
-                      <p>地球将成为PumpAlien的能量农场，人类文明将被重塑</p>
+                      <h4>Earth\'s Fate</h4>
+                      <p>Earth will become PumpAlien\'s energy farm, human civilization will be reshaped</p>
                     </div>
                   </div>
                   
                   <div className="summary-item">
                     <Zap className="summary-icon" />
                     <div className="summary-content">
-                      <h4>能量收集</h4>
-                      <p>通过Crypto交易收集的能量将用于启动终极计划</p>
+                      <h4>Energy Collection</h4>
+                      <p>Energy collected through Crypto transactions will be used to launch the ultimate plan</p>
                     </div>
                   </div>
                   
                   <div className="summary-item">
                     <Rocket className="summary-icon" />
                     <div className="summary-content">
-                      <h4>星际扩张</h4>
-                      <p>PumpAlien计划利用地球能量进行星际扩张</p>
+                      <h4>Interstellar Expansion</h4>
+                      <p>PumpAlien plans to use Earth\'s energy for interstellar expansion</p>
                     </div>
                   </div>
                 </div>
@@ -173,14 +173,14 @@ const TruthRevealer: React.FC<TruthRevealerProps> = ({ onReset }) => {
                   <blockquote>
                     "Alon不在地球，只有PumpAlien在不断变强。Crypto只是外星人的试验场，每一笔交易都为PumpAlien提供力量。当能量充满，地球将成为他的舞台。"
                   </blockquote>
-                  <cite>- PumpAlien计划档案</cite>
+                  <cite>- PumpAlien Plan Archives</cite>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* 行动选择 */}
+        {/* Action choices */}
         <motion.div
           className="truth-actions"
           initial={{ opacity: 0 }}
@@ -190,28 +190,28 @@ const TruthRevealer: React.FC<TruthRevealerProps> = ({ onReset }) => {
           <div className="action-options">
             <button className="action-btn accept">
               <Eye className="btn-icon" />
-              接受真相
+              Accept Truth
             </button>
             <button className="action-btn resist">
               <Zap className="btn-icon" />
-              抵抗计划
+              Resist Plan
             </button>
             <button className="action-btn escape">
               <Rocket className="btn-icon" />
-              逃离地球
+              Escape Earth
             </button>
           </div>
           
           <div className="reset-option">
-            <p>想要重新体验故事？</p>
+            <p>Want to experience the story again?</p>
             <button className="reset-btn" onClick={handleReset}>
               <RefreshCw className="btn-icon" />
-              重新开始
+              Start Over
             </button>
           </div>
         </motion.div>
 
-        {/* 警告信息 */}
+        {/* Warning message */}
         <motion.div
           className="final-warning"
           initial={{ opacity: 0 }}
@@ -221,31 +221,31 @@ const TruthRevealer: React.FC<TruthRevealerProps> = ({ onReset }) => {
           <div className="warning-content">
             <AlertTriangle className="warning-icon-large" />
             <div className="warning-text">
-              <h3>⚠️ 终极警告</h3>
-              <p>PumpAlien计划已经启动，地球文明面临前所未有的威胁。</p>
+              <h3>⚠️ Ultimate Warning</h3>
+              <p>PumpAlien plan has been activated, Earth civilization faces unprecedented threats.</p>
               <p className="warning-highlight">
-                这不是游戏，这是现实。每一次Crypto交易都在加速人类的终结。
+                This is not a game, this is reality. Every Crypto transaction accelerates human extinction.
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* 统计总结 */}
+        {/* Statistics summary */}
         <motion.div
           className="truth-stats"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 3.5 }}
         >
-          <h3>真相揭露统计</h3>
+          <h3>Truth Revelation Statistics</h3>
           <div className="stats-grid">
             <div className="stat-item">
               <span className="stat-number">100%</span>
-              <span className="stat-label">能量收集完成</span>
+              <span className="stat-label">Energy Collection Complete</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">5</span>
-              <span className="stat-label">故事章节完成</span>
+              <span className="stat-label">Story Chapters Complete</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">∞</span>

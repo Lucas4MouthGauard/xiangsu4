@@ -54,12 +54,12 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">能量监控系统</h2>
-          <p className="section-subtitle">实时监控PumpAlien的能量收集进度</p>
+                  <h2 className="section-title">Energy Monitoring System</h2>
+        <p className="section-subtitle">Real-time monitoring of PumpAlien\'s energy collection progress</p>
         </motion.div>
 
         <div className="energy-dashboard">
-          {/* 主要能量显示器 */}
+          {/* Main energy display */}
           <motion.div
             className="energy-main-display"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -99,8 +99,8 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
             </div>
 
             <div className="energy-info">
-              <h3>当前能量水平</h3>
-              <p>PumpAlien正在通过Crypto交易收集能量</p>
+              <h3>Current Energy Level</h3>
+              <p>PumpAlien is collecting energy through Crypto transactions</p>
               <div className="energy-stats">
                 <div className="stat-item">
                   <Zap className="stat-icon" />
@@ -114,7 +114,7 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
             </div>
           </motion.div>
 
-          {/* 能量历史图表 */}
+          {/* Energy history chart */}
           <motion.div
             className="energy-chart"
             initial={{ opacity: 0, x: 50 }}
@@ -122,7 +122,7 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3>能量收集趋势</h3>
+                          <h3>Energy Collection Trend</h3>
             <div className="chart-container">
               <div className="chart-line">
                 {energyHistory.map((value, index) => (
@@ -146,7 +146,7 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
             </div>
           </motion.div>
 
-          {/* 能量收集活动 */}
+          {/* Energy collection activities */}
           <motion.div
             className="energy-activities"
             initial={{ opacity: 0, y: 30 }}
@@ -159,10 +159,10 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
               <div className={`activity-item ${isCollecting ? 'active' : ''}`}>
                 <Activity className="activity-icon" />
                 <div className="activity-content">
-                  <span className="activity-title">Crypto交易能量收集</span>
-                  <span className="activity-status">
-                    {isCollecting ? '正在收集...' : '等待中...'}
-                  </span>
+                  <span className="activity-title">Crypto Transaction Energy Collection</span>
+                                      <span className="activity-status">
+                      {isCollecting ? 'Collecting...' : 'Waiting...'}
+                    </span>
                 </div>
                 <div className="activity-indicator"></div>
               </div>
@@ -170,8 +170,8 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
               <div className="activity-item">
                 <TrendingUp className="activity-icon" />
                 <div className="activity-content">
-                  <span className="activity-title">代币创建能量</span>
-                  <span className="activity-status">持续收集</span>
+                  <span className="activity-title">Token Creation Energy</span>
+                                      <span className="activity-status">Continuous collection</span>
                 </div>
                 <div className="activity-indicator"></div>
               </div>
@@ -225,7 +225,7 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
                   <h3>⚠️ 能量警告</h3>
                   <p>能量水平已达到{Math.round(energyLevel)}%，PumpAlien即将觉醒！</p>
                   <p className="warning-highlight">
-                    当能量达到100%时，真相将被完全揭露
+                    When energy reaches 100%, the truth will be completely revealed
                   </p>
                 </div>
               </div>
@@ -256,12 +256,12 @@ const EnergyMonitor: React.FC<EnergyMonitorProps> = ({ energyLevel, onEnergyBoos
             <div className="goal-item">
               <div className="goal-icon">90%</div>
               <h4>临界状态</h4>
-              <p>计划即将完成</p>
+              <p>Plan nearly complete</p>
             </div>
             <div className="goal-item">
               <div className="goal-icon">100%</div>
-              <h4>真相揭露</h4>
-              <p>完全觉醒，计划启动</p>
+                              <h4>Truth Revelation</h4>
+                <p>Fully awakened, plan activated</p>
             </div>
           </div>
         </motion.div>

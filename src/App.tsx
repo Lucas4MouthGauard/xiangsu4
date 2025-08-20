@@ -3,17 +3,17 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import StoryReveal from './components/StoryReveal'
 import Timeline from './components/Timeline'
-import EnergyMonitor from './components/EnergyMonitor'
-import CryptoSimulator from './components/CryptoSimulator'
 import TruthRevealer from './components/TruthRevealer'
 import Footer from './components/Footer'
 import PixelParticles from './components/PixelParticles'
+import FloatingElements from './components/FloatingElements'
 import './styles/App.css'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [currentChapter, setCurrentChapter] = useState(0)
+  const [currentChapter, setCurrentChapter] = useState(4)
   const [energyLevel, setEnergyLevel] = useState(0)
+
   const [truthRevealed, setTruthRevealed] = useState(false)
 
   useEffect(() => {
@@ -50,11 +50,10 @@ function App() {
             <img src="/images/pumpalien.png" alt="PumpAlien" />
             <div className="loading-text">PUMPALIEN</div>
           </div>
-          <div className="loading-progress">
-            <div className="progress-bar" style={{ width: `${energyLevel}%` }}></div>
-          </div>
-          <div className="loading-status">正在收集Crypto能量...</div>
-          <div className="loading-warning">⚠️ 真相即将揭露</div>
+                                <div className="loading-progress">
+                        <div className="progress-bar" style={{ width: `${Math.random() * 100}%` }}></div>
+                      </div>
+                      <div className="loading-status">Loading PumpAlien truth...</div>
         </div>
       </div>
     )
@@ -63,37 +62,25 @@ function App() {
   return (
     <div className="App">
       <PixelParticles />
+      <FloatingElements />
       <Header />
       
       <main>
-        <Hero 
-          currentChapter={currentChapter}
-          onChapterChange={setCurrentChapter}
-        />
+        <Hero />
+        
+        <Timeline />
         
         <StoryReveal 
           currentChapter={currentChapter}
           onNextChapter={() => setCurrentChapter(prev => Math.min(prev + 1, 4))}
         />
         
-        <Timeline />
-        
-        <EnergyMonitor 
-          energyLevel={energyLevel}
-          onEnergyBoost={() => setEnergyLevel(prev => Math.min(prev + 20, 100))}
-        />
-        
-        <CryptoSimulator 
-          onTransaction={() => setEnergyLevel(prev => Math.min(prev + 5, 100))}
-        />
-        
         {truthRevealed && (
           <TruthRevealer 
-            onReset={() => {
-              setEnergyLevel(0)
-              setTruthRevealed(false)
-              setCurrentChapter(0)
-            }}
+                                    onReset={() => {
+                          setTruthRevealed(false)
+                          setCurrentChapter(0)
+                        }}
           />
         )}
       </main>
