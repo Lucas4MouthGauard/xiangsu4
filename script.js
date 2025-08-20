@@ -8,7 +8,10 @@ const appState = {
     alienMode: false,
     energyLevel: 0,
     messages: [],
-    findings: []
+    findings: [],
+    ufoPositions: [],
+    alienPositions: [],
+    globalElements: []
 };
 
 // DOM Elements
@@ -18,113 +21,143 @@ const elements = {
     energyRings: null,
     scannerDisplay: null,
     energyMeter: null,
-    messageDisplay: null
+    messageDisplay: null,
+    floatingUfos: null,
+    floatingAlien: null,
+    globalFloatingContainer: null
 };
-
-// Initialize Application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-});
 
 // Main Initialization
 function initializeApp() {
     cacheElements();
     setupEventListeners();
     startLoadingSequence();
-    
+    initializeFloatingElements();
+    generateGlobalFloatingElements();
     console.log('👽 PumpAlien Discovery Project Initialized');
 }
 
 // Cache DOM Elements
 function cacheElements() {
     elements.loadingScreen = document.getElementById('loading-screen');
-    elements.alienCore = document.querySelector('.alien-core');
+    elements.alienCore = document.querySelector('.alien-core-img');
     elements.energyRings = document.querySelectorAll('.ring');
     elements.scannerDisplay = document.querySelector('.scanner-display');
     elements.energyMeter = document.getElementById('energy-level');
     elements.messageDisplay = document.getElementById('message-display');
+    elements.floatingUfos = document.querySelectorAll('.floating-ufo');
+    elements.floatingAlien = document.querySelector('.floating-alien-img');
+    elements.globalFloatingContainer = document.getElementById('global-floating-elements');
 }
 
 // Setup Event Listeners
 function setupEventListeners() {
-    // Keyboard shortcuts
     document.addEventListener('keydown', handleKeyboard);
-    
-    // Scroll animations
     setupScrollAnimations();
-    
-    // Alien interactions
     setupAlienInteractions();
+    setupFloatingElementInteractions();
 }
 
-// Loading Sequence
+// Initialize Floating Elements
+function initializeFloatingElements() {
+    // Initialize UFO positions
+    elements.floatingUfos.forEach((ufo, index) => {
+        const randomX = Math.random() * 80 + 10; // 10% to 90%
+        const randomY = Math.random() * 60 + 20; // 20% to 80%
+        ufo.style.left = `${randomX}%`;
+        ufo.style.top = `${randomY}%`;
+        
+        // Add random animation delays
+        ufo.style.animationDelay = `${Math.random() * 10}s`;
+    });
+    
+    // Initialize alien position
+    if (elements.floatingAlien) {
+        const randomX = Math.random() * 60 + 20; // 20% to 80%
+        const randomY = Math.random() * 40 + 30; // 30% to 70%
+        elements.floatingAlien.style.right = `${100 - randomX}%`;
+        elements.floatingAlien.style.top = `${randomY}%`;
+    }
+}
+
+// Setup Floating Element Interactions
+function setupFloatingElementInteractions() {
+    // UFO click effects
+    elements.floatingUfos.forEach(ufo => {
+        ufo.addEventListener('click', () => {
+            triggerUfoEffect(ufo);
+        });
+    });
+    
+    // Alien click effects
+    if (elements.floatingAlien) {
+        elements.floatingAlien.addEventListener('click', () => {
+            triggerAlienEffect();
+        });
+    }
+}
+
+// Trigger UFO Effect
+function triggerUfoEffect(ufo) {
+    ufo.style.transform = 'scale(1.3) rotate(15deg)';
+    ufo.style.filter = 'drop-shadow(0 0 40px var(--ufo-color))';
+    
+    // Add message
+    addAlienMessage('🛸 UFO signal detected!');
+    
+    setTimeout(() => {
+        ufo.style.transform = '';
+        ufo.style.filter = '';
+    }, 1000);
+}
+
+// Trigger Alien Effect
+function triggerAlienEffect() {
+    if (!elements.floatingAlien) return;
+    
+    elements.floatingAlien.style.transform = 'scale(1.4) rotate(10deg)';
+    elements.floatingAlien.style.filter = 'drop-shadow(0 0 50px var(--alien-color))';
+    
+    addAlienMessage('👽 *Telepathic wave detected*');
+    
+    setTimeout(() => {
+        elements.floatingAlien.style.transform = '';
+        elements.floatingAlien.style.filter = '';
+    }, 1000);
+}
+
+// Start Loading Sequence
 function startLoadingSequence() {
     const loadingSteps = [
-        'Scanning cosmic signals...',
-        'Detecting alien presence...',
-        'Analyzing energy patterns...',
-        'PumpAlien entity confirmed!'
+        'Initializing cosmic sensors...',
+        'Calibrating alien detection systems...',
+        'Establishing dimensional connections...',
+        'PumpAlien entity located...',
+        'Welcome to the discovery...'
     ];
     
     let currentStep = 0;
     const statusElement = document.querySelector('.loading-status');
+    const progressElement = document.querySelector('.loading-progress');
     
-    const updateStatus = () => {
+    const updateLoading = () => {
         if (currentStep < loadingSteps.length) {
             statusElement.textContent = loadingSteps[currentStep];
+            progressElement.style.width = `${((currentStep + 1) / loadingSteps.length) * 100}%`;
             currentStep++;
+            setTimeout(updateLoading, 800);
+        } else {
+            setTimeout(() => {
+                elements.loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    elements.loadingScreen.style.display = 'none';
+                    startAlienAnimations();
+                }, 500);
+            }, 1000);
         }
     };
     
-    // Update status every 1.5 seconds
-    const statusInterval = setInterval(updateStatus, 1500);
-    
-    // Complete loading after 6 seconds
-    setTimeout(() => {
-        clearInterval(statusInterval);
-        completeLoading();
-    }, 6000);
-}
-
-// Complete Loading
-function completeLoading() {
-    elements.loadingScreen.classList.add('fade-out');
-    
-    setTimeout(() => {
-        elements.loadingScreen.style.display = 'none';
-        appState.isLoading = false;
-        
-        // Initialize hero animations
-        initializeHeroAnimations();
-        
-        // Start alien animations
-        startAlienAnimations();
-    }, 500);
-}
-
-// Initialize Hero Animations
-function initializeHeroAnimations() {
-    const heroElements = [
-        '.hero-badge',
-        '.hero-title',
-        '.hero-description',
-        '.hero-actions',
-        '.hero-stats'
-    ];
-    
-    heroElements.forEach((selector, index) => {
-        const element = document.querySelector(selector);
-        if (element) {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            
-            setTimeout(() => {
-                element.style.transition = 'all 0.8s ease';
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, index * 200);
-        }
-    });
+    updateLoading();
 }
 
 // Start Alien Animations
@@ -132,7 +165,6 @@ function startAlienAnimations() {
     if (elements.alienCore) {
         elements.alienCore.style.animation = 'alien-core-pulse 3s ease-in-out infinite';
     }
-    
     if (elements.energyRings) {
         elements.energyRings.forEach((ring, index) => {
             ring.style.animation = `ring-rotate ${10 + index * 5}s linear infinite`;
@@ -140,44 +172,22 @@ function startAlienAnimations() {
     }
 }
 
-// Setup Scroll Animations
-function setupScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.timeline-step, .info-card, .finding-card, .interactive-panel');
-    animatedElements.forEach(el => observer.observe(el));
-}
-
 // Setup Alien Interactions
 function setupAlienInteractions() {
-    // Alien core click effect
     if (elements.alienCore) {
-        elements.alienCore.addEventListener('click', () => {
-            triggerAlienReaction();
-        });
+        elements.alienCore.addEventListener('click', triggerAlienReaction);
     }
     
-    // Energy rings interaction
     if (elements.energyRings) {
         elements.energyRings.forEach(ring => {
             ring.addEventListener('mouseenter', () => {
-                ring.style.animationPlayState = 'paused';
+                ring.style.borderWidth = '3px';
+                ring.style.opacity = '1';
             });
             
             ring.addEventListener('mouseleave', () => {
-                ring.style.animationPlayState = 'running';
+                ring.style.borderWidth = '2px';
+                ring.style.opacity = '0.6';
             });
         });
     }
@@ -187,14 +197,23 @@ function setupAlienInteractions() {
 function triggerAlienReaction() {
     if (!elements.alienCore) return;
     
-    // Visual effect
     elements.alienCore.style.transform = 'scale(1.3) rotate(10deg)';
-    elements.alienCore.style.filter = 'drop-shadow(0 0 50px var(--alien-color))';
+    elements.alienCore.style.filter = 'drop-shadow(0 0 60px var(--alien-color))';
     
-    // Add message
     addAlienMessage('👽 *Telepathic communication initiated*');
     
-    // Reset after animation
+    // Trigger energy ring pulse
+    elements.energyRings.forEach((ring, index) => {
+        setTimeout(() => {
+            ring.style.borderWidth = '4px';
+            ring.style.opacity = '1';
+            setTimeout(() => {
+                ring.style.borderWidth = '2px';
+                ring.style.opacity = '0.6';
+            }, 300);
+        }, index * 100);
+    });
+    
     setTimeout(() => {
         elements.alienCore.style.transform = '';
         elements.alienCore.style.filter = '';
@@ -203,11 +222,9 @@ function triggerAlienReaction() {
 
 // Timeline Step Activation
 function activateStep(stepNumber) {
-    // Update current step
     appState.currentStep = stepNumber;
-    
-    // Update visual state
     const steps = document.querySelectorAll('.timeline-step');
+    
     steps.forEach((step, index) => {
         if (index + 1 <= stepNumber) {
             step.classList.add('active');
@@ -216,7 +233,6 @@ function activateStep(stepNumber) {
         }
     });
     
-    // Trigger step-specific effects
     switch(stepNumber) {
         case 1:
             addAlienMessage('👽 Signal detected in Andromeda sector...');
@@ -230,85 +246,17 @@ function activateStep(stepNumber) {
     }
 }
 
-// Expand Information
-function expandInfo(type) {
-    const infoData = {
-        biology: {
-            title: '🧬 Biological Profile',
-            content: `
-                <div class="info-detail">
-                    <h4>Species Classification</h4>
-                    <p>PumpAlien represents an unknown branch of extraterrestrial evolution, 
-                    existing as an energy-matter hybrid form.</p>
-                    
-                    <h4>Physical Composition</h4>
-                    <p>The entity can transition between pure energy and solid matter states, 
-                    suggesting advanced control over quantum physics.</p>
-                    
-                    <h4>Consciousness Level</h4>
-                    <p>Intelligence beyond current human measurement capabilities, 
-                    operating on multiple cognitive levels simultaneously.</p>
-                </div>
-            `
-        },
-        tech: {
-            title: '⚡ Technological Capabilities',
-            content: `
-                <div class="info-detail">
-                    <h4>Energy Manipulation</h4>
-                    <p>Mastery over energy forms previously thought impossible, 
-                    creating, destroying, and transforming energy at will.</p>
-                    
-                    <h4>Space-Time Control</h4>
-                    <p>Advanced sensors detect localized distortions in space-time, 
-                    suggesting manipulation of reality's fundamental fabric.</p>
-                    
-                    <h4>Communication Systems</h4>
-                    <p>Quantum entanglement communication, bypassing normal 
-                    communication limitations across any distance.</p>
-                </div>
-            `
-        },
-        behavior: {
-            title: '🧠 Behavioral Patterns',
-            content: `
-                <div class="info-detail">
-                    <h4>Motivation Analysis</h4>
-                    <p>PumpAlien appears to be studying human civilization, 
-                    though the purpose remains unclear.</p>
-                    
-                    <h4>Interaction Style</h4>
-                    <p>Maintains non-hostile stance, respects boundaries and protocols, 
-                    suggesting advanced social understanding.</p>
-                    
-                    <h4>Communication Method</h4>
-                    <p>Telepathic communication, projecting thoughts directly into 
-                    observers' minds, bypassing language barriers.</p>
-                </div>
-            `
-        }
-    };
-    
-    if (infoData[type]) {
-        showModal(infoData[type].title, infoData[type].content);
-    }
-}
-
 // Interactive Functions
 function scanFrequency() {
-    if (!elements.scannerDisplay) return;
-    
-    // Visual scanning effect
     const scanner = elements.scannerDisplay;
-    scanner.style.background = 'linear-gradient(45deg, var(--accent-color), var(--alien-color))';
+    if (!scanner) return;
     
-    // Simulate scanning
+    // Add scanning effect
+    scanner.style.boxShadow = 'inset 0 0 30px var(--accent-color)';
+    
     setTimeout(() => {
-        scanner.style.background = '';
-        addAlienMessage('🔬 Frequency scan complete. Alien signals detected!');
-        
-        // Update energy level
-        updateEnergyLevel(Math.random() * 100);
+        scanner.style.boxShadow = '';
+        addAlienMessage('🔍 Frequency scan complete. Multiple signals detected.');
     }, 2000);
 }
 
@@ -318,205 +266,160 @@ function sendMessage(event) {
     const input = document.getElementById('human-input');
     const message = input.value.trim();
     
-    if (!message) return;
-    
-    // Add human message
-    addHumanMessage(message);
-    input.value = '';
-    
-    // Simulate alien response
-    setTimeout(() => {
-        const responses = [
-            '👽 *Telepathic acknowledgment received*',
-            '👽 Your message has been processed, Earth being.',
-            '👽 *Curious energy patterns detected*',
-            '👽 Communication protocol established successfully.'
-        ];
+    if (message) {
+        addHumanMessage(message);
+        input.value = '';
         
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        addAlienMessage(randomResponse);
-    }, 1500);
-}
-
-function analyzeEnergy() {
-    if (!elements.energyMeter) return;
-    
-    // Simulate energy analysis
-    const newLevel = Math.random() * 100;
-    updateEnergyLevel(newLevel);
-    
-    // Add analysis message
-    addAlienMessage(`⚡ Energy analysis complete. Current level: ${Math.round(newLevel)}%`);
-}
-
-// Update Energy Level
-function updateEnergyLevel(level) {
-    if (!elements.energyMeter) return;
-    
-    appState.energyLevel = level;
-    elements.energyMeter.style.width = `${level}%`;
-    
-    // Color change based on level
-    if (level < 30) {
-        elements.energyMeter.style.background = 'var(--energy-color)';
-    } else if (level < 70) {
-        elements.energyMeter.style.background = 'var(--accent-color)';
-    } else {
-        elements.energyMeter.style.background = 'var(--alien-color)';
+        // Simulate alien response
+        setTimeout(() => {
+            const responses = [
+                '👽 *Telepathic understanding*',
+                '👽 Your message has been received...',
+                '👽 *Cosmic resonance detected*',
+                '👽 The PumpAlien acknowledges your communication'
+            ];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addAlienMessage(randomResponse);
+        }, 1000 + Math.random() * 2000);
     }
 }
 
-// Message Functions
-function addAlienMessage(message) {
-    addMessage(message, 'alien');
+function analyzeEnergy() {
+    const newLevel = Math.min(100, appState.energyLevel + Math.random() * 30);
+    updateEnergyLevel(newLevel);
+    
+    if (newLevel > 80) {
+        addAlienMessage('⚡ Energy levels critical! PumpAlien entity stabilizing...');
+    } else if (newLevel > 50) {
+        addAlienMessage('⚡ Energy levels moderate. Entity status: Stable');
+    } else {
+        addAlienMessage('⚡ Energy levels low. Entity requires energy boost');
+    }
 }
 
-function addHumanMessage(message) {
-    addMessage(`👤 ${message}`, 'human');
+function updateEnergyLevel(level) {
+    appState.energyLevel = level;
+    if (elements.energyMeter) {
+        elements.energyMeter.style.width = `${level}%`;
+    }
 }
 
-function addMessage(message, type) {
+function addAlienMessage(text) {
+    addMessage(text, 'alien');
+}
+
+function addHumanMessage(text) {
+    addMessage(text, 'human');
+}
+
+function addMessage(text, type) {
     if (!elements.messageDisplay) return;
     
-    const messageElement = document.createElement('div');
-    messageElement.className = `message ${type}-message`;
-    messageElement.textContent = message;
+    const messageDiv = document.createElement('div');
+    messageDiv.className = type === 'alien' ? 'alien-message' : 'human-message';
+    messageDiv.textContent = text;
     
-    elements.messageDisplay.appendChild(messageElement);
+    elements.messageDisplay.appendChild(messageDiv);
     elements.messageDisplay.scrollTop = elements.messageDisplay.scrollHeight;
     
-    // Store message
-    appState.messages.push({ text: message, type, timestamp: Date.now() });
+    // Auto-remove old messages
+    if (elements.messageDisplay.children.length > 10) {
+        elements.messageDisplay.removeChild(elements.messageDisplay.firstChild);
+    }
 }
 
-// Reveal Finding
-function revealFinding(findingNumber) {
-    const findings = [
-        {
-            title: '🔬 Energy Patterns',
-            content: 'Unique quantum signatures detected in PumpAlien\'s energy field. These patterns suggest advanced understanding of dimensional physics beyond current human knowledge.'
+// Research Functions
+function revealFinding(findingId) {
+    const findings = {
+        1: {
+            title: 'Energy Patterns',
+            content: 'Unique quantum signatures detected in PumpAlien\'s energy field. The entity appears to exist in a state of quantum superposition, allowing it to interact with multiple dimensions simultaneously.',
+            icon: '🔬'
         },
-        {
-            title: '🌌 Dimensional Presence',
-            content: 'PumpAlien exists across multiple dimensions simultaneously. Advanced sensors detected presence in 11 different dimensional planes, suggesting capabilities beyond three-dimensional constraints.'
+        2: {
+            title: 'Dimensional Presence',
+            content: 'Advanced scanning reveals PumpAlien exists across 11 dimensions. This multi-dimensional nature explains its ability to manipulate space-time and energy fields beyond our current understanding.',
+            icon: '🌌'
         },
-        {
-            title: '💊 Pump Effect',
-            content: 'The mysterious substance known as "Pump" appears to enhance PumpAlien\'s abilities. Research suggests it may be a catalyst for dimensional manipulation and energy amplification.'
+        3: {
+            title: 'Pump Effect',
+            content: 'The mysterious substance consumed by PumpAlien appears to be a dimensional catalyst. It enhances the entity\'s abilities and allows it to bridge between different cosmic realms.',
+            icon: '💊'
         }
-    ];
+    };
     
-    if (findings[findingNumber - 1]) {
-        const finding = findings[findingNumber - 1];
-        showModal(finding.title, `<p>${finding.content}</p>`);
-        
-        // Add to findings list
-        if (!appState.findings.includes(findingNumber)) {
-            appState.findings.push(findingNumber);
-        }
+    const finding = findings[findingId];
+    if (finding) {
+        showModal(finding.title, finding.content, finding.icon);
     }
 }
 
 // Hero Section Functions
 function beginAlienContact() {
-    const entitySection = document.querySelector('#entity');
-    if (entitySection) {
-        entitySection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Trigger contact effect
-        setTimeout(() => {
-            triggerAlienReaction();
-        }, 1000);
+    addAlienMessage('👽 *Initiating first contact protocol*');
+    addAlienMessage('👽 Greetings, Earth beings. I am PumpAlien, entity XT-2024-001.');
+    
+    // Trigger visual effects
+    if (elements.alienCore) {
+        triggerAlienReaction();
     }
 }
 
 function scanAlienSignals() {
-    const interactiveSection = document.querySelector('#interactive');
-    if (interactiveSection) {
-        interactiveSection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Auto-trigger scan
-        setTimeout(() => {
-            scanFrequency();
-        }, 1000);
-    }
+    addAlienMessage('🔍 *Scanning for alien signals*');
+    addAlienMessage('🔍 Multiple frequencies detected. PumpAlien signature confirmed.');
+    
+    // Trigger scanner effect
+    scanFrequency();
 }
 
 // Alien Mode Toggle
 function toggleAlienMode() {
     appState.alienMode = !appState.alienMode;
+    document.body.classList.toggle('alien-mode', appState.alienMode);
     
     if (appState.alienMode) {
-        document.body.classList.add('alien-mode');
         addAlienMessage('👽 Alien mode activated. Enhanced perception enabled.');
     } else {
-        document.body.classList.remove('alien-mode');
         addAlienMessage('👽 Alien mode deactivated. Returning to normal perception.');
     }
 }
 
 // Activate Beam
 function activateBeam() {
-    // Visual beam effect
-    const beam = document.createElement('div');
-    beam.className = 'energy-beam';
-    beam.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 50%;
-        width: 10px;
-        height: 100vh;
-        background: linear-gradient(to bottom, var(--accent-color), var(--alien-color));
-        transform: translateX(-50%);
-        z-index: 1000;
-        animation: beam-activate 2s ease-in-out;
-    `;
+    addAlienMessage('🚀 *Activating cosmic beam*');
+    addAlienMessage('🚀 Dimensional portal opening...');
     
-    document.body.appendChild(beam);
-    
-    // Add beam effect to CSS
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes beam-activate {
-            0% { opacity: 0; transform: translateX(-50%) scaleY(0); }
-            50% { opacity: 1; transform: translateX(-50%) scaleY(1); }
-            100% { opacity: 0; transform: translateX(-50%) scaleY(0); }
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Remove beam after animation
+    // Add visual effect
+    document.body.style.filter = 'hue-rotate(180deg)';
     setTimeout(() => {
-        document.body.removeChild(beam);
-        addAlienMessage('⚡ Energy beam activated. Scanning complete.');
+        document.body.style.filter = '';
     }, 2000);
 }
 
 // Modal System
-function showModal(title, content) {
+function showModal(title, content, icon = '') {
     const modal = document.getElementById('info-modal');
-    if (!modal) return;
-    
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
     
-    if (modalTitle) modalTitle.textContent = title;
-    if (modalBody) modalBody.innerHTML = content;
-    
-    modal.classList.add('show');
-    
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+    if (modal && modalTitle && modalBody) {
+        modalTitle.textContent = title;
+        modalBody.innerHTML = `
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">${icon}</div>
+                <p>${content}</p>
+            </div>
+        `;
+        modal.style.display = 'block';
+    }
 }
 
 function closeModal() {
     const modal = document.getElementById('info-modal');
-    if (!modal) return;
-    
-    modal.classList.remove('show');
-    
-    // Restore body scroll
-    document.body.style.overflow = '';
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 // Keyboard Handler
@@ -530,24 +433,133 @@ function handleKeyboard(event) {
         case '3':
             activateStep(parseInt(event.key));
             break;
-        case 'a':
-            if (event.ctrlKey || event.metaKey) {
-                event.preventDefault();
-                toggleAlienMode();
-            }
-            break;
-        case 'b':
-            if (event.ctrlKey || event.metaKey) {
-                event.preventDefault();
-                activateBeam();
+        case 'Enter':
+            if (document.activeElement.id === 'human-input') {
+                sendMessage();
             }
             break;
     }
 }
 
+// Scroll Animations
+function setupScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe sections for animation
+    document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+    });
+}
+
+// Generate Global Floating Elements
+function generateGlobalFloatingElements() {
+    if (!elements.globalFloatingContainer) return;
+    
+    // Clear existing elements
+    elements.globalFloatingContainer.innerHTML = '';
+    
+    // Generate UFOs
+    for (let i = 0; i < 8; i++) {
+        createGlobalElement('ufo', i);
+    }
+    
+    // Generate Aliens
+    for (let i = 0; i < 6; i++) {
+        createGlobalElement('alien', i);
+    }
+    
+    // Generate Pumps
+    for (let i = 0; i < 5; i++) {
+        createGlobalElement('pump', i);
+    }
+    
+    // Generate Stars
+    for (let i = 0; i < 12; i++) {
+        createGlobalElement('star', i);
+    }
+}
+
+// Create Global Floating Element
+function createGlobalElement(type, index) {
+    const element = document.createElement('div');
+    element.className = `global-floating-element global-${type}`;
+    
+    // Set random position
+    const x = Math.random() * 90 + 5; // 5% to 95%
+    const y = Math.random() * 90 + 5; // 5% to 95%
+    
+    element.style.left = `${x}%`;
+    element.style.top = `${y}%`;
+    
+    // Add random animation delay
+    element.style.animationDelay = `${Math.random() * 10}s`;
+    
+    // Add click event
+    element.addEventListener('click', () => {
+        triggerGlobalElementEffect(type, element);
+    });
+    
+    // Add to container
+    elements.globalFloatingContainer.appendChild(element);
+    
+    // Store reference
+    appState.globalElements.push({
+        element: element,
+        type: type,
+        x: x,
+        y: y
+    });
+}
+
+// Trigger Global Element Effect
+function triggerGlobalElementEffect(type, element) {
+    switch(type) {
+        case 'ufo':
+            element.style.transform = 'scale(1.4) rotate(20deg)';
+            element.style.filter = 'drop-shadow(0 0 40px var(--ufo-color))';
+            addAlienMessage('🛸 Global UFO signal detected!');
+            break;
+        case 'alien':
+            element.style.transform = 'scale(1.5) rotate(15deg)';
+            element.style.filter = 'drop-shadow(0 0 50px var(--alien-color))';
+            addAlienMessage('👽 *Global telepathic wave*');
+            break;
+        case 'pump':
+            element.style.transform = 'scale(1.6)';
+            element.style.filter = 'drop-shadow(0 0 60px var(--pump-color))';
+            addAlienMessage('💊 Global pump effect activated!');
+            break;
+        case 'star':
+            element.style.transform = 'scale(1.8)';
+            element.style.filter = 'drop-shadow(0 0 30px var(--accent-color))';
+            addAlienMessage('⭐ Cosmic energy surge detected!');
+            break;
+    }
+    
+    setTimeout(() => {
+        element.style.transform = '';
+        element.style.filter = '';
+    }, 1000);
+}
+
 // Export functions for global access
 window.activateStep = activateStep;
-window.expandInfo = expandInfo;
+window.expandInfo = showModal;
 window.scanFrequency = scanFrequency;
 window.sendMessage = sendMessage;
 window.analyzeEnergy = analyzeEnergy;
@@ -558,9 +570,5 @@ window.toggleAlienMode = toggleAlienMode;
 window.activateBeam = activateBeam;
 window.closeModal = closeModal;
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
-} else {
-    initializeApp();
-}
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeApp);

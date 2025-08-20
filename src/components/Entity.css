@@ -1,0 +1,183 @@
+.pixel-entity {
+  padding: var(--spacing-2xl) 0;
+  background: var(--background);
+}
+
+.entity-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+}
+
+.entity-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alien-core {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.alien-core-img {
+  width: 200px;
+  height: 200px;
+  filter: drop-shadow(0 0 40px var(--secondary-color));
+  animation: alien-core-pulse 3s ease-in-out infinite;
+  cursor: pointer;
+  transition: var(--transition);
+  image-rendering: pixelated;
+}
+
+.alien-core-img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 60px var(--secondary-color));
+}
+
+@keyframes alien-core-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.energy-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring {
+  position: absolute;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.ring-1 {
+  width: 250px;
+  height: 250px;
+}
+
+.ring-2 {
+  width: 300px;
+  height: 300px;
+}
+
+.ring-3 {
+  width: 350px;
+  height: 350px;
+}
+
+.pump-effect {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  right: -40px;
+  filter: drop-shadow(0 0 30px var(--accent-color));
+  image-rendering: pixelated;
+}
+
+.ufo-orbital-1,
+.ufo-orbital-2 {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 20px var(--ufo-color));
+  image-rendering: pixelated;
+}
+
+.entity-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.info-card {
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.info-card:hover,
+.info-card.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+  transform: translateX(10px);
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.info-icon {
+  font-size: 20px;
+}
+
+.info-card h3 {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.2rem;
+}
+
+.info-description {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.info-details {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1024px) {
+  .entity-display {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .entity-info {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .alien-core {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .alien-core-img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .ring-1 { width: 200px; height: 200px; }
+  .ring-2 { width: 250px; height: 250px; }
+  .ring-3 { width: 300px; height: 300px; }
+  
+  .pump-effect {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .ufo-orbital-1,
+  .ufo-orbital-2 {
+    width: 40px;
+    height: 40px;
+  }
+}

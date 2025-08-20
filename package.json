@@ -1,0 +1,42 @@
+{
+  "name": "pumpalien-discovery",
+  "version": "2.0.0",
+  "description": "PumpAlien Discovery Project - 像素风格外星人发现平台",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write src"
+  },
+  "keywords": [
+    "pumpalien",
+    "alien",
+    "discovery",
+    "pixel-art",
+    "cosmic",
+    "extraterrestrial",
+    "ufo"
+  ],
+  "author": "PumpAlien Research Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "framer-motion": "^10.16.0",
+    "three": "^0.158.0",
+    "@react-three/fiber": "^8.15.0",
+    "@react-three/drei": "^9.88.0",
+    "lucide-react": "^0.294.0"
+  }
+}

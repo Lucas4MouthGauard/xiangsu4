@@ -1,0 +1,384 @@
+.pixel-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 80px;
+  background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+  overflow: hidden;
+}
+
+/* 浮动元素容器 */
+.floating-elements-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-element {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3));
+  transition: all 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.floating-element:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.6));
+}
+
+.floating-ufo {
+  animation: ufo-float 20s ease-in-out infinite;
+}
+
+.floating-alien {
+  animation: alien-bounce 15s ease-in-out infinite;
+}
+
+.floating-pump {
+  animation: pump-glow 12s ease-in-out infinite;
+}
+
+/* 浮动动画 */
+@keyframes ufo-float {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+    opacity: 0.8;
+  }
+  25% { 
+    transform: translateY(-30px) translateX(20px) rotate(5deg); 
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-15px) translateX(-15px) rotate(0deg); 
+    opacity: 0.9;
+  }
+  75% { 
+    transform: translateY(-40px) translateX(10px) rotate(-5deg); 
+    opacity: 1;
+  }
+}
+
+@keyframes alien-bounce {
+  0%, 100% { 
+    transform: translateY(0px) scale(1); 
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-25px) scale(1.1); 
+    opacity: 1;
+  }
+}
+
+@keyframes pump-glow {
+  0%, 100% { 
+    transform: scale(1); 
+    filter: drop-shadow(0 0 15px var(--accent-color));
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.2); 
+    filter: drop-shadow(0 0 25px var(--accent-color));
+    opacity: 1;
+  }
+}
+
+/* 英雄容器 */
+.hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+}
+
+/* 英雄内容 */
+.hero-content {
+  text-align: left;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: rgba(255, 0, 255, 0.2);
+  color: var(--secondary-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  border: 2px solid rgba(255, 0, 255, 0.3);
+  animation: badge-glow 3s ease-in-out infinite;
+  font-family: 'Courier New', monospace;
+}
+
+.badge-icon {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 255, 0.6); }
+}
+
+.hero-title {
+  margin-bottom: var(--spacing-lg);
+}
+
+.title-main {
+  display: block;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+  animation: title-float 4s ease-in-out infinite;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 4px;
+}
+
+.title-subtitle {
+  display: block;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-family: 'Courier New', monospace;
+}
+
+@keyframes title-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin-bottom: var(--spacing-xl);
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 英雄视觉区域 */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image-grid {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.hero-alien {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 30px var(--secondary-color));
+  z-index: 3;
+  cursor: grab;
+}
+
+.hero-alien:active {
+  cursor: grabbing;
+}
+
+.hero-pump {
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 25px var(--accent-color));
+  z-index: 2;
+}
+
+.hero-ufo-1 {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 100px;
+  height: 100px;
+  filter: drop-shadow(0 0 20px var(--ufo-color));
+  z-index: 1;
+}
+
+.hero-ufo-2 {
+  position: absolute;
+  bottom: 30%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+  filter: drop-shadow(0 0 20px var(--ufo-color));
+  z-index: 1;
+}
+
+/* 滚动指示器 */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: var(--transition);
+  z-index: 3;
+}
+
+.scroll-indicator:hover {
+  color: var(--primary-color);
+}
+
+.scroll-icon {
+  width: 24px;
+  height: 24px;
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    text-align: center;
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
+  
+  .hero-description {
+    margin: 0 auto var(--spacing-xl);
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-main {
+    font-size: 2.5rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-image-grid {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .hero-alien {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .hero-pump,
+  .hero-ufo-1,
+  .hero-ufo-2 {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-main {
+    font-size: 2rem;
+  }
+  
+  .hero-badge {
+    font-size: 12px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .hero-image-grid {
+    width: 250px;
+    height: 250px;
+  }
+}
