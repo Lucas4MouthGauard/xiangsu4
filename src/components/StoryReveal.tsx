@@ -235,11 +235,7 @@ const StoryReveal: React.FC<StoryRevealProps> = ({ currentChapter, onNextChapter
                   </p>
                   
                   {/* 行动按钮 */}
-                  <button 
-                    id="buy-pumpalien-btn" 
-                    className="rescue-cta-btn"
-                    onClick={() => window.open('https://pump.fun/coin/GRX469HNsy97moku9H1QHQGKmB3hSq3c6qETQ1oupump', '_blank')}
-                  >
+                  <button id="buy-pumpalien-btn" className="rescue-cta-btn" disabled>
                     <span className="btn-icon">💰</span>
                     <span className="btn-text">BUY $PumpAlien</span>
                   </button>
