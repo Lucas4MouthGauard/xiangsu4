@@ -235,7 +235,13 @@ const StoryReveal: React.FC<StoryRevealProps> = ({ currentChapter, onNextChapter
                   </p>
                   
                   {/* 行动按钮 */}
-                  <button id="buy-pumpalien-btn" className="rescue-cta-btn" disabled style={{ opacity: 0.6, cursor: 'not-allowed' }}>
+                  <button 
+                    id="buy-pumpalien-btn" 
+                    className="rescue-cta-btn"
+                    onClick={() => {
+                      alert('Buy function temporarily disabled. Please check back later!')
+                    }}
+                  >
                     <span className="btn-icon">💰</span>
                     <span className="btn-text">BUY $PumpAlien</span>
                   </button>
