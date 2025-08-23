@@ -163,6 +163,16 @@
   box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
 }
 
+.pumpalien-link[style*="opacity: 0.6"] {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+.pumpalien-link[style*="opacity: 0.6"]:hover {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+}
+
 .pumpalien-icon {
   font-size: var(--font-size-lg);
 }
@@ -322,6 +332,16 @@
 .mobile-pumpalien-link:hover {
   color: var(--primary-color);
   background: rgba(0, 255, 136, 0.1);
+}
+
+.mobile-pumpalien-link[style*="opacity: 0.6"] {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+.mobile-pumpalien-link[style*="opacity: 0.6"]:hover {
+  color: var(--text-secondary);
+  background: none;
 }
 
 .mobile-pumpalien-icon {

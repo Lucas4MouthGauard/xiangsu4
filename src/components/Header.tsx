@@ -96,7 +96,7 @@ const Header: React.FC = () => {
 
         {/* 推特链接 */}
         <motion.a
-          href="https://x.com/pumpalien_sol"
+          href="https://x.com/pumpalien_"
           target="_blank"
           rel="noopener noreferrer"
           className="twitter-link"
@@ -106,22 +106,24 @@ const Header: React.FC = () => {
           <svg className="twitter-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
-          <span className="twitter-text">@pumpalien_sol</span>
+          <span className="twitter-text">@pumpalien_</span>
         </motion.a>
 
         {/* $PumpAlien 链接 */}
         <motion.button
           className="pumpalien-link"
           onClick={() => {
-            const element = document.getElementById('buy-pumpalien-btn')
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' })
-            }
+            // 暂时禁用跳转功能
+            // const element = document.getElementById('buy-pumpalien-btn')
+            // if (element) {
+            //   element.scrollIntoView({ behavior: 'smooth' })
+            // }
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          style={{ opacity: 0.6, cursor: 'not-allowed' }}
         >
-          <span className="pumpalien-text">$PumpAlien</span>
+          <span className="pumpalien-text">$PumpAlien (Coming Soon)</span>
         </motion.button>
 
         {/* 移动端菜单按钮 */}
@@ -174,7 +176,7 @@ const Header: React.FC = () => {
             </li>
               <li className="mobile-nav-item">
                 <a 
-                  href="https://x.com/pumpalien_sol"
+                  href="https://x.com/pumpalien_"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mobile-twitter-link"
@@ -182,21 +184,23 @@ const Header: React.FC = () => {
                   <svg className="mobile-twitter-icon" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                   </svg>
-                  @pumpalien_sol
+                  @pumpalien_
                 </a>
               </li>
               <li className="mobile-nav-item">
                 <button 
                   className="mobile-pumpalien-link"
                   onClick={() => {
-                    const element = document.getElementById('buy-pumpalien-btn')
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' })
-                    }
+                    // 暂时禁用跳转功能
+                    // const element = document.getElementById('buy-pumpalien-btn')
+                    // if (element) {
+                    //   element.scrollIntoView({ behavior: 'smooth' })
+                    // }
                     setIsMobileMenuOpen(false)
                   }}
+                  style={{ opacity: 0.6, cursor: 'not-allowed' }}
                 >
-                  $PumpAlien
+                  $PumpAlien (Coming Soon)
                 </button>
               </li>
             </ul>
